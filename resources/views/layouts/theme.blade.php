@@ -290,7 +290,7 @@
                 <div class="col-md-12">
                     <div class="footer-copyright-text-wrap text-center mt-4">
                          <!--<p>{!! get_text_tpl(get_option('copyright_text')) !!}</p>--->
-						 <p>Copyright © 2020 Anydegree.com, all rights reserved</p>
+						 <p>{!! get_text_tpl(get_option('copyright_text')) !!}</p>
                     </div>
                 </div>
           

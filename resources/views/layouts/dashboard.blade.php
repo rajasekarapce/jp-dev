@@ -264,7 +264,7 @@ $user = Auth::user();
                         </div>
 
                         <div class="dashboard-footer mb-3">
-                            <a href="https://www.themeqx.com/product/jobfair-job-board-application" target="_blank">JobFair</a> Version {{config('app.version')}}
+                            JobFair Version {{config('app.version')}}
                         </div>
                     </div>
 

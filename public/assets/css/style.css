@@ -1,6 +1,6 @@
 @import url('../line-awesome/css/line-awesome.min.css');
 a{
-    color: #38c172;
+    color: #8a2387;
 }
 a:hover{
     color: #2fa360;
@@ -267,7 +267,7 @@ button.updating-btn i.la:before{
     color: #333333;
 }
 .pricing-package-ribbon-green{
-    background: #38c172;
+    background: #f27121;
     color: #eeeeee;
 }
 .main-footer{
