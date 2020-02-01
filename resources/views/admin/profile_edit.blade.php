@@ -72,7 +72,7 @@
 
                 <div class="form-group row">
                     <div class="col-sm-8 col-sm-offset-4">
-                        <button type="submit" class="btn btn-primary">@lang('app.edit')</button>
+                        <button type="submit" class="btn btn-primary">@lang('app.update')</button>
                     </div>
                 </div>
 

@@ -36,29 +36,29 @@
                         <form action="{{route('jobs_listing')}}" class="form-inline" method="get">
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <input type="text" name="q" class="form-control shadow2 mb-2" style="min-width: 300px;" placeholder="@lang('app.job_title_placeholder')">
-									<select class="form-control shadow2 mb-2" style="min-width: 200px;" placeholder="Select Qualification">
+                                    <input type="text" name="q" class="form-control shadow2 mb-2" style="min-width: 380px;" placeholder="@lang('app.job_title_placeholder')">
+									<!-- <select class="form-control shadow2 mb-2" style="min-width: 200px;" placeholder="Select Qualification">
 									  <option>Select Qualification</option>
 									  <option>BA</option>
 									  <option>BSC</option>
 									  <option>BCOM</option>
 									  <option>MA</option>
 									  <option>MSC</option>
-									</select>
-                                    <input type="text" name="location" class="form-control shadow2" style="min-width: 200px;"  placeholder="Enter Location">
+									</select> -->
+                                    <input type="text" name="location" class="form-control shadow2" style="min-width: 300px;"  placeholder="Enter Location">
                                     <button type="submit" class="btn btn-find shadow2 mb-2"><i class="la la-search"></i> @lang('app.search')</button>
                                 </div>
                             </div>
                         </form>
-						<div class="float-right mr-15"><a class="advance-ser" href="#">Advance Search</a></div>
+						<!-- <div class="float-right mr-15"><a class="advance-ser" href="#">Advance Search</a></div> -->
 
                     </div><!--col-9-->
 					
 					<div class="col-md-3">
-					    <div class="btn-group shadow2 mtop-20" role="group" aria-label="Basic example">
+					    <a href="{{route('new_register')}}"><div class="btn-group shadow2 mtop-20" role="group" aria-label="Basic example">
 						  <div  class="upleft" ><i class=" font36 la la-upload"></i></div>
 						  <div  class="upright"><b>UPLOAD RESUME</b><br><small> We will create your Profile</small></div>
-						</div>
+						</div></a>
 					</div><!--col-3-->
 				
                 </div>

@@ -132,6 +132,70 @@ class JobController extends Controller
         return view('admin.edit-job', compact('title', 'job','categories','countries', 'old_country'));
     }
 
+    public function update($id, Request $request){
+        $user_id = Auth::user()->id;
+
+        $job = Job::find($id);
+
+        $rules = [
+            'job_title' => ['required', 'string', 'max:190'],
+            'position' => ['required', 'string', 'max:190'],
+            'category' => 'required',
+            'description' => 'required',
+            'deadline' => 'required',
+        ];
+        $this->validate($request, $rules);
+
+        $job_title = $request->job_title;
+        $job_slug = unique_slug($job_title, 'Job', 'job_slug');
+
+
+        $country = Country::find($request->country);
+        $state_name = null;
+        if ($request->state){
+            $state = State::find($request->state);
+            $state_name = $state->state_name;
+        }    
+        $data = [
+            /*'user_id'                   => $user_id,*/
+            'job_title'                 => $job_title,
+            'job_slug'                  => $job_slug,
+            'position'                  => $request->position,
+            'category_id'               => $request->category,
+            'is_any_where'              => $request->is_any_where,
+            'salary'                    => $request->salary,
+            'salary_upto'               => $request->salary_upto,
+            'is_negotiable'             => $request->is_negotiable,
+            'salary_currency'           => $request->salary_currency,
+            'salary_cycle'              => $request->salary_cycle,
+            'vacancy'                   => $request->vacancy,
+            'gender'                    => $request->gender,
+            'exp_level'                 => $request->exp_level,
+            'job_type'                => $request->job_type,
+
+            'experience_required_years' => $request->experience_required_years,
+            'experience_plus'           => $request->experience_plus,
+            'description'               => $request->description,
+            'skills'                    => $request->skills,
+            'responsibilities'          => $request->responsibilities,
+            'educational_requirements'  => $request->educational_requirements,
+            'experience_requirements'   => $request->experience_requirements,
+            'additional_requirements'   => $request->additional_requirements,
+            'benefits'                  => $request->benefits,
+            'apply_instruction'         => $request->apply_instruction,
+            'country_id'                => $request->country,
+            'country_name'              => $country->country_name,
+            'state_id'                  => $request->state,
+            'state_name'                => $state_name,
+            'city_name'                 => $request->city_name,
+            'deadline'                  => $request->deadline,
+            'status'                    => 0,
+            'is_premium'                => $request->is_premium,
+        ];
+        $job->update($data);    
+        return back()->with('success', __('app.updated'));
+    }
+
     /**
      * @param null $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

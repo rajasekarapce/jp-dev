@@ -31,7 +31,7 @@ class HomeController extends Controller
     public function index(){
         $categories = Category::orderBy('category_name', 'asc')->get();
         $premium_jobs = Job::active()->premium()->orderBy('id', 'desc')->with('employer')->get();
-        $regular_jobs = Job::active()->orderBy('id', 'desc')->with('employer')->take(27)->get();
+        $regular_jobs = Job::active()->orderBy('id', 'desc')->with('employer')->take(36)->get();
         $blog_posts = Post::whereType('post')->with('author')->orderBy('id', 'desc')->take(3)->get();
         $packages = Pricing::all();
         return view('home', compact('categories', 'premium_jobs','regular_jobs','packages', 'blog_posts'));

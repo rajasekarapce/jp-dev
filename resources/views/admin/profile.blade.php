@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <th>@lang('app.company_size')</th>
-                        <td>{{company_size($user->company_size)}}</td>
+                        <td>@if($user->company_size!=NULL){{company_size($user->company_size)}}@endif</td>
                     </tr>
                     <tr>
                         <th>@lang('app.about_company')</th>

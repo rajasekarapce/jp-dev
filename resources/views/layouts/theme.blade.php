@@ -50,7 +50,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{route('home')}}">JOBS</a> </li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('jobs_listing')}}">JOBS</a> </li>
 					<li class="nav-item"><a class="nav-link" href="{{route('home')}}">PLACEMENTPAPER</a> </li>
 					<li class="nav-item"><a class="nav-link" href="{{route('home')}}">COURSES</a> </li>
 					<li class="nav-item"><a class="nav-link" href="{{route('home')}}">SERVICES <span class="badge badge-warning">New</span></a> </li>
@@ -90,13 +90,22 @@
                     <li class="nav-item">
                         <a class="nav-link btn btn-success text-white" href="{{route('post_new_job')}}"><i class="la la-save"></i>{{__('app.post_new_job')}} </a>
                     </li>
---->
+--->                        
+                        @if(null !== Auth::user()) 
                          <li class="nav-item">
-                            <a class="nav-link ora" href="{{ route('login') }}"><i class="la la-sign-in"></i> Login</a>
+                            <a class="nav-link ora" href="{{ route('dashboard') }}"><i class="la la-sign-in"></i> {{ Auth::user()->name }}</a>
                          </li>
 						 <li class="nav-item">
-                            <a class="nav-link ora" href="{{ route('login') }}"><i class="la la-pencil-square"></i>Register</a>
+                            <a class="nav-link ora" href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="la la-pencil-square"></i>{{ __('Logout') }}</a>
                          </li>
+                         @else
+                         <li class="nav-item">
+                            <a class="nav-link ora" href="{{ route('login') }}"><i class="la la-sign-in"></i> {{ __('Login') }}</a>
+                         </li>
+             <li class="nav-item">
+                            <a class="nav-link ora" href="{{ route('new_register') }}"><i class="la la-pencil-square"></i>{{ __('Register') }}</a>
+                         </li>
+                         @endif
 						 <li class="nav-item">
                             <a class="nav-link pin" href="{{ route('login') }}"><i class="la la-users"></i> For Employer</a>
                          </li>
@@ -144,7 +153,9 @@
             </div>
         </div>
     </nav>
-
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
     <div class="main-container">
         @yield('content')
     </div>

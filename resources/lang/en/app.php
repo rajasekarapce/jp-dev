@@ -11,6 +11,7 @@ return [
     */
     
     'home'                              => 'Home',
+    'no_data'                           => 'No data available',    
     'go_to_home'                        => 'Go To Home',
     'view_site'                         => 'View Site',
     'dashboard'                         => 'Dashboard',
@@ -58,6 +59,7 @@ return [
     'job_title_placeholder'             => 'Job title, keywords or company name',
     'job_location_placeholder'          => 'City or state (optional) ',
     'post_new_job'                      => 'Post new job',
+    'update_job'                      => 'Update job',
     'pending_jobs'                      => 'Pending Jobs',
     'status'                            => 'Status',
     'approve'                           => 'Approve',
@@ -287,6 +289,7 @@ return [
     'register_now'                      => 'Register now',
     'no_account_msg'                    => 'Don\' have an account?',
     'edit'                              => 'Edit',
+    'update'                              => 'Update',
     'edit_job'                          => 'Edit Job',
     'job_type'                          => 'Job Type',
     'no_job_posted_msg'                 => 'You have not posted any job yet',
