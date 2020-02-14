@@ -31,7 +31,7 @@
                                         {!! $job->country_name !!}
                                     @endif
 
-                                    <i class="la la-clock-o"></i> @lang('app.posted') {{$job->created_at->diffForHumans()}}
+                                    <i class="la la-clock-o"></i> @lang('app.posted') {{\Carbon\Carbon::parse($job->created_at)->diffForHumans()}}
 
                                     <i class="la la-calendar-times-o"></i> @lang('app.deadline') : {{$job->deadline->format(get_option('date_format'))}} <span class="text-small text-muted">{{$job->deadline->diffForHumans()}}</span>
                                 </p>

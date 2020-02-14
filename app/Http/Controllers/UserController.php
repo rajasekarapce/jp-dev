@@ -67,23 +67,44 @@ class UserController extends Controller
 
     public function registerJobSeeker(){
         $title = __('app.register_job_seeker');
-        return view('register-job-seeker', compact('title'));
+        $countries = Country::all();
+        $old_country = false;
+        if (old('country')){
+            $old_country = Country::find(old('country'));
+        }
+        return view('register-job-seeker', compact('title', 'countries', 'old_country'));
     }
 
     public function registerJobSeekerPost(Request $request){
+        
         $rules = [
-            'name' => ['required', 'string', 'max:190'],
-            'email' => ['required', 'string', 'email', 'max:190', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name'      => ['required', 'string', 'max:190'],
+            'email'     => ['required', 'string', 'email', 'max:190', 'unique:users'],
+            'password'  => ['required', 'string', 'min:6', 'confirmed'],
+            'phone'     => 'required',
+            'country'   => 'required',
+            'state'     => 'required',
         ];
 
         $this->validate($request, $rules);
 
         $data = $request->input();
+        $country = Country::find($request->country);
+        $state_name = null;
+        if ($request->state){
+            $state = State::find($request->state);
+            $state_name = $state->state_name;
+        }
         User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
             'user_type'     => 'user',
+            'phone'     => $data['phone'],
+            'country_id'     => $data['country'],
+            'state_id'     => $data['state'],
+            'city'     => $data['city'],
+            'country_name'  => $country->country_name,
+            'state_name'  => $state_name,
             'password'      => Hash::make($data['password']),
             'active_status' => 1,
         ]);
