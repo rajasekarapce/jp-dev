@@ -116,6 +116,26 @@ $user = Auth::user();
                                     <span class="title">@lang('app.categories')</span>
                                 </a>
                             </li>
+
+                            <li class="{{request()->is('dashboard/universities*')? 'active' : ''}}">
+                                <a href="{{route('dashboard_universities')}}" class="list-group-item-action active">
+                                    <span class="sidebar-icon"><i class="la la-building"></i> </span>
+                                    <span class="title">@lang('app.universities')</span>
+                                </a>
+                            </li>
+                             <li class="{{request()->is('dashboard/institutions*')? 'active' : ''}}">
+                                <a href="{{route('dashboard_universities')}}" class="list-group-item-action active">
+                                    <span class="sidebar-icon"><i class="la la-building"></i> </span>
+                                    <span class="title">@lang('app.institutions')</span>
+                                </a>
+                            </li>
+
+                            <li class="{{request()->is('dashboard/branches*')? 'active' : ''}}">
+                                <a href="{{route('dashboard_branches')}}" class="list-group-item-action active">
+                                    <span class="sidebar-icon"><i class="la la-building"></i> </span>
+                                    <span class="title">@lang('app.branches')</span>
+                                </a>
+                            </li>
                             @endif
 
                             @if( ! $user->is_user())

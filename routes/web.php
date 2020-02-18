@@ -142,6 +142,62 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::post('delete-categories', ['as'=>'delete_categories', 'uses' => 'CategoriesController@destroy']);
         });
 
+        //Qualifications
+        Route::group(['prefix'=>'qualifications'], function(){
+            Route::get('/', ['as'=>'dashboard_qualifications', 'uses' => 'QualificationsController@index']);
+            Route::post('/', ['uses' => 'QualificationsController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_qualifications', 'uses' => 'QualificationsController@edit']);
+            Route::post('edit/{id}', ['uses' => 'QualificationsController@update']);
+
+            Route::post('delete-qualifications', ['as'=>'delete_qualifications', 'uses' => 'QualificationsController@destroy']);
+        });
+
+        
+        //Branches
+         Route::group(['prefix'=>'branches'], function(){
+            Route::get('/', ['as'=>'dashboard_branches', 'uses' => 'BranchesController@index']);
+            Route::post('/', ['uses' => 'BranchesController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_branches', 'uses' => 'BranchesController@edit']);
+            Route::post('edit/{id}', ['uses' => 'BranchesController@update']);
+
+            Route::post('delete-branches', ['as'=>'delete_branches', 'uses' => 'BranchesController@destroy']);
+        });
+
+        //Institutions
+        Route::group(['prefix'=>'institutions'], function(){
+            Route::get('/', ['as'=>'dashboard_institutions', 'uses' => 'InstitutionsController@index']);
+            Route::post('/', ['uses' => 'InstitutionsController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_institutions', 'uses' => 'InstitutionsController@edit']);
+            Route::post('edit/{id}', ['uses' => 'InstitutionsController@update']);
+
+            Route::post('delete-institutions', ['as'=>'delete_institutions', 'uses' => 'InstitutionsController@destroy']);
+        });
+
+        //Universities
+        Route::group(['prefix'=>'universities'], function(){
+            Route::get('/', ['as'=>'dashboard_universities', 'uses' => 'UniversitiesController@index']);
+            Route::post('/', ['uses' => 'UniversitiesController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_universities', 'uses' => 'UniversitiesController@edit']);
+            Route::post('edit/{id}', ['uses' => 'UniversitiesController@update']);
+
+            Route::post('delete-universities', ['as'=>'delete_universities', 'uses' => 'UniversitiesController@destroy']);
+        });
+
+        //Skills
+        Route::group(['prefix'=>'skills'], function(){
+            Route::get('/', ['as'=>'dashboard_skills', 'uses' => 'SkillsController@index']);
+            Route::post('/', ['uses' => 'SkillsController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_skills', 'uses' => 'SkillsController@edit']);
+            Route::post('edit/{id}', ['uses' => 'SkillsController@update']);
+
+            Route::post('delete-skills', ['as'=>'delete_skills', 'uses' => 'SkillsController@destroy']);
+        });
+
         //Settings
         Route::group(['prefix'=>'settings'], function(){
             Route::get('/', 'SettingsController@GeneralSettings')->name('general_settings');
