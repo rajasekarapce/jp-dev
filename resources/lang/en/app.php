@@ -11,6 +11,7 @@ return [
     */
     
     'home'                              => 'Home',
+    'master'                            => 'Master',
     'no_data'                           => 'No data available',    
     'go_to_home'                        => 'Go To Home',
     'view_site'                         => 'View Site',

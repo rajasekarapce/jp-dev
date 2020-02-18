@@ -109,7 +109,13 @@ $user = Auth::user();
                             </li>
 
                             @if($user->is_admin())
-
+                            <li class="{{request()->is('dashboard/categories*') || request()->is('dashboard/universities*') || request()->is('dashboard/institutions*') || request()->is('dashboard/branches*') ? 'active' : ''}}">
+                                <a href="#" class="list-group-item-action">
+                                    <span class="sidebar-icon"><i class="la la-black-tie"></i> </span>
+                                    <span class="title">@lang('app.master')</span>
+                                    <span class="arrow"><i class="la la-arrow-right"></i> </span>
+                                </a>
+                            <ul class="dropdown-menu" style="display: none;">
                             <li class="{{request()->is('dashboard/categories*')? 'active' : ''}}">
                                 <a href="{{route('dashboard_categories')}}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-th-large"></i> </span>
@@ -135,6 +141,8 @@ $user = Auth::user();
                                     <span class="sidebar-icon"><i class="la la-building"></i> </span>
                                     <span class="title">@lang('app.branches')</span>
                                 </a>
+                            </li>
+                            </ul>
                             </li>
                             @endif
 
