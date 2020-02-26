@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use App\Qualification;
 use App\JobApplication;
 use App\State;
 use App\User;
@@ -345,7 +346,25 @@ class UserController extends Controller
 
         $countries = Country::all();
 
-        return view('admin.profile_edit', compact('title', 'user', 'countries'));
+        $qualifications = Qualification::all();
+
+        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications'));
+    }
+
+    public function educationEdit($id = null){
+        $title = trans('app.profile_edit');
+        $user = Auth::user();
+
+        if ($id){
+            $user = User::find($id);
+        }
+
+        $countries = Country::all();
+
+        $qualifications = Qualification::where('status', 1)->get();
+        $states = State::all();
+
+        return view('admin.education_edit', compact('title', 'user', 'countries', 'qualifications', 'states'));
     }
 
     public function profileEditPost($id = null, Request $request){

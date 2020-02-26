@@ -2,6 +2,8 @@
 
 
 @section('content')
+<div class="card shadow2 mb-sm-2">					     
+	<div class="card-body padd14">
     <div class="row">
         <div class="col-md-12">
 
@@ -43,7 +45,8 @@
 
         </div>
     </div>
-
+    </div>
+    </div>
 
 
 @endsection

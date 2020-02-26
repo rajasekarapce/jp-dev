@@ -24,7 +24,9 @@ Route::post('employer-register', 'UserController@registerEmployerPost');
 
 Route::get('agent-register', 'UserController@registerAgent')->name('register_agent');
 Route::post('agent-register', 'UserController@registerAgentPost');
+Route::post('get-institute-list','DropdownController@getInstituteList');
 
+Route::post('get-university-list','DropdownController@getUniversitiesList');
 Route::post('get-states-options', 'LocationController@getStatesOption')->name('get_state_option_by_country');
 
 Route::get('apply_job', function (){
@@ -224,7 +226,9 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::get('applied-jobs', 'UserController@appliedJobs')->name('applied_jobs');
         Route::get('profile', 'UserController@profile')->name('profile');
         Route::get('profile/edit', 'UserController@profileEdit')->name('profile_edit');
+        Route::get('education/edit', 'EducationDetailsController@edit')->name('education_edit');
         Route::post('profile/edit', 'UserController@profileEditPost');
+            Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
 
         Route::group(['prefix'=>'users'], function(){
             Route::get('/', 'UserController@index')->name('users');
