@@ -155,7 +155,7 @@
                             </li>
 
                             @endif
-                            <li class="{{request()->is('dashboard/u/education/edit') || request()->is('dashboard/u/profile/edit') ? 'active' : ''}}">
+                            <li class="{{request()->is('dashboard/u/education/edit') || request()->is('dashboard/u/profile/edit') || request()->is('dashboard/u/career/edit') ? 'active' : ''}}">
                                 <a href="#" class="list-group-item-action">
                                     <span class="sidebar-icon"><i class="la la-black-tie"></i> </span>
                                     <span class="title">@lang('app.edit_profile')</span>
@@ -172,6 +172,12 @@
                                 <a href="{{route('profile_edit')}}" class="list-group-item-action {{request()->is('dashboard/u/profile/edit')? 'active' : ''}}">
                                     <span class="sidebar-icon"><i class="la la-user"></i> </span>
                                     <span class="title">@lang('app.personal_details')</span>
+                                </a>
+                            </li>
+                            <li class="{{request()->is('dashboard/u/career/edit')? 'active' : ''}}">
+                                <a href="{{route('career_edit')}}" class="list-group-item-action {{request()->is('dashboard/u/career/edit')? 'active' : ''}}">
+                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <span class="title">@lang('app.career_details')</span>
                                 </a>
                             </li>
                         </ul>

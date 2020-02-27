@@ -76,8 +76,8 @@
 </svg>
                                         </a>
                                     </div>
-                                </div>
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-graduation-cap"></i> {{Auth::user()->education_detail->hqualification->course}}</div>
+                                </div> @if(null !== Auth::user()->education_detail)
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-graduation-cap"></i> {{Auth::user()->education_detail->hqualification->course}}</div>  @endif
                                 <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i> 2027 Passout</div>   
                                 <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i> Chennai</div>
                             </div>

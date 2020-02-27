@@ -143,4 +143,9 @@ class User extends Authenticatable
         return $context;
     }
 
+    public function skills()
+    {
+        return $this->belongsToMany('App\Skill', 'skill_user', 'user_id', 'skill_id')->withTimestamps();
+    }
+
 }

@@ -227,8 +227,11 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::get('profile', 'UserController@profile')->name('profile');
         Route::get('profile/edit', 'UserController@profileEdit')->name('profile_edit');
         Route::get('education/edit', 'EducationDetailsController@edit')->name('education_edit');
+
+        Route::get('career/edit', 'CareerDetailsController@createOrEdit')->name('career_edit');
         Route::post('profile/edit', 'UserController@profileEditPost');
-            Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
+        Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
+        Route::post('career_details', 'CareerDetailsController@addOrUpdate')->name('career_details');
 
         Route::group(['prefix'=>'users'], function(){
             Route::get('/', 'UserController@index')->name('users');

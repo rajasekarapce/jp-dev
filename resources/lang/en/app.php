@@ -37,6 +37,7 @@ return [
     'education_details'                 => 'Education Details',
     'edit_profile'                      => 'Edit Profile',
     'personal_details'                  => 'Personal Details',
+    'career_details'                    => 'Career Details',
     'logout'                            => 'Logout',
     'login'                             => 'Login',
     'register'                          => 'Register',
