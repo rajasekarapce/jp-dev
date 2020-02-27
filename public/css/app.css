@@ -2695,14 +2695,12 @@ fieldset:disabled a.btn {
 
 .btn-success {
     color: #fff;
-    background-color: #38c172;
-    border-color: #38c172
+    background-color: #8a2387;
 }
 
 .btn-success:hover {
     color: #fff;
-    background-color: #2fa360;
-    border-color: #2d995b
+    background-color: #f27121;
 }
 
 .btn-success.focus,
@@ -5144,7 +5142,7 @@ input[type=submit].btn-block {
 }
 
 .breadcrumb-item.active {
-    color: #6c757d
+    color: #cccccc
 }
 
 .pagination {
@@ -9640,7 +9638,7 @@ a.text-dark:hover {
 }
 
 .text-muted {
-    color: #6c757d!important
+    color: #cccccc!important
 }
 
 .text-black-50 {

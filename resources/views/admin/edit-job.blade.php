@@ -321,7 +321,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4"></label>
                     <div class="col-sm-8">
-                        <button type="submit" class="btn btn-primary">@lang('app.post_new_job')</button>
+                        <button type="submit" class="btn btn-success">@lang('app.update_job')</button>
                     </div>
                 </div>
             </form>

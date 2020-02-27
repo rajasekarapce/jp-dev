@@ -36,29 +36,29 @@
                         <form action="{{route('jobs_listing')}}" class="form-inline" method="get">
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <input type="text" name="q" class="form-control shadow2 mb-2" style="min-width: 300px;" placeholder="Enter Skills, Designation, etc">
-									<select class="form-control shadow2 mb-2" style="min-width: 200px;" placeholder="Select Qualification">
+                                    <input type="text" name="q" class="form-control shadow2 mb-2" style="min-width: 380px;" placeholder="@lang('app.job_title_placeholder')">
+									<!-- <select class="form-control shadow2 mb-2" style="min-width: 200px;" placeholder="Select Qualification">
 									  <option>Select Qualification</option>
 									  <option>BA</option>
 									  <option>BSC</option>
 									  <option>BCOM</option>
 									  <option>MA</option>
 									  <option>MSC</option>
-									</select>
-                                    <input type="text" name="location" class="form-control shadow2" style="min-width: 200px;"  placeholder="Enter Location">
-                                    <button type="submit" class="btn btn-find shadow2 mb-2"><i class="la la-search"></i> FIND JOBS</button>
+									</select> -->
+                                    <input type="text" name="location" class="form-control shadow2" style="min-width: 300px;"  placeholder="Enter Location">
+                                    <button type="submit" class="btn btn-find shadow2 mb-2"><i class="la la-search"></i> @lang('app.search')</button>
                                 </div>
                             </div>
                         </form>
-						<div class="float-right mr-15"><a class="advance-ser" href="#">Advance Search</a></div>
+						<!-- <div class="float-right mr-15"><a class="advance-ser" href="#">Advance Search</a></div> -->
 
                     </div><!--col-9-->
 					
 					<div class="col-md-3">
-					    <div class="btn-group shadow2 mtop-20" role="group" aria-label="Basic example">
+					    <a href="{{route('new_register')}}"><div class="btn-group shadow2 mtop-20" role="group" aria-label="Basic example">
 						  <div  class="upleft" ><i class=" font36 la la-upload"></i></div>
 						  <div  class="upright"><b>UPLOAD RESUME</b><br><small> We will create your Profile</small></div>
-						</div>
+						</div></a>
 					</div><!--col-3-->
 				
                 </div>
@@ -185,52 +185,27 @@
 			         <div class="card shadow2 mb20">
 					     <div class="card-header">
 							<h4 class="j-title">Latest Jobs 
-							 <a type="button" href="#" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
+							 <a type="button" href="{{route('jobs_listing')}}" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
 							</h4>  
 						  </div>
+						  @if($regular_jobs->count())
 						  <div class="card-body ">   
 						     <div class="row">
-							    <div class="col-md-4 jlist"><a href="#">Bundl technologies Pvt. Ltd.</a></div>
-								<div class="col-md-4 jlist"><a href="#">Hinduja Global Solutions Recru...</a></div>
-								<div class="col-md-4 jlist"><a href="#">Asset Trust Services </a></div>
-								<div class="col-md-4 jlist"><a href="#">IBM India</a></div>
-								<div class="col-md-4 jlist"><a href="#">HGS hiring for Leading Banks</a></div>
-								<div class="col-md-4 jlist"><a href="#">Sundaram Finance</a></div>
-								<div class="col-md-4 jlist"><a href="#">Saggezza India Pvt Ltd Recruit...</a></div>
-								<div class="col-md-4 jlist"><a href="#">Canara HSBC Oriental Bank of C...</a></div>
-								<div class="col-md-4 jlist"><a href="#">Awign Enterprises</a></div>
-								<div class="col-md-4 jlist"><a href="#">Covalense Digital </a></div>
-								<div class="col-md-4 jlist"><a href="#">Aegis Limited </a></div>
-								<div class="col-md-4 jlist"><a href="#">Nestaway Recruitment </a></div>
-								<div class="col-md-4 jlist"><a href="#">NestAway Technologies Pvt </a></div>
-								<div class="col-md-4 jlist"><a href="#">Einfach Digital </a></div>
-								<div class="col-md-4 jlist"><a href="#">Youngman India Pvt Ltd </a></div>
-								<div class="col-md-4 jlist"><a href="#">FACT </a></div>
-								<div class="col-md-4 jlist"><a href="#">Replicon </a></div>
-								<div class="col-md-4 jlist"><a href="#">Micro Focus </a></div>
-								<div class="col-md-4 jlist"><a href="#">Healthplix </a></div>
-								<div class="col-md-4 jlist"><a href="#">HDFC Life Insurance </a></div>
-								<div class="col-md-4 jlist"><a href="#">HGS hiring for Leading Banks</a></div>
-								<div class="col-md-4 jlist"><a href="#">Sundaram Finance</a></div>
-								<div class="col-md-4 jlist"><a href="#">Saggezza India Pvt Ltd Recruit...</a></div>
-								<div class="col-md-4 jlist"><a href="#">Canara HSBC Oriental Bank of C...</a></div>
-								<div class="col-md-4 jlist"><a href="#">Awign Enterprises</a></div>
-								<div class="col-md-4 jlist"><a href="#">Covalense Digital </a></div>
-								<div class="col-md-4 jlist"><a href="#">Aegis Limited </a></div>
-								<div class="col-md-4 jlist"><a href="#">Nestaway Recruitment </a></div>
-								<div class="col-md-4 jlist"><a href="#">NestAway Technologies Pvt </a></div>
-								<div class="col-md-4 jlist"><a href="#">Einfach Digital </a></div>
+						     	 @foreach($regular_jobs as $regular_job)
+							    <div class="col-md-4 jlist"><a href="{{route('job_view', $regular_job->job_slug)}}">{!! $regular_job->job_title !!}</a></div>
+								@endforeach
 								
 						     </div>
                           </div>
+                          @endif
 					  </div>	
 			<!------------------------Latest jobs end--------------------------------->
 			
 
-                      <div class="card shadow2 mb20">
+                      <!-- <div class="card shadow2 mb20">
 					     <div class="card-header">
 							<h4 class="j-title">Walkin Jobs <span class="badge badge-danger">New</span>
-							   <a type="button" href="#" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
+							   <a type="button" href="{{route('jobs_listing')}}" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
 							</h4>  
 						  </div>
 						  <div class="card-body">   
@@ -244,49 +219,27 @@
 								<div class="walkin"> <a href="">Walkin Jobs in Chennai</a></div>
 							  </marquee>
                           </div>
-					  </div>	  
+					  </div> -->	  
 			<!------------------------Walkin Jobs end--------------------------------->
 			         <div class="card shadow2 mb20">
 					     <div class="card-header">
 							<h4 class="j-title">Job By Category
-							   <a type="button" href="#" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
+							   <a type="button" href="{{route('jobs_listing')}}" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
 							</h4>  
 						  </div>
+                                	@if($categories->count())
 						  <div class="card-body">   
                                 <div class="row">
-									<div class="col-md-4 jlist"><a href="#">IT/Software Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Core Technical Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Govt Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">MBA Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Internship Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Diploma Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Research Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Defence Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">BPO Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Part Time Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Health Care Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Tech Support Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">1 to 3 Yr Exp Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Dream Jobs/5 lpa Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Scholarships Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">BSc/BCA/BBM Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">StartUp Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Pharma Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Teaching Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Walkin Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Part Time Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">BPO Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Defence Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Defence Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">BPO Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Part Time Jobs </a></div>
-									<div class="col-md-4 jlist"><a href="#">Health Care Jobs </a></div>
+                                	@foreach($categories as $category)
+									<div class="col-md-4 jlist"><a href="{{route('jobs_listing', ['category' => $category->id])}}">{{$category->category_name}}</a></div>
+									@endforeach
 									
 						        </div>
                           </div>
+                          @endif
 					  </div>	  
 			<!------------------------Walkin Jobs end--------------------------------->
-			<div class="card shadow2 mb20">
+			<!-- <div class="card shadow2 mb20">
 					     <div class="card-header">
 							<h4 class="j-title">Job By Company
 							   <a type="button" href="#" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
@@ -320,47 +273,17 @@
 									<div class="col-md-4 jlist"><a href="#">SBI Recruitment</a></div>
 						        </div>
                           </div>
-					  </div>	  
+					  </div> -->	  
 			<!------------------------Job By Company--end------------------------------->
 			
 			
 			<div class="card shadow2 mb20">
 					     <div class="card-header">
-							<h4 class="j-title">Jobs by Designation
-							   <a type="button" href="#" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
+							<h4 class="j-title">@lang('app.premium_jobs')
+							   <a type="button" href="{{route('jobs_listing')}}" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
 							</h4>  
 						  </div>
-						  <div class="card-body">   
-                                <div class="row">
-									<div class="col-md-4 jlist"><a href="#">Business Analyst Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Java Developer Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Assistant Professor Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Company Secretary Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Police Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Network Engineer Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Chartered Accountant Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Software Engineer Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Project Manager Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Hr Executive Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Assistant Professor Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Software Developer Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Data Analyst Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Company Secretary Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Computer Operator Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Supervisor Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Android Developer Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Data Entry Operator Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Chartered Accountant Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Academic Coordinator Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Business Analyst Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Java Developer Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Assistant Professor Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Company Secretary Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Police Jobs</a></div>
-									<div class="col-md-4 jlist"><a href="#">Network Engineer Jobs</a></div>
-									
-						        </div>
-                          </div>
+						 
 					  </div>	  
 			<!------------------------Jobs by Designation end--------------------------------->
 			<div class="card shadow2 mb20">
@@ -413,33 +336,7 @@
 
 		
 <!----
-    @if($categories->count())
-        <div class="home-categories-wrap bg-white pb-5 pt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="mb-3">@lang('app.browse_category')</h4>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    @foreach($categories as $category)
-                        <div class="col-md-4">
-
-                            <p>
-                                <a href="{{route('jobs_listing', ['category' => $category->id])}}" class="category-link"><i class="la la-th-large"></i> {{$category->category_name}} <span class="text-muted">({{$category->job_count}})</span> </a>
-                            </p>
-
-                        </div>
-
-                    @endforeach
-
-                </div>
-
-            </div>
-        </div>
-    @endif
+   
 
     @if($premium_jobs->count())
         <div class="premium-jobs-wrap pb-5 pt-5">
@@ -457,14 +354,6 @@
                         <div class="col-md-4 mb-3">
                             <div class="premium-job-box p-3 bg-white box-shadow">
 
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="premium-job-logo">
-                                            <a href="{{route('jobs_by_employer', $job->employer->company_slug)}}">
-                                                <img src="{{$job->employer->logo_url}}" class="img-fluid" />
-                                            </a>
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-8 col-sm-6">
 
@@ -472,11 +361,7 @@
                                             <a href="{{route('job_view', $job->job_slug)}}">{!! $job->job_title !!}</a>
                                         </p>
 
-                                        <p class="text-muted m-0">
-                                            <a href="{{route('jobs_by_employer', $job->employer->company_slug)}}" class="text-muted">
-                                                {{$job->employer->company}}
-                                            </a>
-                                        </p>
+                                        
 
                                         <p class="text-muted m-0">
                                             <i class="la la-map-marker"></i>

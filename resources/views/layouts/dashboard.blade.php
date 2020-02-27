@@ -50,15 +50,16 @@ $user = Auth::user();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{route('home')}}"><i class="la la-home"></i> @lang('app.view_site')</a> </li>
+                        <li class="nav-item"><a target="_blank" class="nav-link" href="{{route('home')}}"><i class="la la-home"></i> @lang('app.view_site')</a> </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-
+                        @if(Auth::user()->user_type != "user")    
                         <li class="nav-item">
                             <a class="nav-link btn btn-success text-white" href="{{route('post_new_job')}}"><i class="la la-save"></i>{{__('app.post_new_job')}} </a>
                         </li>
+                        @endif
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -133,6 +134,7 @@ $user = Auth::user();
                                     <li><a class="sidebar-link" href="{{route('employer_applicant')}}">@lang('app.applicants')</a></li>
                                     <li><a class="sidebar-link" href="{{route('shortlisted_applicant')}}">@lang('app.shortlist')</a></li>
                                     <li><a class="sidebar-link" href="{{route('employer_profile')}}">@lang('app.profile')</a></li>
+
                                 </ul>
                             </li>
 
@@ -224,6 +226,12 @@ $user = Auth::user();
                                     <span class="sidebar-icon"><i class="la la-user"></i> </span>
                                     <span class="title">@lang('app.profile')</span>
                                 </a>
+                                <ul>
+                                    <li ><a href="{{route('profile_edit')}}" class="list-group-item-action active">Education Details</a></li>
+                                    <li><a href="{{route('profile')}}" class="list-group-item-action active">Personal Details</a></li>
+                                    <li><a href="{{route('profile')}}" class="list-group-item-action active">Career Related Information</a></li>
+                                    <li><a href="{{route('profile')}}" class="list-group-item-action active">Career Preferences</a></li>
+                                </ul>
                             </li>
 
 
@@ -264,7 +272,7 @@ $user = Auth::user();
                         </div>
 
                         <div class="dashboard-footer mb-3">
-                            <a href="https://www.themeqx.com/product/jobfair-job-board-application" target="_blank">JobFair</a> Version {{config('app.version')}}
+                            JobFair Version {{config('app.version')}}
                         </div>
                     </div>
 

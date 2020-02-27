@@ -27,6 +27,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $dates = [
+        'updated_at',
+        'created_at',
+        //'deleted_at',
+       // 'email_verified_at',
+    ];
+
 
     public function jobs(){
         return $this->hasMany(Job::class)->orderBy('id', 'desc');

@@ -16,7 +16,71 @@
         });
     });
 
+	//qualification
+		$('.degree').hide();
+	    $(document).on('change', '#qualification', function(e){
+        e.preventDefault();
 
+        var qualification = $(this).val();
+        $.ajax({
+            type : 'POST',
+            url : page_data.routes.get_degree_option_by_qualification,
+            data : {qualification : qualification, _token : page_data.csrf_token},
+            success: function(data){
+				
+                $('.degree_options').html(data.degree_options);
+				$('.degree').show();
+            }
+        });
+    });
+	
+    $(document).on('change', '.qualification', function(e){
+        e.preventDefault();
+
+        var qualifications_id = $(this).val();
+
+            //alert(qualifications_id);
+        $.ajax({
+            type : 'POST',
+            url : page_data.routes.get_branch_option_by_qualification,
+            data : {qualifications_id : qualifications_id, _token : page_data.csrf_token},
+            success: function(data){
+                $('.branch_options').html(data.branch_options);
+            }
+        });
+    });
+
+	$(document).on('change', '.state', function(e){
+        e.preventDefault();
+
+        var state_id = $(this).val();
+
+            //alert(state_id);
+        $.ajax({
+            type : 'POST',
+            url : page_data.routes.get_institution_option_by_state,
+            data : {state_id : state_id, _token : page_data.csrf_token},
+            success: function(data){
+                $('.institution_options').html(data.institution_options);
+            }
+        });
+    });
+	
+	$(document).on('change', '.state', function(e){
+        e.preventDefault();
+
+        var state_id = $(this).val();
+
+            //alert(state_id);
+        $.ajax({
+            type : 'POST',
+            url : page_data.routes.get_university_option_by_state,
+            data : {state_id : state_id, _token : page_data.csrf_token},
+            success: function(data){
+                $('.university_options').html(data.university_options);
+            }
+        });
+    });
     if (page_data.jobModalOpen){
         $('#applyJobModal').modal('show');
     }

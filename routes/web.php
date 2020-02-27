@@ -12,13 +12,15 @@
 */
 
 Auth::routes();
-
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('clear', 'HomeController@clearCache')->name('clear_cache');
 
 Route::get('new-register', 'HomeController@newRegister')->name('new_register');
 Route::get('job-seeker-register', 'UserController@registerJobSeeker')->name('register_job_seeker');
 Route::post('job-seeker-register', 'UserController@registerJobSeekerPost');
+
+Route::post('job-seeker-register', 'UserController@registerJobSeekerPost');
+
 
 Route::get('employer-register', 'UserController@registerEmployer')->name('register_employer');
 Route::post('employer-register', 'UserController@registerEmployerPost');
@@ -27,6 +29,17 @@ Route::get('agent-register', 'UserController@registerAgent')->name('register_age
 Route::post('agent-register', 'UserController@registerAgentPost');
 
 Route::post('get-states-options', 'LocationController@getStatesOption')->name('get_state_option_by_country');
+
+Route::post('get-branchs-options', 'LocationController@getBranchsOption')->name('get_branch_option_by_qualification');
+
+Route::post('get-institution-options', 'LocationController@getInstitutionOption')->name('get_institution_option_by_state');
+
+Route::post('get-university-options', 'LocationController@getUniversityOption')->name('get_university_option_by_state');
+
+
+
+Route::post('get-qualification', 'LocationController@getQualificationOption')->name('get_degree_option_by_qualification');
+
 
 Route::get('apply_job', function (){
     return redirect(route('home'));
@@ -96,6 +109,9 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
             Route::get('profile', 'UserController@employerProfile')->name('employer_profile');
             Route::post('profile', 'UserController@employerProfilePost');
+            
+
+
 
         });
         Route::group(['prefix'=>'jobs'], function(){
@@ -170,6 +186,8 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::get('profile', 'UserController@profile')->name('profile');
         Route::get('profile/edit', 'UserController@profileEdit')->name('profile_edit');
         Route::post('profile/edit', 'UserController@profileEditPost');
+        Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
+
 
         Route::group(['prefix'=>'users'], function(){
             Route::get('/', 'UserController@index')->name('users');

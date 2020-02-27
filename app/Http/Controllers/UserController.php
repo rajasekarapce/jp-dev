@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use App\Qualification;
 use App\JobApplication;
 use App\State;
 use App\User;
@@ -11,15 +12,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use DB;
 
 class UserController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
+
         $title = trans('app.users');
         $current_user = Auth::user();
         $users = User::where('id', '!=', $current_user->id)->orderBy('name', 'asc')->paginate(20);
         return view('admin.users', compact('title', 'users'));
+        
     }
 
 
@@ -67,26 +72,107 @@ class UserController extends Controller
 
     public function registerJobSeeker(){
         $title = __('app.register_job_seeker');
-        return view('register-job-seeker', compact('title'));
+        $countries = Country::all();
+        $qualifications = Qualification::all();
+        //$states = state::all();
+        $states1 = state::all();
+
+        $old_country = false;
+        if (old('country')){
+            $old_country = Country::find(old('country'));
+        }
+        // echo "<pre>";
+        // print_r($qualifications);
+        // exit;
+
+        return view('register-job-seeker', compact('title', 'countries', 'old_country','states','states1','qualifications'));
     }
 
     public function registerJobSeekerPost(Request $request){
+        
         $rules = [
-            'name' => ['required', 'string', 'max:190'],
-            'email' => ['required', 'string', 'email', 'max:190', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name'      => ['required', 'string', 'max:190'],
+            'email'     => ['required', 'string', 'email', 'max:190', 'unique:users'],
+            'password'  => ['required', 'string', 'min:6', 'confirmed'],
+            'phone'     => 'required',
+            'country'   => 'required',
+            'state'     => 'required',
         ];
 
         $this->validate($request, $rules);
 
         $data = $request->input();
-        User::create([
-            'name'          => $data['name'],
+        $country = Country::find($request->country);
+        $state_name = null;
+        if ($request->state){
+            $state = State::find($request->state);
+            $state_name = $state->state_name;
+        }
+
+        $image = $request->file('logo');
+        $image_name = $image->getClientOriginalName();
+        $logoPath = 'uploads/images/logos/'.$image_name;
+        Storage::disk('public')->put($logoPath, $image);
+
+   // echo "<pre>";
+        //print_r($data);
+        // print_r($image);
+
+         //exit;
+        
+        $create = User::create([
+            'fname'          => $data['fname'],
             'email'         => $data['email'],
             'user_type'     => 'user',
+            'phone'     => $data['phone'],
+            'country_id'     => $data['country'],
+            'state_id'     => $data['state'],
+            'city'     => $data['city'],
+            'logo'     => $image_name,
+            'country_name'  => $country->country_name,
+            'state_name'  => $state_name,
             'password'      => Hash::make($data['password']),
             'active_status' => 1,
         ]);
+
+        $user_id = $create->id;
+       
+        DB::table('qualification')->insert(
+            ['qualification' => $data['qualification'] ,
+            'branch' => $data['branch'] ,
+            'passed_out' => $data['passed_out'] ,
+            'percent_or_cgpa' => $data['percent_or_cgpa'] ,
+            'percentage' => $data['percentage'] ,
+            'college_location' => $data['college_location'] ,
+            'institute' => $data['institute'] ,
+            'university' => $data['university'] ,
+            'have_or_dont' => $data['have_or_dont'] ,
+            'plus_two_marks' => $data['plus_two_marks'] ,
+            'tenth_marks' => $data['tenth_marks'] ,
+            'user_id' =>    $user_id ,
+            'created_at' => date('Y-m-d H-i-s'),
+            'updated_at' => date('Y-m-d H-i-s')   ]
+        );
+        
+        
+        // $create = Qualification::create([
+        //     'qualification'  => $data['qualification'],
+        //     'branch'         => $data['branch'],
+        //     //'user_type'     => 'user',
+        //     'passed_out'     => $data['passed_out'],
+        //     'percentage'     => $data['percentage'],
+        //     'college_location' => $data['college_location'],
+        //     'institute'     => $data['institute'],
+        //     'university'     => $data['university'],
+        //     //'country_name'  => $country->country_name,
+        //     'state_name'  => $state_name,
+        //     'password'      => Hash::make($data['password']),
+        //     'active_status' => 1,
+        // ]);
+
+        
+        //echo $create->id;
+        //exit;
 
         return redirect(route('login'))->with('success', __('app.registration_successful'));
     }
@@ -98,6 +184,7 @@ class UserController extends Controller
         if (old('country')){
             $old_country = Country::find(old('country'));
         }
+      
         return view('employer-register', compact('title', 'countries', 'old_country'));
     }
 
@@ -309,6 +396,7 @@ class UserController extends Controller
 
 
     public function profile(){
+
         $title = trans('app.profile');
         $user = Auth::user();
         return view('admin.profile', compact('title', 'user'));
@@ -383,6 +471,13 @@ class UserController extends Controller
             }
             return redirect()->back()->with('error', trans('app.wrong_old_password'));
         }
+    }
+
+
+    public function edit_edu_profile()
+    {
+        echo "123456";
+        exit;
     }
 
 }
