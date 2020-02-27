@@ -283,7 +283,15 @@
 							   <a type="button" href="{{route('jobs_listing')}}" class="btn btn-sm2 float-right">View All <i class="la la-angle-right"></i></a>
 							</h4>  
 						  </div>
-						 
+						  @if($premium_jobs->count())
+						  <div class="card-body">   
+                                <div class="row">
+                                	@foreach($premium_jobs as $job)
+									<div class="col-md-4 jlist"><a href="{{route('jobs_by_employer', $job->employer->company_slug)}}">{!! $job->job_title !!}</a></div>
+									@endforeach
+						        </div>
+                          </div>
+                          @endif
 					  </div>	  
 			<!------------------------Jobs by Designation end--------------------------------->
 			<div class="card shadow2 mb20">

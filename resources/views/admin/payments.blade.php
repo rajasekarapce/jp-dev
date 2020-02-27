@@ -2,7 +2,8 @@
 
 
 @section('content')
-
+<div class="card shadow2 mt-sm-2 mb-sm-2">					     
+	<div class="card-body padd14">
     <div class="row mb-4">
         <div class="col-md-5">
             @lang('app.total') : {{$payments->total()}}
@@ -13,13 +14,17 @@
                 <div class="form-group">
                     <input type="text" name="q" value="{{request('q')}}" class="form-control" placeholder="@lang('app.payer_email')">
                 </div>
-                <button type="submit" class="btn btn-secondary">@lang('app.search')</button>
+                <button type="submit" class="btn btn-success">@lang('app.search')</button>
             </form>
 
         </div>
     </div>
 
-
+   </div>
+    </div>
+	
+	<div class="card shadow2 mt-sm-2 mb-sm-2">					     
+	<div class="card-body padd14">
     <div class="row">
         <div class="col-md-12">
 
@@ -71,8 +76,9 @@
 
 
         </div>
+      </div>
+     </div>
     </div>
-
 
 
 @endsection

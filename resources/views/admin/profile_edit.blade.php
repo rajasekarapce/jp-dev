@@ -8,7 +8,7 @@
 
             <form action="" method="post" enctype="multipart/form-data">
                 @csrf
-
+               
                 <div class="form-group row {{ $errors->has('name')? 'has-error':'' }}">
                     <label for="name" class="col-sm-4 control-label">@lang('app.name')</label>
                     <div class="col-sm-8">

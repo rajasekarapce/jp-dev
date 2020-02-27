@@ -76,16 +76,13 @@ class UserController extends Controller
         $qualifications = Qualification::all();
         //$states = state::all();
         $states1 = state::all();
-
         $old_country = false;
         if (old('country')){
             $old_country = Country::find(old('country'));
         }
-        // echo "<pre>";
-        // print_r($qualifications);
-        // exit;
 
         return view('register-job-seeker', compact('title', 'countries', 'old_country','states','states1','qualifications'));
+        // return view('register-job-seeker', compact('title', 'countries', 'old_country'));
     }
 
     public function registerJobSeekerPost(Request $request){
@@ -114,14 +111,11 @@ class UserController extends Controller
         $logoPath = 'uploads/images/logos/'.$image_name;
         Storage::disk('public')->put($logoPath, $image);
 
-   // echo "<pre>";
-        //print_r($data);
-        // print_r($image);
-
-         //exit;
-        
+       
         $create = User::create([
             'fname'          => $data['fname'],
+        // User::create([
+        //     'name'          => $data['name'],
             'email'         => $data['email'],
             'user_type'     => 'user',
             'phone'     => $data['phone'],
@@ -412,7 +406,25 @@ class UserController extends Controller
 
         $countries = Country::all();
 
-        return view('admin.profile_edit', compact('title', 'user', 'countries'));
+        $qualifications = Qualification::all();
+
+        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications'));
+    }
+
+    public function educationEdit($id = null){
+        $title = trans('app.profile_edit');
+        $user = Auth::user();
+
+        if ($id){
+            $user = User::find($id);
+        }
+
+        $countries = Country::all();
+
+        $qualifications = Qualification::where('status', 1)->get();
+        $states = State::all();
+
+        return view('admin.education_edit', compact('title', 'user', 'countries', 'qualifications', 'states'));
     }
 
     public function profileEditPost($id = null, Request $request){

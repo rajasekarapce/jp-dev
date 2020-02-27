@@ -6,9 +6,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class Qualification extends Model
 {
-    public function branchs(){
+    // public function branchs(){
         
-        return $this->hasMany(Branch::class);
+    //     return $this->hasMany(Branch::class);
         
-    }
+    // }
+
+    protected $fillable = [
+        'course',
+        'status',
+        'qual_type',
+        'popular',
+        ];
+
+    const STATUS_RADIO = [
+        1 => 'Active',
+        0 => 'Inactive',
+    ];
+
+    const POPULAR_RADIO = [
+        1 => 'Active',
+        0 => 'Inactive',
+    ];
+
+    const TYPE_RADIO = [
+        1 => 'Graduation Courses',
+        2 => 'Post Graduation Courses',
+        3 => 'Other Courses',
+    ];    
+
 }

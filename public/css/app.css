@@ -9748,7 +9748,13 @@ a.text-dark:hover {
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
     box-shadow: 0 2px 4px rgba(0, 0, 0, .04)
 }
-
+    .qualification_title {
+    color: #777;
+    background-color: #F4F4F4;
+    padding: 10px 0px 10px 9px;
+    border-right: 4px solid #F4F4F4;
+    margin-bottom: 10px;
+}
 
 
 

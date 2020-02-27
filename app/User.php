@@ -34,7 +34,24 @@ class User extends Authenticatable
        // 'email_verified_at',
     ];
 
+    const PASSOUT_RADIO = [
+        1 => 'JAN',
+        2 => 'FEB',
+        3 => 'MAR',
+        4 => 'APR',
+        5 => 'MAY',
+        6 => 'JUN',
+        7 => 'JUL',
+        8 => 'AUG',
+        9 => 'SEP',
+        10 => 'OCT',
+        11 => 'NOV',
+        12 => 'DEC',
+    ];
 
+    public function education_detail(){
+        return $this->hasOne(EducationDetail::class, 'user_id');
+    }     
     public function jobs(){
         return $this->hasMany(Job::class)->orderBy('id', 'desc');
     }
@@ -131,6 +148,11 @@ class User extends Authenticatable
                 break;
         }
         return $context;
+    }
+
+    public function skills()
+    {
+        return $this->belongsToMany('App\Skill', 'skill_user', 'user_id', 'skill_id')->withTimestamps();
     }
 
 }

@@ -27,7 +27,9 @@ Route::post('employer-register', 'UserController@registerEmployerPost');
 
 Route::get('agent-register', 'UserController@registerAgent')->name('register_agent');
 Route::post('agent-register', 'UserController@registerAgentPost');
+Route::post('get-institute-list','DropdownController@getInstituteList');
 
+Route::post('get-university-list','DropdownController@getUniversitiesList');
 Route::post('get-states-options', 'LocationController@getStatesOption')->name('get_state_option_by_country');
 
 Route::post('get-branchs-options', 'LocationController@getBranchsOption')->name('get_branch_option_by_qualification');
@@ -159,6 +161,62 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::post('delete-categories', ['as'=>'delete_categories', 'uses' => 'CategoriesController@destroy']);
         });
 
+        //Qualifications
+        Route::group(['prefix'=>'qualifications'], function(){
+            Route::get('/', ['as'=>'dashboard_qualifications', 'uses' => 'QualificationsController@index']);
+            Route::post('/', ['uses' => 'QualificationsController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_qualifications', 'uses' => 'QualificationsController@edit']);
+            Route::post('edit/{id}', ['uses' => 'QualificationsController@update']);
+
+            Route::post('delete-qualifications', ['as'=>'delete_qualifications', 'uses' => 'QualificationsController@destroy']);
+        });
+
+        
+        //Branches
+         Route::group(['prefix'=>'branches'], function(){
+            Route::get('/', ['as'=>'dashboard_branches', 'uses' => 'BranchesController@index']);
+            Route::post('/', ['uses' => 'BranchesController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_branches', 'uses' => 'BranchesController@edit']);
+            Route::post('edit/{id}', ['uses' => 'BranchesController@update']);
+
+            Route::post('delete-branches', ['as'=>'delete_branches', 'uses' => 'BranchesController@destroy']);
+        });
+
+        //Institutions
+        Route::group(['prefix'=>'institutions'], function(){
+            Route::get('/', ['as'=>'dashboard_institutions', 'uses' => 'InstitutionsController@index']);
+            Route::post('/', ['uses' => 'InstitutionsController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_institutions', 'uses' => 'InstitutionsController@edit']);
+            Route::post('edit/{id}', ['uses' => 'InstitutionsController@update']);
+
+            Route::post('delete-institutions', ['as'=>'delete_institutions', 'uses' => 'InstitutionsController@destroy']);
+        });
+
+        //Universities
+        Route::group(['prefix'=>'universities'], function(){
+            Route::get('/', ['as'=>'dashboard_universities', 'uses' => 'UniversitiesController@index']);
+            Route::post('/', ['uses' => 'UniversitiesController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_universities', 'uses' => 'UniversitiesController@edit']);
+            Route::post('edit/{id}', ['uses' => 'UniversitiesController@update']);
+
+            Route::post('delete-universities', ['as'=>'delete_universities', 'uses' => 'UniversitiesController@destroy']);
+        });
+
+        //Skills
+        Route::group(['prefix'=>'skills'], function(){
+            Route::get('/', ['as'=>'dashboard_skills', 'uses' => 'SkillsController@index']);
+            Route::post('/', ['uses' => 'SkillsController@store']);
+
+            Route::get('edit/{id}', ['as'=>'edit_skills', 'uses' => 'SkillsController@edit']);
+            Route::post('edit/{id}', ['uses' => 'SkillsController@update']);
+
+            Route::post('delete-skills', ['as'=>'delete_skills', 'uses' => 'SkillsController@destroy']);
+        });
+
         //Settings
         Route::group(['prefix'=>'settings'], function(){
             Route::get('/', 'SettingsController@GeneralSettings')->name('general_settings');
@@ -185,9 +243,13 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::get('applied-jobs', 'UserController@appliedJobs')->name('applied_jobs');
         Route::get('profile', 'UserController@profile')->name('profile');
         Route::get('profile/edit', 'UserController@profileEdit')->name('profile_edit');
-        Route::post('profile/edit', 'UserController@profileEditPost');
-        Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
+        Route::get('education/edit', 'EducationDetailsController@edit')->name('education_edit');
 
+        Route::get('career/edit', 'CareerDetailsController@createOrEdit')->name('career_edit');
+        Route::post('profile/edit', 'UserController@profileEditPost');
+      //  Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
+        Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
+        Route::post('career_details', 'CareerDetailsController@addOrUpdate')->name('career_details');
 
         Route::group(['prefix'=>'users'], function(){
             Route::get('/', 'UserController@index')->name('users');
