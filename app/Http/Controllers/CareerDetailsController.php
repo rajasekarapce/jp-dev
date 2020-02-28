@@ -37,7 +37,16 @@ class CareerDetailsController extends Controller
      */
     public function addOrUpdate(Request $request)
     {
-        $input = $request->all();
+        $academic_projs = $request->academic_proj;
+        $skills = $request->skills;
+        $input = $request->except(['academic_proj', 'skills']);
+        $i=1;
+        foreach ($academic_projs as $key => $value) {
+            $input['academic_projtype'.$i] = $value['academic_projtype'];
+            $input['academic_projname'.$i] = $value['academic_projname'];
+            $input['academic_projdesc'.$i] = $value['academic_projdesc'];
+            $i++;
+        }
         $input['other_languages'] = json_encode($input['other_languages']);
         $input['user_id'] = Auth::user()->id;
         $careerdet = CareerDetail::where('user_id', Auth::user()->id)->first();
@@ -48,10 +57,9 @@ class CareerDetailsController extends Controller
             $view = 'career.create';
         }
         else{
-
-        CareerDetail::create($input);
+        CareerDetail::create($input);   
         }
-        Auth::User()->skills()->sync($input['skills'], true);
+        Auth::User()->skills()->sync($skills, true);
 
         return redirect()->route('career_edit')->with('success', 'Updated successfully');
     }

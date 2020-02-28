@@ -1,258 +1,165 @@
 @extends('layouts.dashboard')
-
-
 @section('content')
-
-
-    <div class="row">
-        <div class="col-md-12 qualification_panel">
-
-
-            <form action="{{route('education_details')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Highest Qualification Details</div>
-                
-                 <div class="form-group row {{ $errors->has('work_exp')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Passout') <span class="color-red">*</span></label>
-                    <div class="col-sm-4">
-                        <select required class="form-control select2" name="work_exp" id="passMonth" style="color: rgb(51, 51, 51);">
-                            <option value="">Passout Month</option>
-                            @foreach(\App\CareerDetail::WORK_EXPERIENCE as $key=>$month)
-                            <option {{ old('work_exp', $careerDetail->work_exp) === $key ? 'selected' : '' }} value="{{$key}}">{{$month}}</option>
-                            @endforeach
-                        </select>
-                        
-                    </div>
-                    <div class="col-sm-4">
-                        <select required class="form-control select2" name="hq_passyear" id="hq_passyear" style="color: rgb(51, 51, 51);">
-                            <option value="">Passout Year</option>
-                            @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
-                             <option {{ old('hq_passyear', $careerDetail	->hq_passyear) === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
-                            @endfor
-                        </select>
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('hq_marktype')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Percentage / CGPA') <span class="color-red">*</span></label>
-                    <div class="col-sm-4">
-                       <input required type="radio" onclick="setMaximum('hq_mark', 1);" name="hq_marktype" id="percentage" value="1" style="vertical-align: sub;" {{ old('hq_marktype', $careerDetail	->hq_marktype) === 1 ? 'checked' : '' }} > Percentage
-                        
-                    </div>
-                    <div class="col-sm-4">
-                       <input required type="radio" onclick="setMaximum('hq_mark', 2);" name="hq_marktype" id="cgpa" {{ old('hq_marktype', $careerDetail	->hq_marktype) === 2 ? 'checked' : '' }} value="2" style="vertical-align: sub;"> CGPA (out of 10)
-                        
-                    </div>
-                    
-                </div>
-                <div class="form-group row {{ $errors->has('hq_mark')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Marks')</label>
-                <div class="col-sm-8">
-                      <input required class="form-control valid" type="float" step="0.01" name="hq_mark" id="marks" placeholder="Enter your Marks" min="1" max="100" value="{{ old('hq_mark', $careerDetail	->hq_mark)}}">
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('name')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('State') <span class="color-red">*</span></label>
-                    <div class="col-sm-8">
-                        <select required class="form-control select2" name="hq_state" id="dropdown_hqState" style="color: rgb(51, 51, 51);">
-                            <option value="">Select State</option>
-                            @foreach($states as $key=>$state)
-                            <option {{ old('hq_state', $careerDetail	->hq_state) === $key ? 'selected' : '' }} value="{{$key}}" value="{{$key}}">{{$state->state_name}}</option>
-                            @endforeach
-                        </select>
-                        
-                    </div>
-                </div>
-
-                 <div class="form-group row {{ $errors->has('institute')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Institute') <span class="color-red">*</span></label>
-                    <div class="col-sm-8">
-                        <select required class="form-control select2" name="hq_institute" id="dropdown_hqInstitute" style="color: rgb(51, 51, 51);">
-                            <option value="">Select State</option>
-                            @if(count($institutions) > 0 )
-                            @foreach($institutions as $key=>$institution)
-                            <option {{ old('hq_institution', $careerDetail	->hq_institute) === $institution->id ? 'selected' : '' }} value="{{$institution->id}}">{{$institution->name}}</option>
-                            @endforeach
-                            @endif
-                            
-                        </select>
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('university')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('University') <span class="color-red">*</span></label>
-                    <div class="col-sm-8">
-                        <select required class="form-control select2" name="hq_university" id="dropdown_hqUniversity" style="color: rgb(51, 51, 51);">
-                            <option value="">Select University</option>
-                            @if(count($universities) > 0 )
-                            @foreach($universities as $key=>$university)
-                            <option {{ old('hq_institution', $careerDetail	->hq_university) === $university->id ? 'selected' : '' }} value="{{$university->id}}">{{$university->name}}</option>
-                            @endforeach
-                            @endif
-                            
-                        </select>
-                        
-                    </div>
-                </div>
-                 <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Class 12th Details</div>
-                
-                 <div class="form-group row {{ $errors->has('xii_passmonth')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Passout')</label>
-                    <div class="col-sm-4">
-                        <select required class="form-control select2" name="xii_passmonth" id="passMonthXii" style="color: rgb(51, 51, 51);">
-                            <option value="">Passout Month</option>
-                            @foreach(\App\User::PASSOUT_RADIO as $key=>$month)
-                            <option  {{ old('xii_passmonth', $careerDetail	->xii_passmonth) === $key ? 'selected' : '' }} value="{{$key}}">{{$month}}</option>
-                            @endforeach
-                        </select>
-                        
-                    </div>
-                    <div class="col-sm-4">
-                        <select required class="form-control select2" name="xii_passyear" id="passYearXii" style="color: rgb(51, 51, 51);">
-                            <option value="">Passout Year</option>
-                            @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
-                             <option {{ old('xii_passyear', $careerDetail	->xii_passyear) === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
-                            @endfor
-                        </select>
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('xii_marktype')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Percentage / CGPA')</label>
-                    <div class="col-sm-4">
-                       <input onclick="setMaximum('xii_mark', 1);" type="radio" name="xii_marktype" id="percentage" value="1" style="vertical-align: sub;" {{ old('xii_marktype', $careerDetail	->xii_marktype) === 1 ? 'checked' : '' }}> Percentage
-                        
-                    </div>
-                    <div class="col-sm-4">
-                       <input onclick="setMaximum('xii_mark', 2);" type="radio" name="xii_marktype" {{ old('xii_marktype', $careerDetail	->xii_marktype) === 2 ? 'checked' : '' }} id="cgpa" value="2" style="vertical-align: sub;"> CGPA (out of 10)
-                        
-                    </div>
-                    
-                </div>
-                <div class="form-group row {{ $errors->has('xii_mark')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Marks')</label>
-                <div class="col-sm-8">
-                      <input required class="form-control valid" type="float" step="0.01" min="1" max="100" name="xii_mark" id="marksXii" placeholder="Enter your Marks" value="{{ old('xii_mark', $careerDetail	->xii_mark)}}">
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('xii_school')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('School')</label>
-                    <div class="col-sm-8">
-                        <input required placeholder="Select your School Name" class="form-control select2" name="xii_school" id="dropdown_schoolNameXii" value="{{ old('xii_school', $careerDetail	->xii_school)}}" style="color: rgb(51, 51, 51);" />
-                            
-                        
-                    </div>
-                </div>
-
-                 <div class="form-group row {{ $errors->has('xii_board')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Board')</label>
-                    <div class="col-sm-8">
-                        <input required placeholder="Enter Board Name" class="form-control select2" name="xii_board" id="dropdown_schoolBoardXii" value="{{ old('xii_board', $careerDetail	->xii_board)}}" style="color: rgb(51, 51, 51);" />
-                        
-                    </div>
-                </div>    
-                <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Class 10th Details</div>
-                
-                 <div class="form-group row {{ $errors->has('x_passmonth')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Passout')</label>
-                    <div class="col-sm-4">
-                        <select required class="form-control select2" name="x_passmonth" id="passMonthX" style="color: rgb(51, 51, 51);">
-                            <option value="">Passout Month</option>
-                            @foreach(\App\User::PASSOUT_RADIO as $key=>$month)
-                            <option {{ old('x_passmonth', $careerDetail	->x_passmonth) === $key ? 'selected' : '' }} value="{{$key}}">{{$month}}</option>
-                            @endforeach
-                        </select>
-                        
-                    </div>
-                    <div class="col-sm-4">
-                        <select required class="form-control select2" name="x_passyear" id="passYearX" style="color: rgb(51, 51, 51);">
-                            <option value="">Passout Year</option>
-                            @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
-                             <option {{ old('x_passyear', $careerDetail	->x_passyear) === $i ? 'selected' : '' }}  value='{{$i}}'>{{$i}}</option>
-                            @endfor
-                        </select>
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('x_marktype')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Percentage / CGPA')</label>
-
-                    @foreach(App\EducationDetail::MARK_TYPE_RADIO as $key => $label)
-                    <div class="col-sm-4 {{ $errors->has('x_marktype') ? 'is-invalid' : '' }}">
-                        <input style="vertical-align: sub;" type="radio" id="is_paused_{{ $key }}" name="x_marktype" value="{{ $key }}" {{ old('x_marktype', $careerDetail	->x_marktype) === $key ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="x_marktype_{{ $key }}">{{ $label }}</label>
-                    </div>
-                @endforeach
-                    
-                    
-                </div>
-                <div class="form-group row {{ $errors->has('x_mark')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Marks')</label>
-                <div class="col-sm-8">
-                      <input required class="form-control valid"  name="x_mark" type="float" min="1" max="100" step="0.01" id="marksX" placeholder="Enter your Marks" value="{{ old('x_mark', $careerDetail	->x_mark)}}">
-                        
-                    </div>
-                </div>
-
-                <div class="form-group row {{ $errors->has('x_school')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('School')</label>
-                    <div class="col-sm-8">
-                        <input required placeholder="Select your School Name" class="form-control select2" name="x_school" id="dropdown_schoolNameX" value="{{ old('x_school', $careerDetail	->x_school)}}" style="color: rgb(51, 51, 51);" />
-                            
-                        
-                    </div>
-                </div>
-
-                 <div class="form-group row {{ $errors->has('x_board')? 'has-error':'' }}">
-                    <label for="name" class="col-sm-4 control-label">@lang('Board')</label>
-                    <div class="col-sm-8">
-                        <input required placeholder="Enter Board Name" class="form-control select2" name="x_board" id="dropdown_schoolBoardX" value="{{ old('x_board', $careerDetail	->x_board)}}" style="color: rgb(51, 51, 51);" />
-                        
-                    </div>
-                </div>
-
-               
-
-                
-                
-
-
-                <hr />
-
-                <div class="form-group row">
-                    <div class="col-sm-8 col-sm-offset-4">
-                        <button type="submit" class="btn btn-primary">@lang('app.update')</button>
-                    </div>
-                </div>
-
-
-            </form>
-
-
-
-        </div>
-    </div>
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    @include('layouts.javascript')
+<div class="row">
+   <div class="col-md-12 qualification_panel">
+      <form action="{{route('career_details')}}" method="post" enctype="multipart/form-data">
+         @csrf
+         <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Skill Set</div>
+         <div class="form-group row {{ $errors->has('name')? 'has-error':'' }}">
+            <div class="col-sm-8">
+               <select required multiple class="form-control select2" name="skills[]"  style="color: rgb(51, 51, 51);">
+                  <option value="">Select Skills (ctrl+click)</option>
+                  @foreach($skills as $key => $skill)
+                  <option {{ old('skill') === $skill->id ? 'selected' : '' }} value="{{$skill->id}}" value="{{$skill->id}}">{{$skill->name}}</option>
+                  @endforeach
+               </select>
+            </div>
+         </div>
+         <div class="form-group row {{ $errors->has('work_exp')? 'has-error':'' }}">
+            <label for="name" class="col-sm-4 control-label">@lang('Work Experience') <span class="color-red">*</span></label>
+            @foreach(\App\CareerDetail::WORK_EXPERIENCE as $key => $value)    
+            <div class="col-sm-4">
+               <input required type="radio" name="work_exp" id="work_exp{{$key}}" value="{{$key}}" style="vertical-align: sub;" {{ old('work_exp') === 1 ? 'checked' : '' }} > {{$value}}
+            </div>
+            @endforeach
+         </div>
+         <div class="form-group row {{ $errors->has('hold_offer')? 'has-error':'' }}">
+            <label for="name" class="col-sm-4 control-label">@lang('Are you holding an offer?') <span class="color-red">*</span></label>
+            @foreach(\App\CareerDetail::HOLD_OFFER as $key => $value)    
+            <div class="col-sm-4">
+               <input required type="radio" name="hold_offer" id="hold_offer{{$key}}" value="{{$key}}" style="vertical-align: sub;" {{ old('hold_offer') === 1 ? 'checked' : '' }} > {{$value}}
+            </div>
+            @endforeach
+         </div>
+         <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">@lang('My Project Works')</div>
+         <div id="field">
+            <div id="field0" class="field">
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Choose')</label>
+                  <div class="col-sm-8">
+                     <select required class="form-control select2" name="academic_proj[0][academic_projtype]"  style="color: rgb(51, 51, 51);">
+                        <option value="">Select Academic Project</option>
+                        @foreach(\App\CareerDetail::ACADEMIC_PROJTYPE as $key => $value)
+                        <option {{ old('skill') === $key ? 'selected' : '' }} value="{{$key}}" value="{{$key}}">{{$value}}</option>
+                        @endforeach
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Title')</label>
+                  <div class="col-sm-8">
+                     <input required class="form-control valid" type="text"  name="academic_proj[0][academic_projname]" id="title0" placeholder="Title">
+                  </div>
+               </div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Description')</label>
+                  <div class="col-sm-8">
+                     <textarea required class="form-control valid" type="text"  name="academic_proj[0][academic_projdesc]" id="academic_projdesc0" placeholder="Project Description">
+                     </textarea>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class=" col-lg-12 col-md-12 col-xs-12  row form-group">
+            <div class="pull-left">
+               <button id="add-more" name="add-more" class="btn btn-primary ">Add More</button>
+            </div>
+           
+         </div>
+         <div style="clear:both"></div>
+         <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">@lang('English Communication Rating')</div>
+         <div class="form-group row {{ $errors->has('hq_mark')? 'has-error':'' }}">
+            <label for="name" class="col-sm-4 control-label">@lang('Description')</label>
+            <div class="col-sm-8">
+               <select required name="eng_commrate" id="eng_commrate" class="form-control select2">
+               @foreach(\App\CareerDetail::ENG_RATE as $key => $value)    
+               <option  value="{{$key}}" {{ old('eng_commrate') === 1 ? 'selected' : '' }} > {{$value}} </option>
+               @endforeach
+               </select>
+            </div>
+         </div>
+         <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">@lang('Others Languages Known')</div>
+         <div class="form-group row {{ $errors->has('hq_mark')? 'has-error':'' }}">
+            <label for="name" class="col-sm-4 control-label">@lang('Choose Language Known')</label>
+            <div class="col-sm-8">
+               <select required name="other_languages[]" id="other_languages" class="form-control select2" multiple="">
+                  <option value="">Select Languages(ctrl+click)</option>
+                  @foreach(\App\CareerDetail::OTHER_LANG as $key => $value)    
+                  <option  value="{{$key}}" {{ old('other_languages') === 1 ? 'selected' : '' }} > {{$value}} </option>
+                  @endforeach
+               </select>
+            </div>
+         </div>
+         <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">@lang('Brief Profile Description')</div>
+         <div class="form-group row {{ $errors->has('hq_mark')? 'has-error':'' }}">
+            <div class="col-sm-12">
+               <textarea cols="40" rows="5" name="brief_desc" class="col-lg-12 col-md-12 col-xs-12">
+               </textarea>
+            </div>
+         </div>
+         <hr />
+         <div class="form-group row">
+            <div class="col-sm-8 col-sm-offset-4">
+               <button type="submit" class="btn btn-primary">@lang('app.update')</button>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+@include('layouts.javascript')
 <script type="text/javascript">
+   function setMaximum(type, marktype)
+   {
+       if(marktype == 1)
+       $('input[name='+type+']').attr("max",100);
+       else    
+       $('input[name='+type+']').attr("max",10);
+   }
+   $(document).ready(function () {
+   //@naresh action dynamic childs
+   var next = 0;
+   $("#add-more").click(function(e){
+       e.preventDefault();
+       var addto = "#field" + next;
+       var addRemove = "#field" + (next);
+       next = next + 1;
+       var btnlength = $('button.remove-me').length;
+       if(btnlength >= 2)
+       {
+        $('#add-more').hide();
+        return false;
+       }
+       
+           
+       var newIn = '<div id="field'+ next +'"><div id="field0"><div class="form-group row "><label for="name" class="col-sm-4 control-label">@lang('Choose')</label><div class="col-sm-8"><select required class="form-control select2" name="academic_proj['+next+'][academic_projtype]"  style="color: rgb(51, 51, 51);"><option value="">Select Academic Project</option>@foreach(\App\CareerDetail::ACADEMIC_PROJTYPE as $key => $value)<option value="{{$key}}" value="{{$key}}">{{$value}}</option>@endforeach</select></div></div><div class="form-group row "><label for="name" class="col-sm-4 control-label">@lang('Title')</label><div class="col-sm-8"><input required class="form-control valid" type="text"  name="academic_proj['+next+'][academic_projname]" id="academic_proj'+next+'"  ></div></div><div class="form-group row "><label for="name" class="col-sm-4 control-label">@lang('Description')</label><div class="col-sm-8"><textarea required class="form-control valid" type="text"  name="academic_proj['+next+'][academic_projdesc]" id="academic_projdesc" placeholder="Project Description" ></textarea></div></div><div class="form-group"><div class="col-md-4">';
+       
+       var newInput = $(newIn);
+       var removeBtn = '<button data-btnid="'+ (next - 1) +'" id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div></div></div><div style="clear:both; margin-bottom:10px;"></div>';
+       var removeButton = $(removeBtn);
+       $(addto).after(newInput);
+       $(addRemove).after(removeButton);
+       $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+       //$("#count").val(next);  
+       
+           $('.remove-me').click(function(e){
+               e.preventDefault();
+               var btnlength = $('.remove-me').length;
+                if(btnlength)
+                  $('#add-more').show();
+                if(btnlength != 0)
+                {
+                var btnid = $(this).data('btnid');
+
+               var fieldID = "#field" + btnid;
+               
+               $(this).remove();
+               $(fieldID).remove();
+                }
+               
+           });
+   });
    
-    function setMaximum(type, marktype)
-    {
-        if(marktype == 1)
-        $('input[name='+type+']').attr("max",100);
-        else    
-        $('input[name='+type+']').attr("max",10);
-    }
-
+   });
 </script>
-
-
 @endsection
