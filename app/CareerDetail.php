@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CareerDetail extends Model
 {
-     protected $fillable = ['user_id', 'work_exp', 'hold_offer', 'eng_commrate', 'other_languages','academic_projtype1', 'academic_projname1', 'academic_projdesc1', 'academic_projtype2', 'academic_projname2', 'academic_projdesc2', 'academic_projtype3', 'academic_projname3', 'academic_projdesc3', 'competitive_exam1','score_type1', 'score1', 'competitive_exam2','score_type2', 'score2', 'certification1', 'cert_passyr1', 'cert_passmonth1', 'certification2', 'cert_passyr2', 'cert_passmonth2', 'training_course', 'training_instname', 'dur_frommonth', 'dur_fromyr', 'dur_tomonth', 'dur_toyr', 'training_details', 'achievements1', 'achievements2', 'achievements3', 'brief_desc', 'skills'];
+     protected $fillable = ['user_id', 'work_exp', 'hold_offer', 'eng_commrate', 'other_languages','', 'academic_projname', 'academic_projdesc', 'academic_projtype', 'competitive_exam','score_type', 'score', 'certification', 'cert_passyr', 'cert_passmonth', 'training_course', 'training_instname', 'dur_frommonth', 'dur_fromyr', 'dur_tomonth', 'dur_toyr', 'training_details', 'achievements1', 'achievements2', 'achievements3', 'brief_desc', 'skills'];
     protected $table = 'career_details'; 
 
     const WORK_EXPERIENCE = [
@@ -32,7 +32,11 @@ class CareerDetail extends Model
 		4 => 'My Presentation',
 		5 => 'My Case Study',
 	];
-
+	const SCORE_TYPE = [
+		1 => 'Percentage',
+		2 => 'Percentile',
+		3 => 'Rank',
+	];	
     const OTHER_LANG = [
 		1 => 'Bengali',
 		2 => 'Gujarati',
