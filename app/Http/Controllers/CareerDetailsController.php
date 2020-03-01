@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\CareerDetail;
+use App\ComptetiveExam;
+use App\AcademicProject;
+use App\Certification;
 use App\Skill;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 
 class CareerDetailsController extends Controller
 {
@@ -37,7 +41,43 @@ class CareerDetailsController extends Controller
      */
     public function addOrUpdate(Request $request)
     {
-        $input = $request->all();
+        $academic_projs = $request->academic_proj;
+        $compexamps = $request->compexamp;
+        $certifs = $request->certif;
+        $skills = $request->skills;
+        $input = $request->except(['academic_proj', 'skills']);
+        $i= $j = 1;
+        $academic_projects = $compexams = $certifications =  [];
+        DB::table('academic_projects')->where('user_id', Auth::user()->id)->delete();
+        DB::table('comptetive_exams')->where('user_id', Auth::user()->id)->delete();
+        DB::table('certifications')->where('user_id', Auth::user()->id)->delete();
+        foreach ($academic_projs as $key => $value) {
+            $academic_projects[] = ['user_id' => Auth::user()->id,'academic_projtype' => $value['academic_projtype'], 'academic_projname' => $value['academic_projname'], 'academic_projdesc' => $value['academic_projdesc'], 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
+            $i++;
+        }
+        if(!empty($academic_projects))
+        DB::table('academic_projects')->insert($academic_projects);
+        if(!empty($compexamps))
+        {
+
+	        foreach ($compexamps as $key => $value) {
+	            $compexams[] = ['user_id' => Auth::user()->id,'competitive_exam' => $value['competitive_exam'], 'score_type' => $value['score_type'], 'score' => $value['score'], 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
+	        }
+        }
+
+        if(!empty($certifs))
+        {
+
+	        foreach ($certifs as $key => $value) {
+	            $certifications[] = ['user_id' => Auth::user()->id,'certification' => $value['certification'], 'cert_passmonth' => $value['cert_passmonth'], 'cert_passyr' => $value['cert_passyr'], 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
+	        }
+        }
+
+        if(!empty($compexams))
+        DB::table('comptetive_exams')->insert($compexams);
+
+        if(!empty($certifications))
+        DB::table('certifications')->insert($certifications);
         $input['other_languages'] = json_encode($input['other_languages']);
         $input['user_id'] = Auth::user()->id;
         $careerdet = CareerDetail::where('user_id', Auth::user()->id)->first();
@@ -48,10 +88,9 @@ class CareerDetailsController extends Controller
             $view = 'career.create';
         }
         else{
-
-        CareerDetail::create($input);
+        CareerDetail::create($input);   
         }
-        Auth::User()->skills()->sync($input['skills'], true);
+        Auth::User()->skills()->sync($skills, true);
 
         return redirect()->route('career_edit')->with('success', 'Updated successfully');
     }
@@ -81,15 +120,18 @@ class CareerDetailsController extends Controller
         if (isset($id)){
             $user = User::find($id);
         }
-
-        $careerDetail = CareerDetail::where('user_id',Auth::user()->id)->first();    
+        $user_skills = array_column(Auth::User()->skills->toArray(),'id');
+        $careerDetail = CareerDetail::where('user_id',Auth::user()->id)->first();
+        $academic_projects = AcademicProject::where('user_id',Auth::user()->id)->get();
+        $competitive_exams = ComptetiveExam::where('user_id',Auth::user()->id)->get();
+        $certifications = Certification::where('user_id',Auth::user()->id)->get();    
         $view  = 'career.create';
-        $skills = Skill::get();    
+        $skills = Skill::get();
          if(!empty($careerDetail->id))
         {
             $view  = 'career.edit';
         }   
-        return view('admin.'.$view, compact('title', 'user', 'careerDetail', 'skills'));
+        return view('admin.'.$view, compact('title', 'user', 'careerDetail', 'skills', 'user_skills', 'academic_projects', 'competitive_exams', 'certifications'));
     }
 
     /**
