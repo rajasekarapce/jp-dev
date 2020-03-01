@@ -1,4 +1,4 @@
- <div id="app">
+<div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('dashboard') }}">
@@ -15,6 +15,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
@@ -76,8 +77,8 @@
 </svg>
                                         </a>
                                     </div>
-                                </div> @if(null !== Auth::user()->education_detail)
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-graduation-cap"></i> {{Auth::user()->education_detail->hqualification->course}}</div>  @endif
+                                </div>
+
                                 <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i> 2027 Passout</div>   
                                 <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i> Chennai</div>
                             </div>
@@ -95,11 +96,14 @@
                             
                         </div>
                      </div>
-                </div><!--col--9-->
+                </div>
+                
+                
+                <!--col--9-->
                 
                 
                 <!--------------------------------------------------------------------------->
-                
+<!--                 
                 <div class="col-md-3 padding-none">
                        <div class="card shadow2 mt-sm-2 mb-sm-2">
                          <div class="card-header2">
@@ -110,10 +114,12 @@
                                <input class="form-control form-control-sm" value="mylsamy@gmail.com">
                               <a href="#" class="nav-link pin text-center mt-sm-2">Create Daily Job Alert</a>
                           </div>
-                        </div><!---card---->
+                        </div>
+                </div> -->
+                        <!---card---->
                         
                         
-                </div><!--col--3-->
+                <!--col--3-->
                 <!--------------------------------------------------------------------------->
                 
                 

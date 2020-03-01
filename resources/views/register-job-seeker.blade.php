@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }} <span class="mendatory-mark">*</span></label>
+                                <label for="email" class="col-md-3 col-form-label text-md-right">{{ __('E-Mail Address') }} <span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
                                     <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
 
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }} <span class="mendatory-mark">*</span></label>
+                                <label for="password" class="col-md-3 col-form-label text-md-right">{{ __('Password') }} <span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
                                     <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
@@ -64,14 +64,14 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }} <span class="mendatory-mark">*</span></label>
+                                <label for="password-confirm" class="col-md-3 col-form-label text-md-right">{{ __('Confirm Password') }} <span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }} <span class="mendatory-mark">*</span></label>
-                                <div class="col-md-6">
+                                <label for="name" class="col-md-3 col-form-label text-md-right">{{ __('Mobile') }} <span class="mendatory-mark">*</span></label>
+                                <div class="col-md-5">
                                     <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>
 
                                     @if ($errors->has('phone'))
@@ -82,8 +82,8 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('app.country') }} <span class="mendatory-mark">*</span></label>
-                                <div class="col-md-6">
+                                <label for="country" class="col-md-3 col-form-label text-md-right">{{ __('app.country') }} <span class="mendatory-mark">*</span></label>
+                                <div class="col-md-5">
                                     <select name="country" class="form-control country_to_state" required autofocus>
                                         <option value="">@lang('app.select_a_country')</option>
                                         @foreach($countries as $country)
@@ -100,34 +100,16 @@
                             </div>
 
                             <div class="form-group row">
-                                <!-- <label for="state" class="col-md-3 col-form-label text-md-right">{{ __('app.state') }} <span class="mendatory-mark">*</span></label>
+                                <label for="state" class="col-md-3 col-form-label text-md-right">{{ __('app.state') }} <span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
                                     <select name="state" class="form-control state_options"  required autofocus>
                                         <option value="">Select a state</option>
-                                    </select>  
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="city" class="col-md-3 col-form-label text-md-right">{{ __('app.city') }}<span class="mendatory-mark">*</span></label>
-                                <div class="col-md-5">
-                                    <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}" required autofocus>
-
-                                    @if ($errors->has('city'))
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('city') }}</strong> -->
-                                <label for="state" class="col-md-4 col-form-label text-md-right">{{ __('app.state') }} <span class="mendatory-mark">*</span></label>
-                                <div class="col-md-6">
-                                    <select name="state" class="form-control state_options"  required autofocus>
-                                        <option value="">Select a state</option>
-
                                         @if($old_country)
                                             @foreach($old_country->states as $state)
                                                 <option value="{{$state->id}}" @if(old('state') && $state->id == old('state')) selected="selected" @endif >{!! $state->state_name !!}</option>
                                             @endforeach
                                         @endif
-
                                     </select>
-
                                     @if ($errors->has('state'))
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('state') }}</strong>
@@ -136,11 +118,26 @@
                                 </div>
                             </div>
 
+
+                            <div class="form-group row">
+                                <label for="city" class="col-md-3 col-form-label text-md-right">{{ __('app.city') }}<span class="mendatory-mark">*</span></label>
+                                <div class="col-md-5">
+                                    <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}" required autofocus>
+
+                                    @if ($errors->has('city'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
                             <div class="form-group row">
                                 <label for="qualification" class="col-md-3 col-form-label text-md-right">{{ __('Qualification') }} <span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
                                     <select name="qualification" class="form-control qualification" required id="qualification" autofocus>
-                                        <option value="">@lang('app.select_a_country')</option>
+                                        <option value="">@lang('app.select_qualification')</option>
                                         @foreach($qualifications as $qualifi)
                                             <option value="{!! $qualifi->id !!}" @if(old('country') && $country->id == old('qualifi')) selected="selected" @endif  >{!! $qualifi->course !!}</option>
                                         @endforeach
@@ -241,15 +238,8 @@
                                 <input id="tenth_marks" type="text" placeholder="10th Pass Marks In percentage" class="form-control{{ $errors->has('tenth_marks') ? ' is-invalid' : '' }}" name="tenth_marks" value="{{ old('tenth_marks') }}" required autofocus>
 
                                     @if ($errors->has('tenth_marks'))
-                                        <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('tenth_marks') }}</strong>
-                                <!-- <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('app.city') }}</label>
-                                <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}" required autofocus>
-
-                                    @if ($errors->has('city'))
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('city') }}</strong> -->
                                     </span>
                                     @endif
                                 </div>

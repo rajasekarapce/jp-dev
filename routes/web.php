@@ -23,7 +23,7 @@ Route::post('job-seeker-register', 'UserController@registerJobSeekerPost');
 
 
 Route::get('employer-register', 'UserController@registerEmployer')->name('register_employer');
-Route::post('employer-register', 'UserController@registerEmployerPost');
+Route::post('employer-register', 'UserController@registerEmployerPost')->name('register_employer');
 
 Route::get('agent-register', 'UserController@registerAgent')->name('register_agent');
 Route::post('agent-register', 'UserController@registerAgentPost');
@@ -247,8 +247,8 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
         Route::get('career/edit', 'CareerDetailsController@createOrEdit')->name('career_edit');
         Route::post('profile/edit', 'UserController@profileEditPost');
-      //  Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
-        Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
+        Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
+        //Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
         Route::post('career_details', 'CareerDetailsController@addOrUpdate')->name('career_details');
 
         Route::group(['prefix'=>'users'], function(){
