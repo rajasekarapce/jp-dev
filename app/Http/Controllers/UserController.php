@@ -134,7 +134,6 @@ class UserController extends Controller
             ['qualification' => $data['qualification'] ,
             'branch' => $data['branch'] ,
             'passed_out' => $data['passed_out'] ,
-            'percent_or_cgpa' => $data['percent_or_cgpa'] ,
             'percentage' => $data['percentage'] ,
             'college_location' => $data['college_location'] ,
             'institute' => $data['institute'] ,
