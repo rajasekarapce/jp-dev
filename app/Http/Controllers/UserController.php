@@ -114,9 +114,7 @@ class UserController extends Controller
 
        
         $create = User::create([
-            'fname'          => $data['fname'],
-        // User::create([
-        //     'name'          => $data['name'],
+            'name'          => $data['name'],
             'email'         => $data['email'],
             'user_type'     => 'user',
             'phone'     => $data['phone'],
