@@ -138,9 +138,6 @@ class UserController extends Controller
             'college_location' => $data['college_location'] ,
             'institute' => $data['institute'] ,
             'university' => $data['university'] ,
-            'have_or_dont' => $data['have_or_dont'] ,
-            'plus_two_marks' => $data['plus_two_marks'] ,
-            'tenth_marks' => $data['tenth_marks'] ,
             'user_id' =>    $user_id ,
             'created_at' => date('Y-m-d H-i-s'),
             'updated_at' => date('Y-m-d H-i-s')   ]
