@@ -75,6 +75,8 @@ class EducationDetailsController extends Controller
         }
 
         $educationDetail = EducationDetail::where('user_id',Auth::user()->id)->first();    
+
+        
         $countries = Country::all();
         $states = State::select('id', 'state_name')->get('id', 'state_name');
         $qualifications = Qualification::where('status', 1)->get();
@@ -85,7 +87,7 @@ class EducationDetailsController extends Controller
 
             $universities = University::where('state_id', $educationDetail->hq_university)->get();
             $institutions = Institution::where('state_id', $educationDetail->hq_state)->get();
-         $view = 'education.edit';   
+            $view = 'education.edit';   
 
         }    
         return view('admin.'.$view, compact('title', 'user', 'countries', 'qualifications', 'states', 'educationDetail', 'institutions', 'universities'));

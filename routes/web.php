@@ -248,7 +248,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::get('career/edit', 'CareerDetailsController@createOrEdit')->name('career_edit');
         Route::post('profile/edit', 'UserController@profileEditPost');
         Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
-        //Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
+        Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
         Route::post('career_details', 'CareerDetailsController@addOrUpdate')->name('career_details');
 
         Route::group(['prefix'=>'users'], function(){
