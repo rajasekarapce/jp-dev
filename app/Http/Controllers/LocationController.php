@@ -50,7 +50,7 @@ class LocationController extends Controller
         $option = "<option value=''>Select a Branch</option>";
         if ($branchs->count()){
             foreach ($branchs as $branch){
-                $option .= "<option value='{$branch->id}'>{$branch->branch_name}</option>";
+                $option .= "<option value='{$branch->id}'>{$branch->name}</option>";
             }
         }
 
@@ -65,7 +65,7 @@ class LocationController extends Controller
         $option = "<option value=''>Select a Institution</option>";
         if ($institutions->count()){
             foreach ($institutions as $institution){
-                $option .= "<option value='{$institution->id}'>{$institution->institution_name}</option>";
+                $option .= "<option value='{$institution->id}'>{$institution->name}</option>";
             }
         }
 
