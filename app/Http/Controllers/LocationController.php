@@ -78,7 +78,7 @@ class LocationController extends Controller
         $universities = University::whereStateId($request->state_id)->get();
 
         //Get the states from country
-        $option = "<option value=''>Select a Institution</option>";
+        $option = "<option value=''>Select a University</option>";
         if ($universities->count()){
             foreach ($universities as $university){
                 $option .= "<option value='{$university->id}'>{$university->name}</option>";
