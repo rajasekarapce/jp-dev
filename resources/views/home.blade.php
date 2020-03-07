@@ -104,13 +104,13 @@
 					<a class="nav-link " href="#">Defence Jobs</a>
 				  </li>
 				   <li class="nav-item">
-					<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<!-- <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					More<i class="la la-angle-down"></i></a>
 					<div class="dropdown-menu dropdown-menu-right" >
 					  <a class="dropdown-item" href="#">Menu 1</a>
 					  <a class="dropdown-item" href="#">Menu 2</a>
 					  <a class="dropdown-item" href="#">Menu 3</a>
-					</div>
+					</div> -->
 				  </li>
 				</ul>
 			 </div>	

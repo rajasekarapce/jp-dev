@@ -16,7 +16,19 @@ This page (Applied page and saved page)
 				</tr>
 			  </thead>
 			  <tbody>
+			  @foreach($applied_jobs as $applied_job)
 				<tr>
+				  <td>
+				    <div class="c-pink">{{$applied_job->company}}</div>
+					<div><small>{{$applied_job->job_title}}</small></div>
+					<div><small>Last date: {{date('d-m-Y', strtotime($applied_job->deadline))}}</small></div>
+				  </td>
+				  <td>{{date('d-m-Y', strtotime($applied_job->Applied_Date))}}</td>
+				  <td><span class="badge badge-success">Applied</span></td>
+				  <td> </td>
+				</tr>
+				@endforeach
+				<!-- <tr>
 				  <td>
 				    <div class="c-pink">Smartwiz Technologies</div>
 					<div><small>Web Designer</small></div>
@@ -25,8 +37,8 @@ This page (Applied page and saved page)
 				  <td>20-02-2020</td>
 				  <td><span class="badge badge-success">Applied</span></td>
 				  <td> </td>
-				</tr>
-				<tr>
+				</tr> -->
+				<!-- <tr>
 				  <td>
 				    <div class="c-pink">Smartwiz Technologies</div>
 					<div><small>Web Designer</small></div>
@@ -35,23 +47,13 @@ This page (Applied page and saved page)
 				  <td>20-02-2020</td>
 				  <td><span class="badge badge-success">Applied</span></td>
 				  <td> </td>
-				</tr>
-				<tr>
-				  <td>
-				    <div class="c-pink">Smartwiz Technologies</div>
-					<div><small>Web Designer</small></div>
-					<div><small>Last date: 09-03-2020</small></div>
-				  </td>
-				  <td>20-02-2020</td>
-				  <td><span class="badge badge-success">Applied</span></td>
-				  <td> </td>
-				</tr>
+				</tr> -->
 			  </tbody>
 			</table>
 			
-			 <h5>Saved Jobs</h5>
+			 <!-- <h5>Saved Jobs</h5> -->
 			<!------Start--------->
-		         <div class=" padding-none">
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -77,10 +79,10 @@ This page (Applied page and saved page)
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 		<!------Start--------->
-		         <div class=" padding-none">
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -106,10 +108,10 @@ This page (Applied page and saved page)
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 		<!------Start--------->
-		         <div class=" padding-none">
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -135,7 +137,7 @@ This page (Applied page and saved page)
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 			
 		

@@ -68,10 +68,41 @@
 		
 ----------------------------------------------------------------------->		
 		
-		This page (Dashboard page and recommended page)
-		   <h5>Jobs Matching your Profile</h5>
+		<!-- This page (Dashboard page and recommended page) -->
+		   <h5>Latest Jobs For Your Profile</h5>
 		      <!------Start--------->
+			  @foreach($latest_jobs as $latest_job)
 		         <div class=" padding-none">
+				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
+						  <div class="card-body padd14">
+						    <div class="row">
+							   <div class="col-md-9 border-right">
+						       <h5 class="job-tit"><a class="c-pink" href="">{{$latest_job->company}}</a></h5>
+							   <div><small><b>{{$latest_job->position}}</b></small> </div>
+							    <div><small><i class=" font-18 la la-graduation-cap"></i> {{$latest_job->course}}</small></div>
+							    <div><small><i class=" font-18 la la-map-marker"></i> {{$latest_job->city_name}}</small></div>
+								<div><small><i class=" font-18 la la-calendar"></i><b>Last Date:</b> {{date('d-m-Y', strtotime($latest_job->deadline))}}</small></div>
+							  </div>
+							   <div class="col-md-3">
+							      <div><small><i class="fa fa-clock-o"></i> 1m ago</small></div>
+								  <div> 
+									  <a href=""><i class="fa fa-facebook-square"></i></a>
+									  <a href=""><i class="fa fa-twitter-square"></i></a>
+									  <a href=""><i class="fa fa-linkedin-square"></i></a>
+									  <a href=""><i class="fa fa-google-plus"></i></a>
+								  </div>
+								  <div><a href=""><i class="fa fa-star-o" ></i></a></div>								  
+							      <a href="{{$latest_job->job_slug}}" class="nav-link btn pin text-center mt-sm-2">View & Apply</a>
+							   </div>
+							</div>	
+							
+						  </div>
+						</div>
+				  </div>
+				  @endforeach
+		<!------End--------->
+		<!------Start--------->
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -97,39 +128,10 @@
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 		<!------Start--------->
-		         <div class=" padding-none">
-				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
-						  <div class="card-body padd14">
-						    <div class="row">
-							   <div class="col-md-9 border-right">
-						       <h5 class="job-tit"><a class="c-pink" href="">Creative Toughened Glass Pvt Ltd</a></h5>
-							   <div><small><b>Front End Developer</b></small> </div>
-							    <div><small><i class=" font-18 la la-graduation-cap"></i> BCA, BE/B.Tech(CSE), MCA, ME/M.Tech(CSE)</small></div>
-							    <div><small><i class=" font-18 la la-map-marker"></i> Bangalore</small></div>
-								<div><small><i class=" font-18 la la-calendar"></i><b>Last Date:</b> 09 Mar 20</small></div>
-							  </div>
-							   <div class="col-md-3">
-							      <div><small><i class="fa fa-clock-o"></i> 1m ago</small></div>
-								  <div> 
-									  <a href=""><i class="fa fa-facebook-square"></i></a>
-									  <a href=""><i class="fa fa-twitter-square"></i></a>
-									  <a href=""><i class="fa fa-linkedin-square"></i></a>
-									  <a href=""><i class="fa fa-google-plus"></i></a>
-								  </div>
-								  <div><a href=""><i class="fa fa-star-o" ></i></a></div>								  
-							      <a href="#" class="nav-link btn pin text-center mt-sm-2">View & Apply</a>
-							   </div>
-							</div>	
-							
-						  </div>
-						</div>
-				  </div>
-		<!------End--------->
-		<!------Start--------->
-		         <div class=" padding-none">
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -155,10 +157,10 @@
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 		<!------Start--------->
-		         <div class=" padding-none">
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -184,10 +186,10 @@
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 		<!------Start--------->
-		         <div class=" padding-none">
+		         <!-- <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
 						    <div class="row">
@@ -213,7 +215,7 @@
 							
 						  </div>
 						</div>
-				  </div>
+				  </div> -->
 		<!------End--------->
 
 		

@@ -55,14 +55,14 @@
 					<li class="nav-item"><a class="nav-link" href="{{route('home')}}">COURSES</a> </li>
 					<li class="nav-item"><a class="nav-link" href="{{route('home')}}">SERVICES <span class="badge badge-warning">New</span></a> </li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						  MORE <i class="la la-angle-down"></i>
 						</a>
-						<div class="dropdown-menu" >
+						 <div class="dropdown-menu" >
 						  <a class="dropdown-item" href="#">Menu 1</a>
 						  <a class="dropdown-item" href="#">Menu 2</a>
 						  <a class="dropdown-item" href="#">Menu 3</a>
-						</div>
+						</div> -->
 					  </li>
 					
 <!---

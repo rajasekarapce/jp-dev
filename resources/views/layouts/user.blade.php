@@ -172,7 +172,7 @@
                           </div>
                           <div class="card-body padd14">
                               <small>Increase Your chances of getting more Call Letters by Updating your resume frequently.</small>
-                              <a href="#" class="nav-link pin text-center mt-sm-2">Upload Your Resume</a>
+                              <a href="{{route('new-register')}}" class="nav-link pin text-center mt-sm-2">Upload Your Resume</a>
                           </div>
                         </div><!---card---->
                         

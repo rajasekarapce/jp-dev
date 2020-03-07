@@ -68,7 +68,17 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $applications = JobApplication::whereUserId($user_id)->orderBy('id', 'desc')->paginate(20);
 
-        return view('admin.applied_jobs', compact('title', 'applications'));
+        $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.employer_id', '=', 'jobs.user_id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        // echo "<pre>";
+        // print_r($applications);
+        // exit;
+        return view('admin.applied_jobs', compact('title', 'applications', 'applied_jobs' ));
     }
 
     public function registerJobSeeker(){
