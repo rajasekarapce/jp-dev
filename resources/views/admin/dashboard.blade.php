@@ -72,6 +72,18 @@
 		   <h5>Latest Jobs For Your Profile</h5>
 		      <!------Start--------->
 			  @foreach($latest_jobs as $latest_job)
+
+			  <?php
+		      			$fdate = date('Y-m-d H:i:s');
+		      			$tdate = $latest_job->created_at;
+
+		      			$datetime1 = new DateTime($fdate);
+$datetime2 = new DateTime($tdate);
+$interval = $datetime1->diff($datetime2);
+ $days = $interval->format('%d');
+
+		      		?>
+
 		         <div class=" padding-none">
 				      <div class="card shadow2 mt-sm-2 mb-sm-2">					     
 						  <div class="card-body padd14">
@@ -84,7 +96,7 @@
 								<div><small><i class=" font-18 la la-calendar"></i><b>Last Date:</b> {{date('d-m-Y', strtotime($latest_job->deadline))}}</small></div>
 							  </div>
 							   <div class="col-md-3">
-							      <div><small><i class="fa fa-clock-o"></i> 1m ago</small></div>
+							      <div><small><i class="fa fa-clock-o"></i> {{ $days }} days ago</small></div>
 								  <div> 
 									  <a href=""><i class="fa fa-facebook-square"></i></a>
 									  <a href=""><i class="fa fa-twitter-square"></i></a>
