@@ -152,7 +152,7 @@ button.updating-btn i.la:before{
     margin: auto;
 }
 .profile-image-block {
-    width: 186px;
+    
 }
 
 .edit-image-upload {
@@ -184,15 +184,34 @@ button.updating-btn i.la:before{
 .display-inline-block {
     display: inline-block;
 }
+.pending-box{
+    background: #e65901;
+    height: 164px;
+    color: #fff;
+}
+.pendig-text{
+    padding: 10px;
+}
+.pendig-text a{
+    color: #fff;
+}
+.view-btn{
+   background: #8a2387 !important;
+    padding: 4px 10px !important;
+    color: #fff !important;
 
+}
+.view-btn :hover{
+    text-decoration: none;
+}
 .complete_your_profile {
-    height: 10px;
+    height: 7px;
     background-color: #fff;
     width:100%;
-    margin-top: 7px;
+    margin-top: 31px;
 }
 .complete_your_profile_text {
-    height: 10px;
+    height: 7px;
     border: 1px solid #fff;
 }
 .profile_complete {
@@ -211,8 +230,9 @@ button.updating-btn i.la:before{
 }
 a.nav-link.pin {
     background: #8a2387 !important;
-    padding: 4px 10px !important;
+    padding: 4px 4px !important;
     color: #fff !important;
+	text-align:center;
     margin-right: 0px;
 }
 
@@ -220,8 +240,21 @@ a.nav-link.pin {
     margin-bottom: 0px;
     font-size: 16px;}
 
+@media(max-height: 768px){
+     .user-details{
+       
+     }
+     .profile-bg {
+    padding: 20px 20px;
+    }
+    .padding-none {
+    padding: 18px;
+    }
+    .user-header{
+        margin-left: 18px;
+    }
 
-
+}
 
 
 
