@@ -17,11 +17,11 @@
                     <!-- Right Side Of Navbar -->
                     
                     <ul class="navbar-nav ml-auto">
-
+                    @if (Auth::user()->user_type == 'employer')
                         <li class="nav-item">
                             <a class="nav-link btn btn-success text-white" href="{{route('post_new_job')}}"><i class="la la-save"></i>{{__('app.post_new_job')}} </a>
                         </li>
-
+                    @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
@@ -182,7 +182,7 @@
                           </div>
                           <div class="card-body padd14">
                               <small>Upgrade to confirm the Job Applications and become priority applicant.</small>
-                              <a href="#" class="nav-link pin text-center mt-sm-2">Upgrade Now</a>
+                              <a href="{{ route('payments') }}" class="nav-link pin text-center mt-sm-2">Upgrade Now</a>
                           </div>
                         </div><!---card---->
                         
