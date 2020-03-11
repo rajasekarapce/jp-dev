@@ -38,7 +38,7 @@
                                 </a>
                             </li>
                              <li class="{{request()->is('dashboard/institutions*')? 'active' : ''}}">
-                                <a href="{{route('dashboard_universities')}}" class="list-group-item-action active">
+                                <a href="{{route('dashboard_institutions')}}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-building"></i> </span>
                                     <span class="title">@lang('app.institutions')</span>
                                 </a>
