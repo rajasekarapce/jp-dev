@@ -15,6 +15,15 @@
                </select>
             </div>
          </div>
+         <div class="form-group row {{ $errors->has('work_exp')? 'has-error':'' }}">
+            <label for="name" class="col-sm-4 control-label">@lang('Work Experience') <span class="color-red">*</span></label>
+            @foreach(\App\CareerDetail::WORK_EXPERIENCE as $key => $value)    
+            <div class="col-sm-4">
+               <input required type="radio" name="work_exp" id="work_exp{{$key}}" value="{{$key}}" style="vertical-align: sub;" {{ old('work_exp', $key) === 1 ? 'checked' : '' }} > {{$value}}
+            </div>
+            @endforeach
+         </div>
+
          <div class=" col-lg-12 col-md-12 col-xs-12 control-group after-add-more">
           @foreach($academic_projects as $academic)
           <div id="field{{$academic->id}}" class="field control-group">
@@ -63,7 +72,7 @@
                <div class="form-group row ">
                   <label for="name" class="col-sm-4 control-label">@lang('Choose')</label>
                   <div class="col-sm-8">
-                     <select required class="form-control select2" name="compexamp[{{$compexam->id}}][competitive_exam]"  style="color: rgb(51, 51, 51);">
+                     <select  class="form-control select2" name="compexamp[{{$compexam->id}}][competitive_exam]"  style="color: rgb(51, 51, 51);">
                         <option value="">Select Academic Project</option>
                         @foreach(\App\CareerDetail::COMPETITIVE_EXAMS as $key => $value)
                         <option {{ old('compexamp[$compexam->id][competitive_exam]', $compexam->competitive_exam) === $key ? 'selected' : '' }} value="{{$key}}" value="{{$key}}">{{$value}}</option>
@@ -93,6 +102,43 @@
                <div style="clear: both"></div>
             </div>
             @endforeach
+            @if(count($competitive_exams) == 0)
+
+            <div id="compfield0" class="field">
+              <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Competitive Exam Scores</div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Choose')</label>
+                  <div class="col-sm-8">
+                     <select class="form-control select2" name="compexamp[0][competitive_exam]"  style="color: rgb(51, 51, 51);">
+                        <option value="">Select Academic Project</option>
+                        @foreach(\App\CareerDetail::COMPETITIVE_EXAMS as $key => $value)
+                        <option {{ old('compexamp[0][competitive_exam]') === $key ? 'selected' : '' }} value="{{$key}}" value="{{$key}}">{{$value}}</option>
+                        @endforeach
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Score Type')</label>
+                  <div class="col-sm-8">
+                      
+                     @foreach(\App\CareerDetail::SCORE_TYPE as $key => $value)
+                       <input type="radio" name="compexamp[0][score_type]" @if($key==1) checked @endif {{ old('compexamp[0][score_type]') === $key ? 'checked' : '' }} value="{{$key}}" /> {{$value}}
+                        @endforeach
+                  </div>
+               </div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Score')</label>
+                  <div class="col-sm-8">
+                    <input type="number" step="0.01" class="form-control" name="compexamp[0][score]" value="{{ old('compexamp[0][score]')}}"   />
+                  </div>
+               </div>
+               <div style="clear: both"></div>
+            <div class="input-group-btn pull-right"> 
+              <button class="btn btn-danger compexamremove" data-comprowid="0" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+            </div>
+               <div style="clear: both"></div>
+            </div>
+            @endif
           </div>
          </div>
          <div class="input-group-btn"> 
@@ -105,7 +151,7 @@
                <div class="form-group row ">
                   <label for="name" class="col-sm-4 control-label">@lang('Certificate')</label>
                   <div class="col-sm-8">
-                     <select required class="form-control select2" name="certif[{{$cert->id}}][certification]"  style="color: rgb(51, 51, 51);">
+                     <select class="form-control select2" name="certif[{{$cert->id}}][certification]"  style="color: rgb(51, 51, 51);">
                         <option value="">Select Year</option>
                         @foreach(\App\CareerDetail::CERTIFICATION as $key => $value)
                         <option  {{ old('certif[$cert->id][certification]', $cert->certification) === $key ? 'selected' : '' }} value="{{$key}}">{{$value}}</option>
@@ -116,7 +162,7 @@
                <div class="form-group row ">
                   <label for="name" class="col-sm-4 control-label">@lang('Passout')</label>
                   <div class="col-sm-4">
-                      <select required class="form-control select2" name="certif[{{$cert->id}}][cert_passyr]"  style="color: rgb(51, 51, 51);">
+                      <select class="form-control select2" name="certif[{{$cert->id}}][cert_passyr]"  style="color: rgb(51, 51, 51);">
                         <option value="">Select Year</option>
                         @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
                              <option  {{ old('certif[$cert->id][cert_passyr]', $cert->cert_passyr) === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
@@ -124,7 +170,7 @@
                      </select>
                   </div>
                   <div class="col-sm-4">
-                    <select required class="form-control select2" name="certif[{{$cert->id}}][cert_passmonth]" id="cert_passmonth{{$cert->id}}" style="color: rgb(51, 51, 51);">
+                    <select class="form-control select2" name="certif[{{$cert->id}}][cert_passmonth]" id="cert_passmonth{{$cert->id}}" style="color: rgb(51, 51, 51);">
                             <option value="">Passout Month</option>
                             @foreach(\App\User::PASSOUT_RADIO as $key=>$month)
                             <option  {{ old('certif[$cert->id][cert_passmonth]', $cert->cert_passmonth) === $key ? 'selected' : '' }} value="{{$key}}">{{$month}}</option>
@@ -140,6 +186,47 @@
                <div style="clear: both"></div>
             </div>
             @endforeach
+            @if(count($certifications) == 0)
+             <div id="certfield0" class="field">
+              <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Certification Details</div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Certificate')</label>
+                  <div class="col-sm-8">
+                     <select class="form-control select2" name="certif[0][certification]"  style="color: rgb(51, 51, 51);">
+                        <option value="">Select Year</option>
+                        @foreach(\App\CareerDetail::CERTIFICATION as $key => $value)
+                        <option  {{ old('certif[0][certification]') === $key ? 'selected' : '' }} value="{{$key}}">{{$value}}</option>
+                        @endforeach
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group row ">
+                  <label for="name" class="col-sm-4 control-label">@lang('Passout')</label>
+                  <div class="col-sm-4">
+                      <select class="form-control select2" name="certif[0][cert_passyr]"  style="color: rgb(51, 51, 51);">
+                        <option value="">Select Year</option>
+                        @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
+                             <option  {{ old('certif[0][cert_passyr]') === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
+                            @endfor
+                     </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <select class="form-control select2" name="certif[0][cert_passmonth]" id="cert_passmonth0" style="color: rgb(51, 51, 51);">
+                            <option value="">Passout Month</option>
+                            @foreach(\App\User::PASSOUT_RADIO as $key=>$month)
+                            <option  {{ old('certif[0][cert_passmonth]') === $key ? 'selected' : '' }} value="{{$key}}">{{$month}}</option>
+                            @endforeach
+                        </select>
+                  </div>
+               </div>
+              
+               <div style="clear: both"></div>
+            <div class="input-group-btn pull-right"> 
+              <button class="btn btn-danger certremove" data-certrowid="0" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+            </div>
+               <div style="clear: both"></div>
+            </div>
+            @endif
           </div>
 
            <div class="input-group-btn"> 
@@ -206,7 +293,7 @@
                <div class="form-group row ">
                   <label for="name" class="col-sm-4 control-label">@lang('Choose')</label>
                   <div class="col-sm-8">
-                     <select required class="form-control select2" name="compexamp[##num##][competitive_exam]"  style="color: rgb(51, 51, 51);">
+                     <select class="form-control select2" name="compexamp[##num##][competitive_exam]"  style="color: rgb(51, 51, 51);">
                         <option value="">Select Academic Project</option>
                         @foreach(\App\CareerDetail::COMPETITIVE_EXAMS as $key => $value)
                         <option value="{{$key}}">{{$value}}</option>
@@ -244,7 +331,7 @@
                <div class="form-group row ">
                   <label for="name" class="col-sm-4 control-label">@lang('Certificate')</label>
                   <div class="col-sm-8">
-                     <select required class="form-control select2" name="certif[##num##][certification]"  style="color: rgb(51, 51, 51);">
+                     <select class="form-control select2" name="certif[##num##][certification]"  style="color: rgb(51, 51, 51);">
                         <option value="">Select Year</option>
                         @foreach(\App\CareerDetail::CERTIFICATION as $key => $value)
                         <option  value="{{$key}}">{{$value}}</option>
@@ -255,7 +342,7 @@
                <div class="form-group row ">
                   <label for="name" class="col-sm-4 control-label">@lang('Passout')</label>
                   <div class="col-sm-4">
-                      <select required class="form-control select2" name="certif[##num##][cert_passyr]"  style="color: rgb(51, 51, 51);">
+                      <select class="form-control select2" name="certif[##num##][cert_passyr]"  style="color: rgb(51, 51, 51);">
                         <option value="">Select Year</option>
                         @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
                              <option  value='{{$i}}'>{{$i}}</option>
@@ -263,7 +350,7 @@
                      </select>
                   </div>
                   <div class="col-sm-4">
-                    <select required class="form-control select2" name="certif[##num##][cert_passmonth]" id="cert_passmonth##num##" style="color: rgb(51, 51, 51);">
+                    <select class="form-control select2" name="certif[##num##][cert_passmonth]" id="cert_passmonth##num##" style="color: rgb(51, 51, 51);">
                             <option value="">Passout Month</option>
                             @foreach(\App\User::PASSOUT_RADIO as $key=>$month)
                             <option value="{{$key}}">{{$month}}</option>

@@ -57,27 +57,38 @@ class CareerDetailsController extends Controller
         }
         if(!empty($academic_projects))
         DB::table('academic_projects')->insert($academic_projects);
+        $insertce = true;
         if(!empty($compexamps))
         {
 
 	        foreach ($compexamps as $key => $value) {
+                if($value['competitive_exam']=='')
+                {
+                    $insertce = false;
+                }    
 	            $compexams[] = ['user_id' => Auth::user()->id,'competitive_exam' => $value['competitive_exam'], 'score_type' => $value['score_type'], 'score' => $value['score'], 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
 	        }
         }
 
+        $insertcert = false;
         if(!empty($certifs))
         {
 
 	        foreach ($certifs as $key => $value) {
+                if($value['certification']=='')
+                {
+                    $insertcert = false;
+                }
 	            $certifications[] = ['user_id' => Auth::user()->id,'certification' => $value['certification'], 'cert_passmonth' => $value['cert_passmonth'], 'cert_passyr' => $value['cert_passyr'], 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
 	        }
         }
 
-        if(!empty($compexams))
+        if(!empty($compexams) && $insertce==true)
         DB::table('comptetive_exams')->insert($compexams);
 
-        if(!empty($certifications))
+        if(!empty($certifications) && $insertcert==true)
         DB::table('certifications')->insert($certifications);
+        if(isset($input['other_languages']))
         $input['other_languages'] = json_encode($input['other_languages']);
         $input['user_id'] = Auth::user()->id;
         $careerdet = CareerDetail::where('user_id', Auth::user()->id)->first();
