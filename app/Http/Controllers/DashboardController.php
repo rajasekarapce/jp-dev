@@ -39,6 +39,6 @@ class DashboardController extends Controller
               
              
 
-        return view('admin.dashboard', compact('latest_jobs' ,'data') );
+        return view('admin.dashboard', $latest_jobs,$data );
     }
 }
