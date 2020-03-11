@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->leftJoin('users', 'jobs.user_id', '=', 'users.id')
             //->Where('job_applications.user_id', $user_id)
             ->orderBy('jobs.id', 'desc')
-            ->get();
+            ->paginate(10);
 
             
             // 
