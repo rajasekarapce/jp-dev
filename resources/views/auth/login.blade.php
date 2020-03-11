@@ -5,11 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-            @if(session('success'))
+            <!-- @if(session('success'))
                 <div class="alert alert-success">
                     {!! session('success') !!}
                 </div>
-            @endif
+            @endif -->
 
             @include('admin.flash_msg')
 

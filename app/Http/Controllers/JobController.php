@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Country;
+use App\Qualification;
 use App\FlagJob;
 use App\Job;
 use App\JobApplication;
@@ -23,13 +24,14 @@ class JobController extends Controller
         $title = __('app.post_new_job');
 
         $categories = Category::orderBy('category_name', 'asc')->get();
+        $qualifications = Qualification::orderBy('course', 'asc')->get();
         $countries = Country::all();
         $old_country = false;
         if (old('country')){
             $old_country = Country::find(old('country'));
         }
 
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country'));
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications'));
     }
 
 
@@ -56,6 +58,14 @@ class JobController extends Controller
             $state_name = $state->state_name;
         }
 
+        if(empty($request->cgpa)){
+        	$request->cgpa = '0';
+        }
+
+        if(empty($request->percentage)){
+        	$request->percentage = '0';
+        }
+        
         $job_id = strtoupper(str_random(8));
         $data = [
             'user_id'                   => $user_id,
@@ -85,13 +95,18 @@ class JobController extends Controller
             'benefits'                  => $request->benefits,
             'apply_instruction'         => $request->apply_instruction,
             'country_id'                => $request->country,
-            'country_name'              => $country->country_name,
+            'country_name'              => $request->country_name,
             'state_id'                  => $request->state,
             'state_name'                => $state_name,
             'city_name'                 => $request->city_name,
             'deadline'                  => $request->deadline,
             'status'                    => 0,
             'is_premium'                => $request->is_premium,
+            'qualification'             => $request->qualification,
+            'from_year'                 => $request->from_year,
+            'to_year'                   => $request->to_year,
+            'percentage'                => $request->percentage,
+            'cgpa'                      => $request->cgpa,
         ];
 
 

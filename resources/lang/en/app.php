@@ -417,6 +417,24 @@ return [
     'edit_skill'                  => 'Edit Skill',
     'update_skill'                => 'Update Skill',
     'skill_updated'               => 'Skill Updated',
+    'select_qualification'        => 'Select Qualification',
+    'account_type'                      => 'Account Type',
+    'designation'                       => 'Designation',
+    'no_of_employees'                   => 'No Of Employees',
+    'requirement'                       => 'Client Requirements',
+    'qualification'                     => 'Qualification',
+    'select_qualification'              => 'Select Qualification',
+    'pass'                              => 'Years Of Passing',
+    'marks'                             => 'Highest Qualification Marks Above',
+    'between'                           => 'Between',
+    'and'                               => 'And',
+    'percentage'                        => 'Percentage',
+    'cgpa'                              => 'CGPA',
+    'select_designation'                => 'Select Designation',
+
+
+
+
 ];
 
 

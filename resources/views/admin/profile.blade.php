@@ -42,7 +42,6 @@
                         @endif
                     </td>
                 </tr>
-
                 <tr>
                     <th>@lang('app.created_at')</th>
                     <td>{{ $user->signed_up_datetime() }}</td>
@@ -51,6 +50,8 @@
                     <th>@lang('app.status')</th>
                     <td>{{ $user->status_context() }}</td>
                 </tr>
+
+
             </table>
 
 
@@ -96,7 +97,7 @@
             @if( ! empty($is_user_id_view))
                 <a href="{{route('users_edit', $user->id)}}"><i class="la la-pencil-square-o"></i> @lang('app.edit') </a>
             @else
-                <a href="{{ route('profile_edit') }}"><i class="la la-pencil-square-o"></i> @lang('app.edit') </a>
+                <!-- <a href="{{ route('profile_edit') }}"><i class="la la-pencil-square-o"></i> @lang('app.edit') </a> -->
             @endif
 
 

@@ -37,6 +37,8 @@ $blockedJobCount = \App\Job::blocked()->count();
 $user = Auth::user();
 @endphp
 
+
+
      @if($user->is_admin())
      @include('layouts.admin');
      @else

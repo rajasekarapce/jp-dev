@@ -111,6 +111,83 @@
                     </div>
                 </div>
 
+                <div class="form-group row {{ $errors->has('category')? 'has-error':'' }}">
+                    <label for="qualification" class="col-sm-4 control-label">@lang('app.qualification')</label>
+                    <div class="col-sm-8">
+                        <select class="form-control {{e_form_invalid_class('qualification', $errors)}}" name="qualification" id="qualification">
+                            <option value="">@lang('app.select_qualification')</option>
+                            @foreach($qualifications as $qualification)
+                                <option value="{{$qualification->id}}">{{$qualification->course}}</option>
+                            @endforeach
+                        </select>
+
+                        {!! e_form_error('qualification', $errors) !!}
+                    </div>
+                </div>
+
+
+                <div class="form-group row {{ $errors->has('salary')? 'has-error':'' }}">
+                    <label for="salary" class="col-sm-4 control-label"> @lang('app.pass')</label>
+                    <div class="col-sm-8">
+
+
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label for="salary" class="col-sm-4 control-label">{{'B/W'}}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control {{e_form_invalid_class('qualification', $errors)}}" name="from_year" id="qualification">
+                            <option value="1">{{ 'Any' }}</option>
+                            <option value="1">{{ 2015 }}</option>
+                            <option value="1">{{ 2016 }}</option>
+                            <option value="1">{{ 2017 }}</option>
+                            <option value="1">{{ 2018 }}</option>
+                            
+                        </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="salary" class="col-sm-4 control-label"> @lang('And')</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control {{e_form_invalid_class('qualification', $errors)}}" name="to_year" id="qualification">
+                            <option value="1">{{ 'Any' }}</option>
+                            <option value="1">{{ 2015 }}</option>
+                            <option value="1">{{ 2016 }}</option>
+                            <option value="1">{{ 2017 }}</option>
+                            <option value="1">{{ 2018 }}</option>
+                            
+                        </select>
+                            </div>
+                        </div>
+
+                        {!! e_form_error('salary', $errors) !!}
+                    </div>
+                </div>
+
+                <div class="form-group row {{ $errors->has('salary')? 'has-error':'' }}">
+                    <label for="salary" class="col-sm-4 control-label"> @lang('app.marks')</label>
+                    <div class="col-sm-8">
+
+
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <label for="salary" class="col-sm-4 control-label"> {{ '(%)'}}</label>
+                            </div>
+                            <div class="col-md-4">
+                               <input type="text" class="form-control {{e_form_invalid_class('salary', $errors)}}" id="salary" value="{{ old('percentage') }}" name="percentage" placeholder="@lang('app.percentage')">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="salary" class="col-sm-4 control-label">or @lang('CGPA')</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control {{e_form_invalid_class('cgpa', $errors)}}" id="salary" value="{{ old('cgpa') }}" name="cgpa" placeholder="@lang('app.cgpa')">
+                            </div>
+                        </div>
+
+                        {!! e_form_error('salary', $errors) !!}
+                    </div>
+                </div>
+
                 <div class="form-group row {{ $errors->has('vacancy')? 'has-error':'' }}">
                     <label for="vacancy" class="col-sm-4 control-label"> @lang('app.vacancy')</label>
                     <div class="col-sm-8">

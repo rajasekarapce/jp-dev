@@ -27,6 +27,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $dates = [
+        'updated_at',
+        'created_at',
+        //'deleted_at',
+       // 'email_verified_at',
+    ];
+
     const PASSOUT_RADIO = [
         1 => 'JAN',
         2 => 'FEB',
