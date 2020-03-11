@@ -51,50 +51,66 @@
             <div class="container">  
               <div class="row">
                 
-                <div class="col-md-9">
+                <div class="col-md-12">
                      <div class="profile-bg shadow2 mt-sm-2 mb-sm-2">
                       <div class="row">
-                         <div class="col-lg-3 col-xs-3 col-md-3 padding-none profile-image-block">
+                         <div class="col-lg-2 col-xs-3 col-md-3 padding-none profile-image-block">
                             <div class="user-icon" data-toggle="modal" data-target="#profile-picture-modal" role="button">
                                 <div><img class="profile-image-style" id="profilePictureDisplay" src="https://d2zxo3dbbqu73w.cloudfront.net/images/profile_icon.jpg"></div>
                                 <div class="edit-image-upload">
                                     <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
-  <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
-</svg>
+                                      <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
+                                      <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
+                                    </svg>
                                 </div>
                             </div>
                             <div class="padding-top-5 text-center color-fff">FW29474256</div>
+                            
                         </div>
-                            <div class="col-lg-4 col-xs-4 col-md-4 padding-none">
+                            <div class="col-lg-6 col-xs-4 col-md-4 padding-none">
+                              <div class="row">
+                              <div class="col-md-12 user-details">
                                 <div class="full-name font-18 color-f6f6f6 ">
                                     <div class="color-fff display-inline-block">{{Auth::user()->name}}</div>
                                     <div class="margin-left-45 display-inline-block">
-                                        <a id="edit-your-profile-link " href="#" title="Edit/Update your Profile">
-                                            <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
-  <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
-</svg>
+                                        <a id="edit-your-profile-link" class="color-f6f6f6" href="#" title="Edit/Update your Profile">
+                                            <i class="fa fa-edit"></i>
+                                          </svg>
                                         </a>
                                     </div>
+                                    
                                 </div>
-
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i> 2027 Passout</div>   
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i> Chennai</div>
-                            </div>
-                            
-                            <div class="col-lg-5 col-xs-5 col-md-5  margin-top-20 margin-left-20" >
-                                <div><a class="nav-links color-fff" href="#" target="_blank">Profile Completion Status <span class="padding-left-4"> 65%</span></a></div>
+                                  <div class="mt-sm-2 color-fff">MBA/PGDM</div>   
+                              </div>
+                              <div class="col-lg-6 user-details">
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; 2027 Passout</div>   
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; Chennai,Indian</div>
+                              </div>
+                              <div class="col-md-6 user-details">
+                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; 9791560032</div>   
+                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; chandru7@gmail.com</div>
+                              
+                              </div>
+                               <div class="col-lg-10 col-xs-5 col-md-5  margin-top-20 margin-left-20 user-details" >
                                 <div class="complete_your_profile">
                                     <div class="complete_your_profile_text" style="width: 65%; background-color:#8a2387;"></div>
                                 </div>
-                                <div class="profile_complete"><a class="nav-links color-fff" href="#">Complete Your Profile</a></div>
+                                <div><a class="color-fff" href="#" target="_blank">Profile Completion Status <span class="padding-left-4"> 65%</span></a></div>
+                                <!-- <div class="profile_complete"><a class="nav-links color-fff" href="#">Complete Your Profile</a></div> -->
                             </div>
-                            
-                            
-                            
-                            
-                        </div>
+                             </div>                              
+                            </div> 
+                            <div class="col-lg-4 col-xs-5 col-md-5  margin-top-20 margin-left-20" >
+                                <div class="pending-box">
+                                  <div class="pendig-text">
+                                    <h4>10 Pending Action</h4>
+                                    <p>Add Resume</p>
+                                    <p>Add Qualification</p>
+                                    <p class="text-right "><a href="" class="view-btn">View All</a></p>
+                                  </div>
+                                </div>           
+                            </div>           
+                           </div>
                      </div>
                 </div>
                 
@@ -163,9 +179,7 @@
                     </div>
 
                 </div>
-<!--------------------------------------------------->
-                <div class="col-md-3 padding-none">
-                        
+                <div class="col-md-3 padding-none">             
                         <div class="card shadow2 mt-sm-2 mb-sm-2">
                          <div class="card-header2">
                             <h5 class="j-title">Upload Resume</h5>  
@@ -174,8 +188,7 @@
                               <small>Increase Your chances of getting more Call Letters by Updating your resume frequently.</small>
                               <a href="#" class="nav-link pin text-center mt-sm-2">Upload Your Resume</a>
                           </div>
-                        </div><!---card---->
-                        
+                        </div>
                         <div class="card shadow2 mt-sm-2 mb-sm-2">
                          <div class="card-header2">
                             <h5 class="j-title">Job Application Status</h5>  
@@ -184,10 +197,8 @@
                               <small>Upgrade to confirm the Job Applications and become priority applicant.</small>
                               <a href="{{ route('payments') }}" class="nav-link pin text-center mt-sm-2">Upgrade Now</a>
                           </div>
-                        </div><!---card---->
-                        
-                </div><!--col--3-->
-<!--------------------------------------------------->
+                        </div>
+                </div>
             </div>
            </div>
         </div>
