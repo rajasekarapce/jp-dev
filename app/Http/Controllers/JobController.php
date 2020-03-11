@@ -100,7 +100,7 @@ class JobController extends Controller
             'state_name'                => $state_name,
             'city_name'                 => $request->city_name,
             'deadline'                  => $request->deadline,
-            'status'                    => 0,
+            'status'                    => 1,
             'is_premium'                => $request->is_premium,
             'qualification'             => $request->qualification,
             'from_year'                 => $request->from_year,
@@ -125,6 +125,9 @@ class JobController extends Controller
         $user = Auth::user();
         $jobs = $user->jobs()->paginate(20);
 
+        // echo "<pre>";
+        // print_r($user);
+        // exit;
         return view('admin.jobs', compact('title', 'jobs','user'));
     }
 
@@ -204,7 +207,7 @@ class JobController extends Controller
             'state_name'                => $state_name,
             'city_name'                 => $request->city_name,
             'deadline'                  => $request->deadline,
-            'status'                    => 0,
+            'status'                    => 1,
             'is_premium'                => $request->is_premium,
         ];
         $job->update($data);    
@@ -428,8 +431,6 @@ class JobController extends Controller
     public function jobsListing(Request $request){
 
         $title = "Browse Jobs";
-
-
         $categories = Category::orderBy('category_name', 'asc')->get();
         $countries = Country::all();
         $old_country = false;
