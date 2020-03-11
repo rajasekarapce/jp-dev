@@ -38,7 +38,7 @@
                                 </a>
                             </li>
                              <li class="{{request()->is('dashboard/institutions*')? 'active' : ''}}">
-                                <a href="{{route('dashboard_universities')}}" class="list-group-item-action active">
+                                <a href="{{route('dashboard_institutions')}}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-building"></i> </span>
                                     <span class="title">@lang('app.institutions')</span>
                                 </a>
@@ -155,6 +155,8 @@
                             </li>
 
                             @endif
+
+                            @if (Auth::user()->user_type == 'user')
                             <li class="{{request()->is('dashboard/u/education/edit') || request()->is('dashboard/u/profile/edit') || request()->is('dashboard/u/career/edit') ? 'active' : ''}}">
                                 <a href="#" class="list-group-item-action">
                                     <span class="sidebar-icon"><i class="la la-black-tie"></i> </span>
@@ -180,8 +182,10 @@
                                     <span class="title">@lang('app.career_details')</span>
                                 </a>
                             </li>
+                           
                         </ul>
                     </li>
+                    @endif
 
                             <li class="{{request()->is('dashboard/account*')? 'active' : ''}}">
                                 <a href="{{route('change_password')}}" class="list-group-item-action active">
