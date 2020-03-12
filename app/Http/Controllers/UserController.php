@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Country;
 use App\Designation;
+use App\Skill;
 use App\Qualification;
 use App\JobApplication;
 use App\State;
@@ -91,8 +92,8 @@ class UserController extends Controller
         if (old('country')){
             $old_country = Country::find(old('country'));
         }
-
-        return view('register-job-seeker', compact('title', 'countries', 'old_country','states','states1','qualifications'));
+        $skills = Skill::get();
+        return view('register-job-seeker', compact('title', 'countries', 'old_country','states','states1','qualifications', 'skills'));
         // return view('register-job-seeker', compact('title', 'countries', 'old_country'));
     }
 
@@ -139,15 +140,19 @@ class UserController extends Controller
         ]);
 
         $user_id = $create->id;
-       
-        DB::table('qualification')->insert(
-            ['qualification' => $data['qualification'] ,
-            'branch' => $data['branch'] ,
-            'passed_out' => $data['passed_out'] ,
-            'percentage' => $data['percentage'] ,
-            'college_location' => $data['college_location'] ,
-            'institute' => $data['institute'] ,
-            'university' => $data['university'] ,
+        $skills = $request->skills;
+        $user = User::findOrFail($user_id);
+        $user->skills()->sync($skills, true);
+        DB::table('education_details')->insert(
+            ['hq_qualid' => $data['qualification'] ,
+            /*'branch' => $data['branch'] ,*/
+            'hq_passyear' => $data['passed_out'] ,
+            'hq_passmonth' => $data['hq_passmonth'] ,
+            'hq_marktype' => $data['percent_or_cgpa'] ,
+            'hq_mark' => $data['percentage'] ,
+            'hq_state' => $data['college_location'] ,
+            'hq_institute' => $data['institute'] ,
+            'hq_university' => $data['university'] ,
             'user_id' =>    $user_id ,
             'created_at' => date('Y-m-d H-i-s'),
             'updated_at' => date('Y-m-d H-i-s')   ]

@@ -19,11 +19,11 @@ class CreateEducationDetailsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('hq_qualid')->unsigned();
             $table->foreign('hq_qualid')->references('id')->on('qualifications');
-            $table->integer('hq_passmonth');
+            $table->integer('hq_passmonth')->nullable();
             $table->integer('hq_passyear');
-            $table->tinyInteger('hq_marktype');
-            $table->float('hq_mark');
-            $table->integer('hq_state')->unsigned();
+            $table->tinyInteger('hq_marktype')->nullable();
+            $table->float('hq_mark')->nullable();
+            $table->integer('hq_state')->unsigned()->nullable();
             $table->foreign('hq_state')->references('id')->on('states');
             $table->integer('hq_institute')->unsigned();
             $table->foreign('hq_institute')->references('id')->on('institutions');
@@ -31,19 +31,19 @@ class CreateEducationDetailsTable extends Migration
             $table->foreign('hq_university')->references('id')->on('universities');
 
             //12th Mark    
-            $table->integer('xii_passmonth');
-            $table->integer('xii_passyear');
-            $table->tinyInteger('xii_marktype');
-            $table->float('xii_mark');
-            $table->string('xii_school');
-            $table->string('xii_board');
+            $table->integer('xii_passmonth')->nullable();
+            $table->integer('xii_passyear')->nullable();
+            $table->tinyInteger('xii_marktype')->nullable();
+            $table->float('xii_mark')->nullable();
+            $table->string('xii_school')->nullable();
+            $table->string('xii_board')->nullable();
             //10th Mark    
-            $table->integer('x_passmonth');
-            $table->integer('x_passyear');
-            $table->tinyInteger('x_marktype');
-            $table->float('x_mark');
-            $table->string('x_school');
-            $table->string('x_board');
+            $table->integer('x_passmonth')->nullable();
+            $table->integer('x_passyear')->nullable();
+            $table->tinyInteger('x_marktype')->nullable();
+            $table->float('x_mark')->nullable();
+            $table->string('x_school')->nullable();
+            $table->string('x_board')->nullable();
             
             
             $table->timestamps();
