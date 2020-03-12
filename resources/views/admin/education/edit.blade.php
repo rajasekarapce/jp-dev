@@ -37,7 +37,7 @@
                     <div class="col-sm-4">
                         <select required class="form-control select2" name="hq_passyear" id="hq_passyear" style="color: rgb(51, 51, 51);">
                             <option value="">Passout Year</option>
-                            @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
+                            @for ($i = (int) date('Y') + 1; $i >= (int) date('Y') - 40; $i--)
                              <option {{ old('hq_passyear', $educationDetail->hq_passyear) === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
                             @endfor
                         </select>
@@ -125,7 +125,7 @@
                     <div class="col-sm-4">
                         <select required class="form-control select2" name="xii_passyear" id="passYearXii" style="color: rgb(51, 51, 51);">
                             <option value="">Passout Year</option>
-                            @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
+                            @for ($i = (int) date('Y') + 1; $i >= (int) date('Y') - 40; $i--)
                              <option {{ old('xii_passyear', $educationDetail->xii_passyear) === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
                             @endfor
                         </select>
@@ -185,7 +185,7 @@
                     <div class="col-sm-4">
                         <select required class="form-control select2" name="x_passyear" id="passYearX" style="color: rgb(51, 51, 51);">
                             <option value="">Passout Year</option>
-                            @for ($i = (int) date('Y') + 7; $i >= (int) date('Y') - 40; $i--)
+                            @for ($i = (int) date('Y') + 1; $i >= (int) date('Y') - 40; $i--)
                              <option {{ old('x_passyear', $educationDetail->x_passyear) === $i ? 'selected' : '' }}  value='{{$i}}'>{{$i}}</option>
                             @endfor
                         </select>

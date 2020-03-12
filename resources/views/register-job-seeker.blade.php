@@ -162,12 +162,22 @@
                                 <label for="qualification" class="col-md-3 col-form-label text-md-right">{{ __('PassedOut Year') }} <span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
                                     <select name="passed_out" class="form-control "  required autofocus>
-                                        <option value="">Passed Out</option>
-                                                <option value="2015" > 2015 </option>
-                                                <option value="2016" > 2016 </option>
-                                                <option value="2017" > 2017 </option>
-                                                <option value="2018" > 2018 </option>
-                                                <option value="2019" > 2019 </option>
+                                        <option value="">Select Course</option>
+                             @for ($i = (int) date('Y') + 1; $i >= (int) date('Y') - 40; $i--)
+                             <option {{ old('hq_passyear') === $i ? 'selected' : '' }} value='{{$i}}'>{{$i}}</option>
+                            @endfor
+                                    </select>
+                                   
+                                </div>
+                            </div>
+                            <div class="form-group row degree">
+                                <label for="qualification" class="col-md-3 col-form-label text-md-right">{{ __('PassedOut Month') }} <span class="mendatory-mark">*</span></label>
+                                <div class="col-md-5">
+                                   <select required class="form-control select2" name="hq_passmonth" id="passMonth" style="color: rgb(51, 51, 51);">
+                                        <option value="">Passout Month</option>
+                                        @foreach(\App\User::PASSOUT_RADIO as $key=>$month)
+                                        <option {{ old('hq_passmonth') === $key ? 'selected' : '' }} value="{{$key}}">{{$month}}</option>
+                                        @endforeach
                                     </select>
                                    
                                 </div>
@@ -248,7 +258,12 @@
                             <div class="form-group row degree">
                                 <label for="skills" class="col-md-3 col-form-label text-md-right">{{ __('Skills Sets') }}<span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
-                                <textarea type="text" cols="35" rows="4" name="skills" required autofocus></textarea>
+                                <select required multiple class="form-control select2" name="skills[]"  style="color: rgb(51, 51, 51);">
+                  <option value="">Select Skills (ctrl+click)</option>
+                  @foreach($skills as $key => $skill)
+                  <option value="{{$skill->id}}" value="{{$skill->id}}">{{$skill->name}}</option>
+                  @endforeach
+               </select>
 
                                    
                                 </div>
