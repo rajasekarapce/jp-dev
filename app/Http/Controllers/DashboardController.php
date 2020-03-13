@@ -33,12 +33,7 @@ class DashboardController extends Controller
             //->Where('job_applications.user_id', $user_id)
             ->orderBy('jobs.id', 'desc')
             ->paginate(10);
-
-            
             // 
-              
-             
-
         return view('admin.dashboard', compact('latest_jobs','data') );
     }
 }
