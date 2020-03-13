@@ -74,7 +74,7 @@ $interval = $datetime1->diff($datetime2);
 						  <div class="card-body padd14">
 						    <div class="row">
 							   <div class="col-md-9 border-right">
-						       <h5 class="job-tit"><a class="c-pink" href=""><h5>{{$latest_job->job_title}}</h5></a></h5>
+						       <h5 class="job-tit"><a class="c-pink" href="{{route('job_view', $latest_job->job_slug)}}"><h5>{{$latest_job->job_title}}</h5></a></h5>
 							   <div><small><b>{{$latest_job->position}}</b></small> </div>
 							    <div><small><i class=" font-18 la la-graduation-cap"></i> {{$latest_job->course}}</small></div>
 							    <div><small><i class=" font-18 la la-map-marker"></i> {{$latest_job->city_name}}</small></div>

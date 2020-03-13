@@ -473,7 +473,7 @@ class JobController extends Controller
         }
 
         $jobs = $jobs->orderBy('id', 'desc')->with('employer')->paginate(20);
-
+        
         return view('jobs', compact('title', 'jobs','categories', 'countries', 'old_country'));
     }
 
