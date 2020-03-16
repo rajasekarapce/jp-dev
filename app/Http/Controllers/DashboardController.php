@@ -30,6 +30,32 @@ class DashboardController extends Controller
 
 
         $user_id = Auth::user()->id; 
+
+        $users = DB::table('users')
+            ->select('*')
+            ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+            ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+            ->Where('users.id', $user_id)
+            ->get();
+    
+            $name = $users[0]->name;
+            $email = $users[0]->email;
+            $phone = $users[0]->phone;
+            $city = $users[0]->city;
+            $country = $users[0]->country_name;
+            $passedout = $users[0]->hq_passyear;
+            $course = $users[0]->course;    
+           
+            $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        $applied_job_count = $applied_jobs->count();
+        
+
         if(Auth::user()->user_type == 'employer') {
             $skills = $request->get('skills');
             $latest_jobs = array();
@@ -53,7 +79,8 @@ class DashboardController extends Controller
                 }
                 
             }
-            return view('admin.dashboard', compact('latest_jobs','data') );
+            
+//return view('admin.dashboard', compact('latest_jobs','data','course') );
         } else {
             $latest_jobs = DB::table('jobs')
                 //->select('*','job_applications.created_at as Applied_Date')
@@ -77,35 +104,13 @@ class DashboardController extends Controller
             // print_r($latest_jobs);
             // exit;
     
-            $applied_jobs = DB::table('job_applications')
-                ->select('*','job_applications.created_at as Applied_Date')
-                ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
-                ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
-                ->Where('job_applications.user_id', $user_id)
-                ->get();
-    
-            $applied_job_count = $applied_jobs->count();
-    
-            $users = DB::table('users')
-            ->select('*')
-            ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
-            ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
-            ->Where('users.id', $user_id)
-            ->get();
-    
-            $name = $users[0]->name;
-            $email = $users[0]->email;
-            $phone = $users[0]->phone;
-            $city = $users[0]->city;
-            $country = $users[0]->country_name;
-            $passedout = $users[0]->hq_passyear;
-            $course = $users[0]->course;    
            
-            return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course') );
+    
+           // return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course') );  
           
         }
-        
-        return view('admin.dashboard', compact('latest_jobs','data') );
+
+        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course') );
 
     }
 }
