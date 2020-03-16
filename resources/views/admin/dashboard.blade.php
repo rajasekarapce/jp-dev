@@ -45,6 +45,37 @@
                 </div>
             </div>
         </div>
+    @elseif(auth()->user()->user_type == 'employer')
+        <p class="user-header"><h5 class="user-header">Search Job Seekers Profile</h5><p>
+                <!------Start--------->
+                <div style="padding:10px;">
+                    <form>
+                        <input type="text" name="skills" style="width:400px;">
+                        <input type="submit" name="search" value="Search">
+                    </form>
+                </div>
+                @if($latest_jobs)
+                    <table class="table">
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Email Id</th>
+                            <th>Phone No</th>
+                            <th>Last Updated</th>
+                        @foreach($latest_jobs as $latest_job)
+                            <tr>
+                                <td>{{$latest_job->id}}</td>
+                                <td>{{$latest_job->name}}</td>
+                                <td>{{$latest_job->email}}</td>
+                                <td>{{$latest_job->phone}}</td>
+                                <td>{{$latest_job->updated_at}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                @else
+                    <div style="color:red; text-align:center;font-weight:bold;padding:10px;">No Users Found</div>
+                @endif
+            <!------End--------->    
     @else
 <!--------------------------------------------------------------------
        <div class="row">
