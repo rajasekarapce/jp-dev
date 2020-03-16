@@ -143,4 +143,22 @@
     });
 
 
+	$('#apply').click(function(){
+		var job_id = $('#id').val();
+		var name = $('#name1').val();
+		var email = $('#email1').val();
+		var phone = $('#phone').val();
+		
+			//alert("123");
+			$('#job_id').val(job_id);
+			$('#name').val(name);
+			$('#email').val(email);
+			$('#phone_number').val(phone);
+			
+			
+			
+			//alert(job_id);
+			
+	});
+
 })( jQuery );
