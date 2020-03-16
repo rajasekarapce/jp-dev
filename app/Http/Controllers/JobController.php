@@ -267,9 +267,9 @@ class JobController extends Controller
            
            
         }
-        echo "<pre>";
-        print_r($job);
-        exit;
+        // echo "<pre>";
+        // print_r($job);
+        // exit;
 
         return view('job-view', compact('title', 'job'));
     }
