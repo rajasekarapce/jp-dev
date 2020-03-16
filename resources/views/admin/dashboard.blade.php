@@ -56,7 +56,7 @@
             </div>
         </div>		
 ----------------------------------------------------------------------->
-		<p class="user-header">This page (Dashboard page and recommended page)
+		<p class="user-header">
 		   <h5 class="user-header">Jobs Matching your Profile</h5><p>
 		      <!------Start--------->
 		      @foreach($latest_jobs as $latest_job)
@@ -88,8 +88,13 @@ $interval = $datetime1->diff($datetime2);
 									  <a href=""><i class="fa fa-linkedin-square"></i></a>
 									  <a href=""><i class="fa fa-google-plus"></i></a>
 								  </div>
-								  <div><a href=""><i class="fa fa-star-o" ></i></a></div>								  
-							      <a href="#" class="nav-link btn pin text-center mt-sm-2">View & Apply</a>
+								  <div></div>								  
+							      <!-- <a href="#" class="nav-link btn pin text-center mt-sm-2">View & Apply</a> -->
+                                  <input type="hidden" name="job_id" id="id" value="{{$latest_job->job_id}}" /> 
+                                  <input type="hidden" name="job_id" id="name1" value="{{$name}}" /> 
+                                  <input type="hidden" name="job_id" id="email1" value="{{$email}}" /> 
+                                  <input type="hidden" name="job_id" id="phone" value="{{$phone}}" /> 
+                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#applyJobModal" id="apply" ><i class="la la-calendar-plus-o"></i> @lang('app.apply_job') </button>
 							   </div>
 							</div>	
 							
@@ -108,6 +113,72 @@ $interval = $datetime1->diff($datetime2);
 @endsection
 
 
+<div class="modal fade" id="applyJobModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <form action="{{route('apply_job')}}" method="post" id="applyJob" enctype="multipart/form-data">
+                    @csrf
+
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" >@lang('app.online_job_application_form')</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        @if(session('error'))
+                            <div class="alert alert-warning">{{session('error')}}</div>
+                        @endif
+
+                        <div class="form-group {{ $errors->has('name')? 'has-error':'' }}">
+                            <label for="name" class="control-label">@lang('app.name'):</label>
+                            <input type="text" class="form-control {{e_form_invalid_class('name', $errors)}}" id="name" name="name" value="{{old('name')}}" placeholder="@lang('app.your_name')">
+                            {!! e_form_error('name', $errors) !!}
+                        </div>
+
+                        <div class="form-group {{ $errors->has('email')? 'has-error':'' }}">
+                            <label for="email" class="control-label">@lang('app.email'):</label>
+                            <input type="text" class="form-control {{e_form_invalid_class('email', $errors)}}" id="email" name="email" value="{{old('email')}}" placeholder="@lang('app.email_ie')">
+                            {!! e_form_error('email', $errors) !!}
+                        </div>
+
+                        <div class="form-group {{ $errors->has('phone_number')? 'has-error':'' }}">
+                            <label for="phone_number" class="control-label">@lang('app.phone_number'):</label>
+                            <input type="text" class="form-control {{e_form_invalid_class('phone_number', $errors)}}" id="phone_number" name="phone_number" value="{{old('phone_number')}}" placeholder="@lang('app.phone_number')">
+                            {!! e_form_error('phone_number', $errors) !!}
+                        </div>
+
+                        <div class="form-group {{ $errors->has('message')? 'has-error':'' }}">
+                            <label for="message-text" class="control-label">@lang('app.message'):</label>
+                            <textarea class="form-control {{e_form_invalid_class('message', $errors)}}" id="message" name="message" placeholder="@lang('app.your_message')">{{old('message')}}</textarea>
+                            {!! e_form_error('message', $errors) !!}
+                        </div>
+
+                        <div class="form-group {{ $errors->has('resume')? 'has-error':'' }}">
+                            <label for="resume" class="control-label">@lang('app.resume'):</label>
+                            <input type="file" class="form-control {{e_form_invalid_class('resume', $errors)}}" id="resume" name="resume">
+                            <p class="text-muted">@lang('app.resume_file_types')</p>
+                            {!! e_form_error('resume', $errors) !!}
+                        </div>
+
+                        <input type="hidden" name="job_id" id="job_id" value="" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
+                        <button type="submit" class="btn btn-primary" id="report_ad">@lang('app.apply_online')</button>
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
 
 
 

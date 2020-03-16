@@ -49,5 +49,6 @@ $user = Auth::user();
     @yield('page-js')
     <script src="{{ asset('assets/js/admin.js') }}" defer></script>
 
+  
 </body>
 </html>

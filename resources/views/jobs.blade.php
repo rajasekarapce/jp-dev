@@ -147,7 +147,7 @@
                                 @endif
 
                                 <div class="listing-job-info">
-
+                                        
                                     <h5><a href="{{route('job_view', $job->job_slug)}}">{!! $job->job_title !!}</a> </h5>
                                     <p class="text-muted mb-1 mt-1">
 

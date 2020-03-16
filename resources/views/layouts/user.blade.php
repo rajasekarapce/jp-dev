@@ -73,22 +73,22 @@
                                 <div class="full-name font-18 color-f6f6f6 ">
                                     <div class="color-fff display-inline-block">{{Auth::user()->name}}</div>
                                     <div class="margin-left-45 display-inline-block">
-                                        <a id="edit-your-profile-link" class="color-f6f6f6" href="#" title="Edit/Update your Profile">
+                                        <a id="edit-your-profile-link" class="color-f6f6f6" href="{{ route('education_edit') }}" title="Edit/Update your Profile">
                                             <i class="fa fa-edit"></i>
                                           </svg>
                                         </a>
                                     </div>
                                     
                                 </div>
-                                  <div class="mt-sm-2 color-fff">MBA/PGDM</div>   
+                                  <div class="mt-sm-2 color-fff">{{ $course }}</div>   
                               </div>
                               <div class="col-lg-6 user-details">
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; 2027 Passout</div>   
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; Chennai,Indian</div>
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; {{ $passedout }} Passout</div>   
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; {{ $city }}</div>
                               </div>
                               <div class="col-md-6 user-details">
-                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; 9791560032</div>   
-                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; chandru7@gmail.com</div>
+                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; {{ $phone }}</div>   
+                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; {{ $email }}</div>
                               
                               </div>
                                <div class="col-lg-10 col-xs-5 col-md-5  margin-top-20 margin-left-20 user-details" >
@@ -103,10 +103,10 @@
                             <div class="col-lg-4 col-xs-5 col-md-5  margin-top-20 margin-left-20" >
                                 <div class="pending-box">
                                   <div class="pendig-text">
-                                    <h4>10 Pending Action</h4>
+                                    <h4>{{ $applied_job_count }} Applied Jobs</h4>
                                     <p>Add Resume</p>
                                     <p>Add Qualification</p>
-                                    <p class="text-right "><a href="" class="view-btn">View All</a></p>
+                                    <!-- <p class="text-right "><a href="" class="view-btn">View All</a></p> -->
                                   </div>
                                 </div>           
                             </div>           

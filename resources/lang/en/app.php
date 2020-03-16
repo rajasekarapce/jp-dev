@@ -431,7 +431,7 @@ return [
     'percentage'                        => 'Percentage',
     'cgpa'                              => 'CGPA',
     'select_designation'                => 'Select Designation',
-
+    'apply_job'                         => 'Apply Job',
 
 
 

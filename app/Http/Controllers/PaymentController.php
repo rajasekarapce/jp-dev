@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Payment;
 use App\Pricing;
 use App\User;
+use App\JobApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class PaymentController extends Controller
 {
@@ -24,8 +26,34 @@ class PaymentController extends Controller
         }else{
             $payments = Payment::with('user')->whereUserId($user->id)->orderBy('id', 'desc')->paginate(20);
         }
+        
 
-        return view('admin.payments', compact('title', 'payments'));
+        $user_id = Auth::user()->id;
+        $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        $applied_job_count = $applied_jobs->count();
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+
+        return view('admin.payments', compact('title', 'payments','applied_job_count','name','email','phone','city','country_name','passedout','course' ));
     }
 
     public function view($id){

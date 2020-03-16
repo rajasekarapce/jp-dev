@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
+use DB;
 
 class JobController extends Controller
 {
@@ -31,7 +32,33 @@ class JobController extends Controller
             $old_country = Country::find(old('country'));
         }
 
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications'));
+        $user_id = Auth::user()->id; 
+        $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        $applied_job_count = $applied_jobs->count();
+
+       
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course'));
     }
 
 
@@ -82,8 +109,7 @@ class JobController extends Controller
             'vacancy'                   => $request->vacancy,
             'gender'                    => $request->gender,
             'exp_level'                 => $request->exp_level,
-            'job_type'                => $request->job_type,
-
+            'job_type'                  => $request->job_type,
             'experience_required_years' => $request->experience_required_years,
             'experience_plus'           => $request->experience_plus,
             'description'               => $request->description,
@@ -221,6 +247,9 @@ class JobController extends Controller
      * View any single page
      */
     public function view($slug = null){
+        // $user = Auth::user();
+        $user_id = Auth::user();
+        if(isset($user_id) && !empty($user_id)){
         $job = Job::whereJobSlug($slug)->first();
 
         if ( ! $slug || ! $job || (! $job->is_active() && ! $job->can_edit()) ){
@@ -228,6 +257,20 @@ class JobController extends Controller
         }
 
         $title = $job->job_title;
+        }else{
+
+            echo ("<script LANGUAGE='JavaScript'>
+    window.alert('Please Login and Register...!');
+    window.location.href='jobs';
+    </script>");
+
+           
+           
+        }
+        echo "<pre>";
+        print_r($job);
+        exit;
+
         return view('job-view', compact('title', 'job'));
     }
 
@@ -250,30 +293,44 @@ class JobController extends Controller
             $user_id = Auth::user()->id;
         }
 
+       
         session()->flash('job_validation_fails', true);
-
+       
         if ($validator->fails()){
             return redirect()->back()->withInput($request->input())->withErrors($validator);
         }
 
+       
         if ($request->hasFile('resume')){
             $image = $request->file('resume');
+           
             $valid_extensions = ['pdf','doc','docx'];
             if ( ! in_array(strtolower($image->getClientOriginalExtension()), $valid_extensions) ){
                 session()->flash('job_validation_fails', true);
                 return redirect()->back()->withInput($request->input())->with('error', trans('app.resume_file_type_allowed_msg') ) ;
             }
 
+       
+
             $file_base_name = str_replace('.'.$image->getClientOriginalExtension(), '', $image->getClientOriginalName());
 
             $image_name = strtolower(time().str_random(5).'-'.str_slug($file_base_name)).'.' . $image->getClientOriginalExtension();
 
+
             $imageFileName = 'uploads/resume/'.$image_name;
             try{
+                
+
                 //Upload original image
                 Storage::disk('public')->put($imageFileName, file_get_contents($image));
 
                 $job = Job::find($request->job_id);
+
+                // echo "<pre>";
+                // print_r($job);
+                // echo "<br>";
+                // echo $user_id;
+                // exit;
 
                 $application_data = [
                     'job_id'                => $request->job_id,
@@ -285,8 +342,12 @@ class JobController extends Controller
                     'message'               => $request->message,
                     'resume'                => $image_name,
                 ];
+                // echo "<pre>";
+                // print_r($application_data);
+                // exit;
                 JobApplication::create($application_data);
 
+                
                 session()->forget('job_validation_fails');
                 return redirect()->back()->withInput($request->input())->with('success', trans('app.job_applied_success_msg')) ;
 
@@ -324,6 +385,7 @@ class JobController extends Controller
     }
 
     public function pendingJobs(){
+        
         $title = __('app.pending_jobs');
         $jobs = Job::pending()->orderBy('id', 'desc')->paginate(20);
         return view('admin.jobs', compact('title', 'jobs'));
@@ -429,7 +491,7 @@ class JobController extends Controller
     }
 
     public function jobsListing(Request $request){
-
+        
         $title = "Browse Jobs";
         $categories = Category::orderBy('category_name', 'asc')->get();
         $countries = Country::all();
