@@ -71,37 +71,37 @@
 		    <div class="container">
 				<ul class="nav">
 				  <li class="nav-item">
-					<a class="nav-link" href="#">All Jobs</a>
+					<a class="nav-link" href="/jobs?">All Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Software Jobs</a>
+					<a class="nav-link" href="/jobs?catg=software">Software Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Govt Jobs</a>
+					<a class="nav-link" href="/jobs?catg=govt">Govt Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="#">Walkin Jobs <span class="badge badge-warning">New</span></a>
+					<a class="nav-link " href="/jobs?catg=walkin">Walkin Jobs <span class="badge badge-warning">New</span></a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">MBA Jobs</a>
+					<a class="nav-link" href="/jobs?catg=mba">MBA Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">BANK Jobs</a>
+					<a class="nav-link" href="/jobs?catg=bank">BANK Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">BPO Jobs</a>
+					<a class="nav-link" href="/jobs?catg=bpo">BPO Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="#">Part time Jobs</a>
+					<a class="nav-link " href="/jobs?job_type=full_time">Part time Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">BANK Jobs</a>
+					<a class="nav-link" href="/jobs?catg=bank">BANK Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Finance Jobs</a>
+					<a class="nav-link" href="/jobs?catg=finance">Finance Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="#">Defence Jobs</a>
+					<a class="nav-link " href="/jobs?catg=defence">Defence Jobs</a>
 				  </li>
 				   <li class="nav-item">
 					<!-- <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -130,50 +130,17 @@
 								  <button class='arrow prev btn btn-slide'></button>
 								  <button class='arrow next btn btn-slide'></button>
 								  <div class="logo-slider-frame">
-									
+                                    @foreach($company as $comp)
 									<div class="logo-slider-item">
 									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo1.jpg')}}" />
-									  </div>
+                                        @if($comp->logo)
+										  <img src="{{asset('assets/images/c-logo7.jpg')}}" style="width:101px; height:39px;" title="{{$comp->company}}"/>
+                                        @else
+                                          <img src="{{asset('assets/images/c-logo7.jpg')}}" title="No image"/>
+                                        @endif
+                                      </div>
 									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo2.jpg')}}" />
-									  </div>
-									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo3.jpg')}}" />
-									  </div>
-									</div>
-
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										 <img src="{{asset('assets/images/c-logo4.jpg')}}" />
-									  </div>
-									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo5.jpg')}}" />
-									  </div>
-									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo6.jpg')}}" />
-									  </div>
-									</div>
-									
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo7.jpg')}}" />
-									  </div>
-									</div>
-									
+									@endforeach
 								  </div>
 								</div>
 							  

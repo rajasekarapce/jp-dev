@@ -58,10 +58,13 @@ class JobController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $jobtype = DB::table('job_type')->select('name', 'display_name')->where('status', 1)->get();
+
 
         $skills = Skill::get();
 
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills'));
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills','jobtype'));
+        
     }
 
 
@@ -136,6 +139,7 @@ class JobController extends Controller
             'to_year'                   => $request->to_year,
             'percentage'                => $request->percentage,
             'cgpa'                      => $request->cgpa,
+            'jobcatg'                   => $request->jobtype
         ];
 
 
@@ -587,6 +591,9 @@ class JobController extends Controller
         }
         if ($request->category){
             $jobs = $jobs->whereCategoryId($request->category);
+        }
+        if ($request->catg){
+            $jobs = $jobs->where('jobcatg', 'like', '%'.$request->catg.'%');
         }
 
         $jobs = $jobs->orderBy('id', 'desc')->with('employer')->paginate(20);

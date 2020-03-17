@@ -11,6 +11,7 @@ use App\Pricing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 class HomeController extends Controller
 {
@@ -34,7 +35,14 @@ class HomeController extends Controller
         $regular_jobs = Job::active()->orderBy('id', 'desc')->with('employer')->take(36)->get();
         $blog_posts = Post::whereType('post')->with('author')->orderBy('id', 'desc')->take(3)->get();
         $packages = Pricing::all();
-        return view('home', compact('categories', 'premium_jobs','regular_jobs','packages', 'blog_posts'));
+        $company = DB::table('users')
+                        ->where('user_type', 'employer')
+                        ->where('active_status', 1)
+                        ->select('company', 'logo')
+                        ->orderBy('updated_at', 'desc')
+                        ->limit(10)
+                        ->get();
+        return view('home', compact('categories', 'premium_jobs','regular_jobs','packages', 'blog_posts', 'company'));
     }
 
     public function newRegister(){
