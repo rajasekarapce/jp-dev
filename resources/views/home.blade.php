@@ -130,50 +130,17 @@
 								  <button class='arrow prev btn btn-slide'></button>
 								  <button class='arrow next btn btn-slide'></button>
 								  <div class="logo-slider-frame">
-									
+                                    @foreach($company as $comp)
 									<div class="logo-slider-item">
 									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo1.jpg')}}" />
-									  </div>
+                                        @if($comp->logo)
+										  <img src="{{asset('assets/images/c-logo7.jpg')}}" style="width:101px; height:39px;" title="{{$comp->company}}"/>
+                                        @else
+                                          <img src="{{asset('assets/images/c-logo7.jpg')}}" title="No image"/>
+                                        @endif
+                                      </div>
 									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo2.jpg')}}" />
-									  </div>
-									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo3.jpg')}}" />
-									  </div>
-									</div>
-
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										 <img src="{{asset('assets/images/c-logo4.jpg')}}" />
-									  </div>
-									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo5.jpg')}}" />
-									  </div>
-									</div>
-
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo6.jpg')}}" />
-									  </div>
-									</div>
-									
-									<div class="logo-slider-item">
-									  <div class="logo-slider-inset">
-										  <img src="{{asset('assets/images/c-logo7.jpg')}}" />
-									  </div>
-									</div>
-									
+									@endforeach
 								  </div>
 								</div>
 							  
