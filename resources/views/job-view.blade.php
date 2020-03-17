@@ -40,7 +40,11 @@
                     </p>
 
                     <p>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#applyJobModal" ><i class="la la-calendar-plus-o"></i> @lang('app.apply_online') </button>
+                    @if($applied_jobs=='applied')
+                        <button type="button" class="btn btn-success" ></i> {{ 'Applied' }} </button>
+                        @else
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#applyJobModal" id="apply" ><i class="la la-calendar-plus-o"></i> @lang('app.apply_online') </button>
+                        @endif
 
                         @if($job->employer->followable)
                             @if(auth()->check() && auth()->user()->isEmployerFollowed($job->employer->id))
@@ -429,7 +433,10 @@
                             {!! e_form_error('resume', $errors) !!}
                         </div>
 
-                        <input type="hidden" name="job_id" value="{{$job->id}}" />
+                        <input type="hidden" name="job_id" id="id" value="{{$job->id}}" />
+                        <input type="hidden" name="job_id" id="name1" value="{{$name}}" /> 
+                        <input type="hidden" name="job_id" id="email1" value="{{$email}}" /> 
+                        <input type="hidden" name="job_id" id="phone" value="{{$phone}}" />
 
                     </div>
                     <div class="modal-footer">

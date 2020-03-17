@@ -343,7 +343,32 @@ class UserController extends Controller
             $old_country = Country::find($user->country_id);
         }
 
-        return view('admin.employer-profile', compact('title', 'user', 'countries', 'old_country'));
+        $user_id = Auth::user()->id;
+        $applied_jobs = DB::table('job_applications')
+    ->select('*','job_applications.created_at as Applied_Date')
+    ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+    ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+    ->Where('job_applications.user_id', $user_id)
+    ->get();
+
+    $applied_job_count = $applied_jobs->count();
+
+    $users = DB::table('users')
+    ->select('*')
+    ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+    ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+    ->Where('users.id', $user_id)
+    ->get();
+
+    $name = $users[0]->name;
+    $email = $users[0]->email;
+    $phone = $users[0]->phone;
+    $city = $users[0]->city;
+    $country = $users[0]->country_name;
+    $passedout = $users[0]->hq_passyear;
+    $course = $users[0]->course;
+
+        return view('admin.employer-profile', compact('title', 'user', 'countries', 'old_country','applied_job_count','name','email','phone','city','country_name','passedout','course'));
     }
 
     public function employerProfilePost(Request $request){
@@ -418,7 +443,37 @@ class UserController extends Controller
         $employer_id = Auth::user()->id;
         $applications = JobApplication::whereEmployerId($employer_id)->orderBy('id', 'desc')->paginate(20);
 
-        return view('admin.applicants', compact('title', 'applications'));
+        $user_id = Auth::user()->id;
+                $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        $applied_job_count = $applied_jobs->count();
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+       
+        // echo "<pre>";
+        // print_r($users);
+        // exit;
+       
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+        
+
+        return view('admin.applicants', compact('title', 'applications','applied_job_count','name','email','phone','city','country_name','passedout','course'));
     }
 
     public function makeShortList($application_id){
@@ -433,7 +488,36 @@ class UserController extends Controller
         $employer_id = Auth::user()->id;
         $applications = JobApplication::whereEmployerId($employer_id)->whereIsShortlisted(1)->orderBy('id', 'desc')->paginate(20);
 
-        return view('admin.applicants', compact('title', 'applications'));
+        $user_id = Auth::user()->id;
+        $applied_jobs = DB::table('job_applications')
+    ->select('*','job_applications.created_at as Applied_Date')
+    ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+    ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+    ->Where('job_applications.user_id', $user_id)
+    ->get();
+
+$applied_job_count = $applied_jobs->count();
+
+$users = DB::table('users')
+->select('*')
+->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+->Where('users.id', $user_id)
+->get();
+
+// echo "<pre>";
+// print_r($users);
+// exit;
+
+$name = $users[0]->name;
+$email = $users[0]->email;
+$phone = $users[0]->phone;
+$city = $users[0]->city;
+$country = $users[0]->country_name;
+$passedout = $users[0]->hq_passyear;
+$course = $users[0]->course;
+
+        return view('admin.applicants', compact('title', 'applications','applied_job_count','name','email','phone','city','country_name','passedout','course'));
     }
 
 
