@@ -30,6 +30,17 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label for="position" class="col-sm-4 control-label"> Job Type</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="jobtype" id="jobtype">
+                            @foreach($jobtype as $jtype)
+                                <option value="{{$jtype->name}}">{{$jtype->display_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                
                 <div class="form-group row {{ $errors->has('category')? 'has-error':'' }}">
                     <label for="category" class="col-sm-4 control-label">@lang('app.category')</label>
                     <div class="col-sm-8">

@@ -57,8 +57,9 @@ class JobController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $jobtype = DB::table('job_type')->select('name', 'display_name')->where('status', 1)->get();
 
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course'));
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','jobtype'));
     }
 
 
@@ -133,6 +134,7 @@ class JobController extends Controller
             'to_year'                   => $request->to_year,
             'percentage'                => $request->percentage,
             'cgpa'                      => $request->cgpa,
+            'jobcatg'                   => $request->jobtype
         ];
 
 
@@ -534,13 +536,7 @@ class JobController extends Controller
             $jobs = $jobs->whereCategoryId($request->category);
         }
         if ($request->catg){
-            $catg_arr = array();
-            $categories = Category::where('category_name', 'like', '%'.$request->catg.'%')->get();
-            foreach($categories as $value){
-                $catg_arr[] = $value->id;
-            }
-            //echo "<pre>"; print_r($catg_arr); die;
-            $jobs = $jobs->whereIn('category_id', $catg_arr);
+            $jobs = $jobs->where('jobcatg', 'like', '%'.$request->catg.'%');
         }
 
         $jobs = $jobs->orderBy('id', 'desc')->with('employer')->paginate(20);
