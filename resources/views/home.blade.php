@@ -71,37 +71,37 @@
 		    <div class="container">
 				<ul class="nav">
 				  <li class="nav-item">
-					<a class="nav-link" href="#">All Jobs</a>
+					<a class="nav-link" href="/jobs?">All Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Software Jobs</a>
+					<a class="nav-link" href="/jobs?catg=software">Software Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Govt Jobs</a>
+					<a class="nav-link" href="/jobs?catg=govt">Govt Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="#">Walkin Jobs <span class="badge badge-warning">New</span></a>
+					<a class="nav-link " href="/jobs?catg=walkin">Walkin Jobs <span class="badge badge-warning">New</span></a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">MBA Jobs</a>
+					<a class="nav-link" href="/jobs?catg=mba">MBA Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">BANK Jobs</a>
+					<a class="nav-link" href="/jobs?catg=bank">BANK Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">BPO Jobs</a>
+					<a class="nav-link" href="/jobs?catg=bpo">BPO Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="#">Part time Jobs</a>
+					<a class="nav-link " href="/jobs?job_type=full_time">Part time Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">BANK Jobs</a>
+					<a class="nav-link" href="/jobs?catg=bank">BANK Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="#">Finance Jobs</a>
+					<a class="nav-link" href="/jobs?catg=finance">Finance Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="#">Defence Jobs</a>
+					<a class="nav-link " href="/jobs?catg=defence">Defence Jobs</a>
 				  </li>
 				   <li class="nav-item">
 					<!-- <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

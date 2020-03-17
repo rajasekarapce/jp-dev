@@ -533,6 +533,15 @@ class JobController extends Controller
         if ($request->category){
             $jobs = $jobs->whereCategoryId($request->category);
         }
+        if ($request->catg){
+            $catg_arr = array();
+            $categories = Category::where('category_name', 'like', '%'.$request->catg.'%')->get();
+            foreach($categories as $value){
+                $catg_arr[] = $value->id;
+            }
+            //echo "<pre>"; print_r($catg_arr); die;
+            $jobs = $jobs->whereIn('category_id', $catg_arr);
+        }
 
         $jobs = $jobs->orderBy('id', 'desc')->with('employer')->paginate(20);
         
