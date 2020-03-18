@@ -434,9 +434,9 @@
                         </div>
 
                         <input type="hidden" name="job_id" id="id" value="{{$job->id}}" />
-                        <input type="hidden" name="job_id" id="name1" value="{{$name}}" /> 
-                        <input type="hidden" name="job_id" id="email1" value="{{$email}}" /> 
-                        <input type="hidden" name="job_id" id="phone" value="{{$phone}}" />
+                        <input type="hidden" name="name1" id="name1" value="{{$name}}" /> 
+                        <input type="hidden" name="email1" id="email1" value="{{$email}}" /> 
+                        <input type="hidden" name="phone" id="phone" value="{{$phone}}" />
 
                     </div>
                     <div class="modal-footer">

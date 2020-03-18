@@ -57,6 +57,9 @@
 					<div class="col-md-3">
 					    <a href="{{route('new_register')}}"><div class="btn-group shadow2 mtop-20" role="group" aria-label="Basic example">
 						  <div  class="upleft" ><i class=" font36 la la-upload"></i></div>
+                          <form action="" method="post" >
+                          <input type="file" name="resume" />
+                          </form>
 						  <div  class="upright"><b>UPLOAD RESUME</b><br><small> We will create your Profile</small></div>
 						</div></a>
 					</div><!--col-3-->

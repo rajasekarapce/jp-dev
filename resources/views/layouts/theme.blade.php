@@ -106,12 +106,25 @@
                             <a class="nav-link ora" href="{{ route('new_register') }}"><i class="la la-pencil-square"></i>{{ __('Register') }}</a>
                          </li>
                          @endif
+                         @if(null !== Auth::user())
 						 <li class="nav-item">
+                            <a class="nav-link pin" href="#"><i class="la la-users"></i> For Employer</a>
+                         </li>
+						 <li class="nav-item">
+                            <a class="nav-link pin" href="#"><i class="la la-institution"></i> For Instituitions</a>
+                         </li>
+                         @else
+            <li class="nav-item">
                             <a class="nav-link pin" href="{{ route('login') }}"><i class="la la-users"></i> For Employer</a>
                          </li>
-						 <li class="nav-item">
+             <li class="nav-item">
                             <a class="nav-link pin" href="{{ route('login') }}"><i class="la la-institution"></i> For Instituitions</a>
                          </li>
+
+
+
+                         @endif
+
                     <!-- Authentication Links -->
 <!---
                     @guest
@@ -168,26 +181,30 @@
 			  <div class="col">
 			     <h4 class="mb-3">Job Seekers</h4>
 				<ul class="list-unstyled">
-					<li><a href="#">Jobs Search </a></li>
-					<li><a href="#">Job Seekers Login </a></li>
-					<li><a href="#">Upload Resume</a></li>
+					<li><a href="/jobs?">Jobs Search </a></li>
+          @if(null == Auth::user())
+					<li><a href="{{ route('login') }}">Job Seekers Login </a></li>
+          @endif
+					<!-- <li><a href="#">Upload Resume</a></li> -->
 					<li><a href="#">Career Advice</a></li>
 					<li><a href="#">Search Tips</a></li>
-					<li><a href="#">Free Job Alert</a></li>
-					<li><a href="#">Find Companies</a></li>
+					<!-- <li><a href="#">Free Job Alert</a></li> -->
+					<!-- <li><a href="#">Find Companies</a></li> -->
 					<li><a href="#">Help</a></li>
 				</ul>
 			  </div>
 			  <div class="col">
 			     <h4 class="mb-3">Employer</h4>
 				<ul class="list-unstyled">
-					<li><a href="#">Employer Login</a></li>
-					<li><a href="#">Job Posting</a></li>
+        @if(null == Auth::user())
+					<li><a href="{{ route('login') }}">Employer Login</a></li>
+					<li><a href="{{route('post_new_job')}}">Job Posting</a></li>
+          @endif
 					<li><a href="#">Access Resume Database</a></li>
 					<li><a href="#">Join Recruiters</a></li>
 					<li><a href="#">Advertise with us</a></li>
 					<li><a href="#">Research Reports</a></li>
-					<li><a href="#">Buy Online</a></li>
+					<!-- <li><a href="#">Buy Online</a></li> -->
 				</ul>
 			  </div>
 			  <div class="col">
@@ -196,11 +213,11 @@
 					<li><a href="#">About Us</a></li>
 					<li><a href="#">Contact Us</a></li>
 					<li><a href="#">Career with us</a></li>
-					<li><a href="#">Send Feedback</a></li>
+					<!-- <li><a href="#">Send Feedback</a></li> -->
 					<li><a href="#">Testimonials</a></li>
 					<li><a href="#">HTML Sitemap</a></li>
 					<li><a href="#">XML Sitemap</a></li>
-					<li><a href="#">Jobs App</a></li>
+					<!-- <li><a href="#">Jobs App</a></li> -->
 					
 				</ul>
 			  </div>

@@ -58,12 +58,15 @@ class JobController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
-        $jobtype = DB::table('job_type')->select('name', 'display_name')->where('status', 1)->get();
+        $reg_id = $users[0]->reg_id;
+
+
+        $jobtype = DB::table('jobcatg')->select('name', 'display_name')->where('status', 1)->get();
 
 
         $skills = Skill::get();
 
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills','jobtype'));
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills','jobtype','reg_id'));
         
     }
 
@@ -189,8 +192,9 @@ class JobController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
 
-        return view('admin.jobs', compact('title', 'jobs','user','applied_job_count','name','email','phone','city','country_name','passedout','course'));
+        return view('admin.jobs', compact('title', 'jobs','user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function edit($id){
@@ -386,7 +390,7 @@ class JobController extends Controller
                 $job = Job::find($request->job_id);
 
                 // echo "<pre>";
-                // print_r($job);
+                // print_r($request->job_id);
                 // echo "<br>";
                 // echo $user_id;
                 // exit;

@@ -118,8 +118,10 @@ class EducationDetailsController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
 
-        return view('admin.'.$view, compact('title', 'user', 'countries', 'qualifications', 'states', 'educationDetail', 'institutions', 'universities','applied_job_count','name','email','phone','city','country_name','passedout','course'));
+
+        return view('admin.'.$view, compact('title', 'user', 'countries', 'qualifications', 'states', 'educationDetail', 'institutions', 'universities','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     /**
