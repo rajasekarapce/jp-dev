@@ -44,7 +44,9 @@ class DashboardController extends Controller
             $city = $users[0]->city;
             $country = $users[0]->country_name;
             $passedout = $users[0]->hq_passyear;
-            $course = $users[0]->course;    
+            $course = $users[0]->course;
+            $reg_id = $users[0]->reg_id;    
+
            
             $applied_jobs = DB::table('job_applications')
             ->select('*','job_applications.created_at as Applied_Date')
@@ -82,35 +84,59 @@ class DashboardController extends Controller
             
 //return view('admin.dashboard', compact('latest_jobs','data','course') );
         } else {
-            $latest_jobs = DB::table('jobs')
-                //->select('*','job_applications.created_at as Applied_Date')
-                ->leftJoin('qualifications', 'jobs.qualification', '=', 'qualifications.id')
-                ->leftJoin('users', 'jobs.user_id', '=', 'users.id')
-                //->Where('job_applications.user_id', $user_id)
-                ->orderBy('jobs.id', 'desc')
-                ->paginate(10);
+            $user_skills = DB::table('skill_user')
+            ->select('skill_user.skill_id as skills')
+            ->Where('skill_user.user_id', $user_id)
+            ->get();
+        
+        foreach($user_skills as $val){
+             $valu[] = $val->skills;
+        }
+        
+        $jobs_skills = DB::table('jobs_skill')
+            ->select('jobs_skill.job_id as jobs')
+            ->whereIn('jobs_skill.skill_id', $valu)
+            ->groupBy('jobs_skill.job_id')
+            ->get();
 
-                $latest_jobs = DB::table('jobs')
-                ->select('*','jobs.id as job_id')
-                ->leftJoin('qualifications', 'jobs.qualification', '=', 'qualifications.id')
-                ->leftJoin('users', 'jobs.user_id', '=', 'users.id')
-                //->leftJoin('job_applications', 'jobs.id', '=', 'job_applications.job_id')
-                
-                //->Where('job_applications.user_id', $user_id)
-                ->orderBy('jobs.id', 'desc')
-                ->paginate(10);
-                // 
-            // echo "<pre>";
-            // print_r($latest_jobs);
-            // exit;
-    
-           
-    
-           // return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course') );  
-          
+        foreach($jobs_skills as $val){
+             $value[] = $val->jobs;
         }
 
-        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course') );
+       
+         $jobs_applic = DB::table('job_applications')
+             ->select('job_applications.job_id as jobs_applied_id')
+             ->whereIn('job_applications.job_id', $value)
+             ->get();
+
+       
+        foreach($jobs_applic as $val){
+             $applied_id[] = $val->jobs_applied_id;
+        }
+        
+        if(isset($applied_id) && !empty($applied_id)){
+        $result=array_diff($value,$applied_id);
+        
+        $latest_jobs = DB::table('jobs')
+            ->select('*','jobs.id as job_id')
+            ->leftJoin('qualifications', 'jobs.qualification', '=', 'qualifications.id')
+            ->leftJoin('users', 'jobs.user_id', '=', 'users.id')
+            ->orderBy('jobs.created_at', 'desc')
+            ->whereIn('jobs.id', $result)
+            ->paginate(10);  
+        }else{
+            $latest_jobs = DB::table('jobs')
+            ->select('*','jobs.id as job_id')
+            ->leftJoin('qualifications', 'jobs.qualification', '=', 'qualifications.id')
+            ->leftJoin('users', 'jobs.user_id', '=', 'users.id')
+            ->orderBy('jobs.created_at', 'desc')
+            ->whereIn('jobs.id', $value)
+            ->paginate(10);
+        }
+            
+        }
+
+        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course','reg_id') );
 
     }
 }

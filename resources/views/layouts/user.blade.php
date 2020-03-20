@@ -64,7 +64,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="padding-top-5 text-center color-fff">FW29474256</div>
+                            <div class="padding-top-5 text-center color-fff">{{ $reg_id }}</div>
                             
                         </div>
                             <div class="col-lg-6 col-xs-4 col-md-4 padding-none">

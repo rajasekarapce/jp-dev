@@ -292,13 +292,25 @@
                 </div>
 
 
-                <div class="form-group row {{ $errors->has('skills')? 'has-error':'' }}">
+                <!-- <div class="form-group row {{ $errors->has('skills')? 'has-error':'' }}">
                     <label class="col-sm-4 control-label"> @lang('app.skills')</label>
                     <div class="col-sm-8">
                         <textarea name="skills" class="form-control {{e_form_invalid_class('skills', $errors)}}" rows="2">{{ old('skills') }}</textarea>
                         {!! $errors->has('skills')? '<p class="help-block">'.$errors->first('skills').'</p>':'' !!}
                         <p class="text-info"> @lang('app.skills_info_text')</p>
                     </div>
+                </div> -->
+
+                <div class="form-group row">
+                    <label for="skills" class="col-sm-4 control-label">{{ __('Skills Sets') }}<span class="mendatory-mark">*</span></label>
+                                <div class="col-md-8">
+                                <select required multiple class="form-control select2" name="skills[]"  style="color: rgb(51, 51, 51);">
+                                    <option value="">Select Skills (ctrl+click)</option>
+                                        @foreach($skills as $key => $skill)
+                                    <option value="{{$skill->id}}" value="{{$skill->id}}">{{$skill->name}}</option>
+                                        @endforeach
+                                    </select>                                  
+                                </div>
                 </div>
 
                 <div class="form-group row {{ $errors->has('responsibilities')? 'has-error':'' }}">

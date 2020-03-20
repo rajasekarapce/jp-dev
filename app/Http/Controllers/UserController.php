@@ -92,10 +92,12 @@ class UserController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
+
         // echo "<pre>";
         // print_r($applied_job_count);
         // exit;
-        return view('admin.applied_jobs', compact('title', 'applications', 'applied_jobs' ,'applied_job_count','name','email','phone','city','country_name','passedout','course'));
+        return view('admin.applied_jobs', compact('title', 'applications', 'applied_jobs' ,'applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function registerJobSeeker(){
@@ -124,6 +126,7 @@ class UserController extends Controller
             'state'     => 'required',
         ];
 
+        $random_number = $this->get_random_number();
         $this->validate($request, $rules);
 
         $data = $request->input();
@@ -143,6 +146,7 @@ class UserController extends Controller
         $create = User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
+            'reg_id'        => $random_number,
             'user_type'     => 'user',
             'phone'     => $data['phone'],
             'country_id'     => $data['country'],
@@ -196,6 +200,22 @@ class UserController extends Controller
 
         return redirect(route('login'))->with('success', __('app.registration_successful'));
     }
+
+    function get_random_number($length=0)
+    {
+        if(!$length){
+            $length = 5;
+        }
+        $alphabet    = '1234567890';
+        $pass        = array();
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < $length; $i++) {
+            $n      = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass);
+    }
+
 
     public function registerEmployer(){
         $title = __('app.employer_register');
@@ -343,7 +363,34 @@ class UserController extends Controller
             $old_country = Country::find($user->country_id);
         }
 
-        return view('admin.employer-profile', compact('title', 'user', 'countries', 'old_country'));
+        $user_id = Auth::user()->id;
+        $applied_jobs = DB::table('job_applications')
+    ->select('*','job_applications.created_at as Applied_Date')
+    ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+    ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+    ->Where('job_applications.user_id', $user_id)
+    ->get();
+
+    $applied_job_count = $applied_jobs->count();
+
+    $users = DB::table('users')
+    ->select('*')
+    ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+    ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+    ->Where('users.id', $user_id)
+    ->get();
+
+    $name = $users[0]->name;
+    $email = $users[0]->email;
+    $phone = $users[0]->phone;
+    $city = $users[0]->city;
+    $country = $users[0]->country_name;
+    $passedout = $users[0]->hq_passyear;
+    $course = $users[0]->course;
+    $reg_id = $users[0]->reg_id;
+
+
+        return view('admin.employer-profile', compact('title', 'user', 'countries', 'old_country','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function employerProfilePost(Request $request){
@@ -418,7 +465,37 @@ class UserController extends Controller
         $employer_id = Auth::user()->id;
         $applications = JobApplication::whereEmployerId($employer_id)->orderBy('id', 'desc')->paginate(20);
 
-        return view('admin.applicants', compact('title', 'applications'));
+        $user_id = Auth::user()->id;
+                $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        $applied_job_count = $applied_jobs->count();
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+       
+        // echo "<pre>";
+        // print_r($users);
+        // exit;
+       
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
+
+        return view('admin.applicants', compact('title', 'applications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function makeShortList($application_id){
@@ -433,7 +510,37 @@ class UserController extends Controller
         $employer_id = Auth::user()->id;
         $applications = JobApplication::whereEmployerId($employer_id)->whereIsShortlisted(1)->orderBy('id', 'desc')->paginate(20);
 
-        return view('admin.applicants', compact('title', 'applications'));
+        $user_id = Auth::user()->id;
+        $applied_jobs = DB::table('job_applications')
+        ->select('*','job_applications.created_at as Applied_Date')
+        ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+        ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+        ->Where('job_applications.user_id', $user_id)
+        ->get();
+
+        $applied_job_count = $applied_jobs->count();
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+
+// echo "<pre>";
+// print_r($users);
+// exit;
+
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
+
+        return view('admin.applicants', compact('title', 'applications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
 
@@ -481,8 +588,9 @@ class UserController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
 
-        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course'));
+        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function educationEdit($id = null){
@@ -551,8 +659,9 @@ class UserController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
 
-        return view('admin.change_password', compact('title','applied_job_count','name','email','phone','city','country_name','passedout','course'));
+        return view('admin.change_password', compact('title','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function changePasswordPost(Request $request)

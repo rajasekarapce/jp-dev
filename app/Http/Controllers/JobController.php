@@ -11,6 +11,7 @@ use App\JobApplication;
 use App\Mail\ShareByEMail;
 use App\State;
 use App\User;
+use App\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -57,9 +58,16 @@ class JobController extends Controller
         $country = $users[0]->country_name;
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
-        $jobtype = DB::table('job_type')->select('name', 'display_name')->where('status', 1)->get();
+        $reg_id = $users[0]->reg_id;
 
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','jobtype'));
+
+        $jobtype = DB::table('jobcatg')->select('name', 'display_name')->where('status', 1)->get();
+
+
+        $skills = Skill::get();
+
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills','jobtype','reg_id'));
+        
     }
 
 
@@ -114,7 +122,7 @@ class JobController extends Controller
             'experience_required_years' => $request->experience_required_years,
             'experience_plus'           => $request->experience_plus,
             'description'               => $request->description,
-            'skills'                    => $request->skills,
+            'skills'                    => '',
             'responsibilities'          => $request->responsibilities,
             'educational_requirements'  => $request->educational_requirements,
             'experience_requirements'   => $request->experience_requirements,
@@ -139,6 +147,10 @@ class JobController extends Controller
 
 
         $job = Job::create($data);
+        $jobs_id = $job->id;
+        $skills = $request->skills;
+        $jobs = Job::findOrFail($jobs_id);
+        $jobs->skills()->sync($skills, true);
         if ( ! $job){
             return back()->with('error', 'app.something_went_wrong')->withInput($request->input());
         }
@@ -152,11 +164,37 @@ class JobController extends Controller
         $title = __('app.posted_jobs');
         $user = Auth::user();
         $jobs = $user->jobs()->paginate(20);
+        $user_id = Auth::user()->id;
+                $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
 
+        $applied_job_count = $applied_jobs->count();
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+       
         // echo "<pre>";
-        // print_r($user);
+        // print_r($users);
         // exit;
-        return view('admin.jobs', compact('title', 'jobs','user'));
+       
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
+
+        return view('admin.jobs', compact('title', 'jobs','user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
     }
 
     public function edit($id){
@@ -251,9 +289,21 @@ class JobController extends Controller
     public function view($slug = null){
         // $user = Auth::user();
         $user_id = Auth::user();
-        if(isset($user_id) && !empty($user_id)){
+       
+    if(isset($user_id) && !empty($user_id)){
         $job = Job::whereJobSlug($slug)->first();
+        $users_id = Auth::user()->id;
+         $jobs_applic = DB::table('job_applications')
+             ->select('job_applications.job_id as jobs_applied_id')
+             ->where('job_applications.job_id', $job->id)
+             ->where('job_applications.user_id', $users_id)
+             ->get();
 
+        if(isset($jobs_applic[0]->jobs_applied_id) && !empty($jobs_applic[0]->jobs_applied_id)){
+            $applied_jobs = 'applied';
+        }else{
+            $applied_jobs = 'not_applied';
+        }
         if ( ! $slug || ! $job || (! $job->is_active() && ! $job->can_edit()) ){
             abort(404);
         }
@@ -269,11 +319,22 @@ class JobController extends Controller
            
            
         }
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $users_id)
+        ->get();
+    
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
         // echo "<pre>";
-        // print_r($job);
+        // print_r($users);
         // exit;
 
-        return view('job-view', compact('title', 'job'));
+        return view('job-view', compact('title', 'job','applied_jobs','name','email','phone'));
     }
 
     /**
@@ -329,7 +390,7 @@ class JobController extends Controller
                 $job = Job::find($request->job_id);
 
                 // echo "<pre>";
-                // print_r($job);
+                // print_r($request->job_id);
                 // echo "<br>";
                 // echo $user_id;
                 // exit;
