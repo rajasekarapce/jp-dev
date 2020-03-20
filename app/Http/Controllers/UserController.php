@@ -388,9 +388,9 @@ class UserController extends Controller
     $passedout = $users[0]->hq_passyear;
     $course = $users[0]->course;
     $reg_id = $users[0]->reg_id;
+    $logo = $users[0]->logo;
 
-
-        return view('admin.employer-profile', compact('title', 'user', 'countries', 'old_country','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
+        return view('admin.employer-profile', compact('title', 'user', 'countries', 'old_country','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo'));
     }
 
     public function employerProfilePost(Request $request){
@@ -420,10 +420,10 @@ class UserController extends Controller
 
             $logo = strtolower(time().str_random(5).'-'.str_slug($file_base_name)).'.' . $image->getClientOriginalExtension();
 
-            $logoPath = 'uploads/images/logos/'.$logo;
+            $logoPath = 'uploads/logos/'.$logo;
 
             try{
-                Storage::disk('public')->put($logoPath, $resized_thumb->__toString());
+                move_uploaded_file($_FILES["logo"]["tmp_name"], $logoPath);
             } catch (\Exception $e){
                 return redirect()->back()->withInput($request->input())->with('error', $e->getMessage()) ;
             }
