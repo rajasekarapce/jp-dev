@@ -119,17 +119,17 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" id="upload-logo">
                     <label for="logo" class="col-md-4 col-form-label">{{ __('app.logo') }} </label>
                     <div class="col-md-8">
 
                         <div class="company-logo mb-3" style="max-width: 100px;">
-                            <img src="{{$user->logo_url}}" class="img-fluid" />
+                            <img src="{{URL::to('/')}}{{ ('/uploads/logos/'.$logo) }}" class="img-fluid" />
                         </div>
 
 
                         <input type="file" name="logo" class="form-control">
-
+                        
                         <p class="text-muted">Logo will be resize at (256X256), make sure your logo image is square</p>
                         {!! e_form_error('logo', $errors) !!}
                     </div>

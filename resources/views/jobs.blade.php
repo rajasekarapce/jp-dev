@@ -138,13 +138,13 @@
                         @foreach($jobs as $job)
                             <div class="employer-job-listing-single {{$job->is_premium? ' premium-job ' : '' }} box-shadow bg-white mb-3 p-3">
 
-                                @if($job->is_premium)
+                                <!-- @if($job->is_premium)
                                     <div class="job-listing-company-logo">
                                         <a href="{{route('job_view', $job->job_slug)}}">
                                             <img src="{{$job->employer->logo_url}}" class="img-fluid" />
                                         </a>
                                     </div>
-                                @endif
+                                @endif -->
 
                                 <div class="listing-job-info">
                                         

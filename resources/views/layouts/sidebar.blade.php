@@ -182,6 +182,12 @@
                                     <span class="title">@lang('app.career_details')</span>
                                 </a>
                             </li>
+                            <li class="{{request()->is('dashboard/u/profile/upload_resume')? 'active' : ''}}">
+                                <a href="{{route('upload_resume')}}" class="list-group-item-action {{request()->is('dashboard/u/profile/upload_resume')? 'active' : ''}}">
+                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <span class="title">@lang('app.resume')</span>
+                                </a>
+                            </li>
                            
                         </ul>
                     </li>
