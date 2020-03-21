@@ -137,22 +137,46 @@ class UserController extends Controller
             $state_name = $state->state_name;
         }
 
-        $image = $request->file('logo');
-        $image_name = $image->getClientOriginalName();
-        $logoPath = 'uploads/images/logos/'.$image_name;
-        Storage::disk('public')->put($logoPath, $image);
+        // $image = $request->file('logo');
+        // $image_name = $image->getClientOriginalName();
+        // $logoPath = 'uploads/images/logos/'.$image_name;
+        // Storage::disk('public')->put($logoPath, $image);
 
+        if ($request->hasFile('resume')){
+            $image = $request->file('resume');
+
+            $valid_extensions = ['pdf','docx','doc'];
+            if ( ! in_array(strtolower($image->getClientOriginalExtension()), $valid_extensions) ){
+                return redirect()->back()->withInput($request->input())->with('error', 'Only .pdf, .docx and .doc is allowed extension') ;
+            }
+            $file_base_name = str_replace('.'.$image->getClientOriginalExtension(), '', $image->getClientOriginalName());
+            //$resized_thumb = Image::make($image)->resize(256, 256)->stream();
+
+            $resume = strtolower(time().str_random(5).'-'.str_slug($file_base_name)).'.' . $image->getClientOriginalExtension();
+
+            $resumePath = 'uploads/resume/'.$resume;
+
+            move_uploaded_file($_FILES["resume"]["tmp_name"], $resumePath);
+                $data['resume'] = $resume;
+
+            
+        }
+        // echo "<pre>";
+        // print_r($data);
+        // echo $random_number;
+        // exit;
        
         $create = User::create([
             'name'          => $data['name'],
             'email'         => $data['email'],
             'reg_id'        => $random_number,
+            'resume'        => $data['resume'],
             'user_type'     => 'user',
             'phone'     => $data['phone'],
             'country_id'     => $data['country'],
             'state_id'     => $data['state'],
             'city'     => $data['city'],
-            'logo'     => $image_name,
+            //'logo'     => $image_name,
             'country_name'  => $country->country_name,
             'state_name'  => $state_name,
             'password'      => Hash::make($data['password']),
@@ -174,6 +198,18 @@ class UserController extends Controller
             'hq_institute' => $data['institute'] ,
             'hq_university' => $data['university'] ,
             'user_id' =>    $user_id ,
+            'xii_passmonth' => '0',
+            'xii_passyear' => '0',
+            'xii_marktype' => '0',
+            'xii_mark' => '0',
+            'xii_school' => '0',
+            'xii_board' => '0',
+            'x_passmonth' => '0',
+            'x_passyear' => '0',
+            'x_marktype' => '0',
+            'x_mark' => '0',
+            'x_school' => '0',
+            'x_board' => '0',
             'created_at' => date('Y-m-d H-i-s'),
             'updated_at' => date('Y-m-d H-i-s')   ]
         );
@@ -246,7 +282,7 @@ class UserController extends Controller
             'no_of_employee'     => 'required', 
         ];
 
-
+        $random_number = $this->get_random_number();
         $this->validate($request, $rules);
 
         //echo "1238";
@@ -264,6 +300,7 @@ class UserController extends Controller
         $create =  User::create([
             'name'          => $request->name,
             'company'       => $company,
+            'reg_id'        => $random_number,
             'company_slug'  => $company_slug,
             'email'         => $request->email,
             'user_type'     => 'employer',
@@ -275,6 +312,7 @@ class UserController extends Controller
             'country_name'  => $country->country_name,
             'state_id'      => $request->state,
             'state_name'    => $state_name,
+            'resume'        => '0',
             'city'          => $request->city,
             'active_status' => 1,
             
@@ -539,8 +577,6 @@ class UserController extends Controller
                 return redirect()->back()->withInput($request->input())->with('error', $e->getMessage()) ;
             }
         }
-
-
 
         return back()->with('success', trans('app.resume_success_msg'));
 
