@@ -56,12 +56,29 @@
                       <div class="row">
                          <div class="col-lg-2 col-xs-3 col-md-3 padding-none profile-image-block">
                             <div class="user-icon" data-toggle="modal" data-target="#profile-picture-modal" role="button">
-                                <div><img class="profile-image-style" id="profilePictureDisplay" src="https://d2zxo3dbbqu73w.cloudfront.net/images/profile_icon.jpg"></div>
+                                <div>
+                                    @if (Auth::user()->logo)
+                                    <img class="profile-image-style" id="profilePictureDisplay" src="{{URL::to('/')}}{{ ('/uploads/logos/'.Auth::user()->logo) }}">
+                                    @else
+                                    <img class="profile-image-style" id="profilePictureDisplay" src="https://d2zxo3dbbqu73w.cloudfront.net/images/profile_icon.jpg">
+                                    @endif
+                                </div>
                                 <div class="edit-image-upload">
+                                @if (Auth::user()->user_type == 'employer')
+                                <a href="/dashboard/employer/profile#upload-logo" >
+                                    <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
+                                    <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                                @else
+                                <a href="/dashboard/u/profile/edit#user-image" >
                                     <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
                                       <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
                                     </svg>
+                                </a>
+                                @endif
                                 </div>
                             </div>
                             <div class="padding-top-5 text-center color-fff">{{ $reg_id }}</div>
@@ -180,13 +197,13 @@
 
                 </div>
                 <div class="col-md-3 padding-none">             
-                        <div class="card shadow2 mt-sm-2 mb-sm-2">
+                        <div class="card shadow2 mt-sm-2 mb-sm-2" id="upload_resume">
                          <div class="card-header2">
                             <h5 class="j-title">Upload Resume</h5>  
                           </div>
                           <div class="card-body padd14">
                               <small>Increase Your chances of getting more Call Letters by Updating your resume frequently.</small>
-                              <a href="#" class="nav-link pin text-center mt-sm-2">Upload Your Resume</a>
+                              <a href="{{ route('upload_resume') }}" class="nav-link pin text-center mt-sm-2">Upload Your Resume</a>
                           </div>
                         </div>
                         <div class="card shadow2 mt-sm-2 mb-sm-2">

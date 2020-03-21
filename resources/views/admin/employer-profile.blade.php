@@ -119,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" id="upload-logo">
                     <label for="logo" class="col-md-4 col-form-label">{{ __('app.logo') }} </label>
                     <div class="col-md-8">
 

@@ -459,6 +459,95 @@ class UserController extends Controller
         return back()->with('success', __('app.updated'));
     }
 
+    public function upload_resume()
+    {
+        $user = Auth::user();
+        $user_id = Auth::user()->id;
+        $applied_jobs = DB::table('job_applications')
+            ->select('*','job_applications.created_at as Applied_Date')
+            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
+            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
+            ->Where('job_applications.user_id', $user_id)
+            ->get();
+
+        $applied_job_count = $applied_jobs->count();
+
+
+        $users = DB::table('users')
+        ->select('*')
+        ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
+        ->leftJoin('qualifications', 'education_details.hq_qualid', '=', 'qualifications.id')
+        ->Where('users.id', $user_id)
+        ->get();
+
+        $name = $users[0]->name;
+        $email = $users[0]->email;
+        $phone = $users[0]->phone;
+        $city = $users[0]->city;
+        $country = $users[0]->country_name;
+        $passedout = $users[0]->hq_passyear;
+        $course = $users[0]->course;
+        $reg_id = $users[0]->reg_id;
+        $logo = $users[0]->logo;
+        $resume = $users[0]->resume;
+
+
+        return view('admin.upload_resume', compact('user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo','resume'));
+    }
+
+
+    public function upload_resume_post($id=null, Request $request)
+    {
+        
+        if(config('app.is_demo')){
+            return redirect()->back()->with('error', 'This feature has been disable for demo');
+        }
+
+        $user = Auth::user();
+        if ($id){
+            $user = User::find($id);
+        }
+        //Validating
+        // $rules = [
+        //     'email'    => 'required|email|unique:users,email,'.$user->id,
+        // ];
+        // $this->validate($request, $rules);
+
+        $inputs = array_except($request->input(), ['_token', 'photo']);
+        $user->update($inputs);
+
+        $logo = null;
+        if ($request->hasFile('resume')){
+            $image = $request->file('resume');
+
+            $valid_extensions = ['pdf','docx','doc'];
+            if ( ! in_array(strtolower($image->getClientOriginalExtension()), $valid_extensions) ){
+                return redirect()->back()->withInput($request->input())->with('error', 'Only .pdf, .docx and .doc is allowed extension') ;
+            }
+            $file_base_name = str_replace('.'.$image->getClientOriginalExtension(), '', $image->getClientOriginalName());
+            //$resized_thumb = Image::make($image)->resize(256, 256)->stream();
+
+            $resume = strtolower(time().str_random(5).'-'.str_slug($file_base_name)).'.' . $image->getClientOriginalExtension();
+
+            $resumePath = 'uploads/resume/'.$resume;
+
+            try{
+                move_uploaded_file($_FILES["resume"]["tmp_name"], $resumePath);
+                $data['resume'] = $resume;
+                $user->update($data);
+            } catch (\Exception $e){
+                return redirect()->back()->withInput($request->input())->with('error', $e->getMessage()) ;
+            }
+        }
+
+
+
+        return back()->with('success', trans('app.resume_success_msg'));
+
+    }
+
+
+
 
     public function employerApplicant(){
         $title = __('app.applicant');
@@ -589,8 +678,9 @@ class UserController extends Controller
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
         $reg_id = $users[0]->reg_id;
+        $logo = $users[0]->logo;
 
-        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
+        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo'));
     }
 
     public function educationEdit($id = null){
@@ -626,6 +716,32 @@ class UserController extends Controller
 
         $inputs = array_except($request->input(), ['_token', 'photo']);
         $user->update($inputs);
+
+        $logo = null;
+        if ($request->hasFile('logo')){
+            $image = $request->file('logo');
+
+            $valid_extensions = ['jpg','jpeg','png'];
+            if ( ! in_array(strtolower($image->getClientOriginalExtension()), $valid_extensions) ){
+                return redirect()->back()->withInput($request->input())->with('error', 'Only .jpg, .jpeg and .png is allowed extension') ;
+            }
+            $file_base_name = str_replace('.'.$image->getClientOriginalExtension(), '', $image->getClientOriginalName());
+            $resized_thumb = Image::make($image)->resize(256, 256)->stream();
+
+            $logo = strtolower(time().str_random(5).'-'.str_slug($file_base_name)).'.' . $image->getClientOriginalExtension();
+
+            $logoPath = 'uploads/logos/'.$logo;
+
+            try{
+                move_uploaded_file($_FILES["logo"]["tmp_name"], $logoPath);
+                $data['logo'] = $logo;
+                $user->update($data);
+            } catch (\Exception $e){
+                return redirect()->back()->withInput($request->input())->with('error', $e->getMessage()) ;
+            }
+        }
+
+
 
         return back()->with('success', trans('app.profile_edit_success_msg'));
     }

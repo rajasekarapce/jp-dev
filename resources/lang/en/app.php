@@ -167,6 +167,7 @@ return [
     'created_at'                        => 'Created At',
     'profile_edit'                      => 'Profile Edit',
     'profile_edit_success_msg'          => 'Profile has been updated',
+    'resume_success_msg'                => 'Resume has been uploaded',
     'premium_jobs_balance'              => 'Premium Jobs Balance',
     'total_users_found'                 => 'Total Users Found',
     'actions'                           => 'Actions',
