@@ -181,7 +181,7 @@
 			  <div class="col">
 			     <h4 class="mb-3">Job Seekers</h4>
 				<ul class="list-unstyled">
-					<li><a href="/jobs?">Jobs Search </a></li>
+					<li><a href="{{ route('jobs_listing') }}">Jobs Search </a></li>
           @if(null == Auth::user())
 					<li><a href="{{ route('login') }}">Job Seekers Login </a></li>
           @endif
@@ -198,6 +198,8 @@
 				<ul class="list-unstyled">
         @if(null == Auth::user())
 					<li><a href="{{ route('login') }}">Employer Login</a></li>
+          @endif
+          @if(null !== Auth::user())
 					<li><a href="{{route('post_new_job')}}">Job Posting</a></li>
           @endif
 					<li><a href="#">Access Resume Database</a></li>
