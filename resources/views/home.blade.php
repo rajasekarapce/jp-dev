@@ -137,9 +137,8 @@
 									<div class="logo-slider-item">
 									  <div class="logo-slider-inset">
                                         @if($comp->logo)
-										  <img src="{{asset('assets/images/c-logo7.jpg')}}" style="width:101px; height:39px;" title="{{$comp->company}}"/>
-                                        @else
-                                          <img src="{{asset('assets/images/c-logo7.jpg')}}" title="No image"/>
+										  <img src="{{URL::to('/')}}{{ ('/uploads/logos/'.$comp->logo) }}" style="width:101px; height:39px;" title="{{$comp->company}}"/>
+                                        
                                         @endif
                                       </div>
 									</div>
