@@ -273,7 +273,7 @@
                             <div class="form-group row ">
                                 <label for="logo" class="col-md-3 col-form-label text-md-right">{{ __('Upload Resume') }}<span class="mendatory-mark">*</span></label>
                                 <div class="col-md-5">
-                                <input type="file" name="logo" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" required autofocus></input>                                   
+                                <input type="file" name="resume" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" required autofocus></input>                                   
                                 </div>
                             </div>
 
