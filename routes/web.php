@@ -248,10 +248,12 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::get('profile/upload_resume', 'UserController@upload_resume')->name('upload_resume');
         Route::post('profile/upload_resume', 'UserController@upload_resume_post');
         Route::get('career/edit', 'CareerDetailsController@createOrEdit')->name('career_edit');
+        Route::get('preference/edit', 'PreferenceController@createOrEdit')->name('career_edit');
         Route::post('profile/edit', 'UserController@profileEditPost');
         Route::get('edit_edu_details', 'UserController@edit_edu_profile')->name('edit_edu_details');
         Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
-        Route::post('career_details', 'CareerDetailsController@addOrUpdate')->name('career_details');
+        Route::post('education_details', 'EducationDetailsController@addOrUpdate')->name('education_details');
+        Route::post('preference_details', 'PreferenceController@addOrUpdate')->name('preference_details');
 
         Route::group(['prefix'=>'users'], function(){
             Route::get('/', 'UserController@index')->name('users');

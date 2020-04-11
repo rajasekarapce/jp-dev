@@ -3,7 +3,7 @@
 @section('content')
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-4">
 
             <!-- @if(session('success'))
                 <div class="alert alert-success">
@@ -13,17 +13,17 @@
 
             @include('admin.flash_msg')
 
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card box-shadow-2">
+                <div class="card-header"><h3 class="mb-0 text-center">{{ __('Login') }}</h3></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-sm-12 col-form-label">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
@@ -35,9 +35,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                 @if ($errors->has('password'))
@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -61,20 +61,20 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-success">
+                            <div class="col-md-12">
+                                <p align="center"><button type="submit" class="btn btn-success">
                                     {{ __('Login') }}
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+								</p>
+                                <p align="center"><a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
-                                </a>
+                                </a></p>
                             </div>
                         </div>
 
-                        <div class="form-group row mt-3 mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <p>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <p align="center">
                                     @lang('app.no_account_msg') <a href="{{route('new_register')}}">@lang('app.register_now')</a>
                                 </p>
                             </div>

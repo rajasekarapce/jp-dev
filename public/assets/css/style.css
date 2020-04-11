@@ -98,6 +98,12 @@ a.category-link:hover {
 .box-shadow{
     box-shadow: 0 1px 2px rgba(0,0,0,.35);
 }
+.box-shadow-2{
+      box-shadow: 1px 0px 34px 1px rgba(0, 0, 0, 0.13), 0px 15px 34px 1px rgba(0, 0, 0, 0.13);
+}
+.box-shadow-3{
+      box-shadow: 0 1px 9px 2px rgba(98,98,98,.25);
+}
 .call-to-action-post-job{
     display: flex;
 }
@@ -142,14 +148,14 @@ a.category-link:hover {
 }
 
 .blog-listing-header{
-    background: #089626  url("../images/blog-banner.jpg")  no-repeat fixed  center;
-    background-size: cover;
+    background: #f6fff5  url("../images/bg-banner.jpg")  no-repeat center;
+    background-size: unset;
     padding: 5rem 0;
     color: #ffffff;
     position: relative;
 }
 .blog-listing-header:before{
-    background-color: #089626;
+   /* background-color: #089626;*/
     content: "";
     height: 100%;
     left: 0;

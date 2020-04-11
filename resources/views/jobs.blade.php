@@ -149,11 +149,11 @@
                                 <div class="listing-job-info">
                                         
                                     <h5><a href="{{route('job_view', $job->job_slug)}}">{!! $job->job_title !!}</a> </h5>
-                                    <p class="text-muted mb-1 mt-1">
+                                    <p class="text-mute mb-1 mt-1">
 
                                         <i class="la la-clock-o"></i> @lang('app.posted') {{$job->created_at}}
 
-                                        <i class="la la-calendar-times-o"></i> @lang('app.deadline') : {{$job->deadline->format(get_option('date_format'))}} <span class="text-small text-muted">{{$job->deadline}}</span>
+                                        <i class="la la-calendar-times-o"></i> @lang('app.deadline') : {{$job->deadline->format(get_option('date_format'))}} <span class="text-small text-mute">{{$job->deadline}}</span>
                                     </p>
 
                                     @if($job->is_premium)

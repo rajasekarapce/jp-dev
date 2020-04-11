@@ -77,34 +77,34 @@
 					<a class="nav-link" href="/jobs?">All Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=software">Software Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'software' ])}}">Software Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=govt">Govt Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'govt' ])}}">Govt Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="/jobs?catg=walkin">Walkin Jobs <span class="badge badge-warning">New</span></a>
+					<a class="nav-link " href="{{route('jobs_listing',['catg' => 'walkin' ])}}">Walkin Jobs <span class="badge badge-warning">New</span></a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=mba">MBA Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'mba' ])}}">MBA Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=bank">BANK Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'bank' ])}}">BANK Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=bpo">BPO Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'bpo' ])}}">BPO Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="/jobs?job_type=full_time">Part time Jobs</a>
+					<a class="nav-link " href="{{route('jobs_listing',['catg' => 'full_time' ])}}">Part time Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=bank">BANK Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'bank' ])}}">BANK Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link" href="/jobs?catg=finance">Finance Jobs</a>
+					<a class="nav-link" href="{{route('jobs_listing',['catg' => 'finance' ])}}">Finance Jobs</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link " href="/jobs?catg=defence">Defence Jobs</a>
+					<a class="nav-link " href="{{route('jobs_listing',['catg' => 'defence' ])}}">Defence Jobs</a>
 				  </li>
 				   <li class="nav-item">
 					<!-- <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -137,9 +137,8 @@
 									<div class="logo-slider-item">
 									  <div class="logo-slider-inset">
                                         @if($comp->logo)
-										  <img src="{{asset('assets/images/c-logo7.jpg')}}" style="width:101px; height:39px;" title="{{$comp->company}}"/>
-                                        @else
-                                          <img src="{{asset('assets/images/c-logo7.jpg')}}" title="No image"/>
+										  <img src="{{URL::to('/')}}{{ ('/uploads/logos/'.$comp->logo) }}" style="width:101px; height:39px;" title="{{$comp->company}}"/>
+                                        
                                         @endif
                                       </div>
 									</div>

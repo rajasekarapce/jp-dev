@@ -65,14 +65,14 @@
                                 </div>
                                 <div class="edit-image-upload">
                                 @if (Auth::user()->user_type == 'employer')
-                                <a href="/dashboard/employer/profile#upload-logo" >
+                                <a href="{{ URL('/dashboard/employer/profile'.'#upload-logo' )}}" >
                                     <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
                                     <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
                                     </svg>
                                 </a>
                                 @else
-                                <a href="/dashboard/u/profile/edit#user-image" >
+                                <a href="{{ URL('/dashboard/u/profile/edit'.'#user-image' )}}" >
                                     <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
                                       <path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
@@ -81,7 +81,7 @@
                                 @endif
                                 </div>
                             </div>
-                            <div class="padding-top-5 text-center color-fff">{{ $reg_id }}</div>
+                            <div class="padding-top-5 text-center color-fff">{{ Auth::user()->reg_id }}</div>
                             
                         </div>
                             <div class="col-lg-6 col-xs-4 col-md-4 padding-none">
@@ -97,15 +97,15 @@
                                     </div>
                                     
                                 </div>
-                                  <div class="mt-sm-2 color-fff">{{ $course }}</div>   
+                                  <div class="mt-sm-2 color-fff">{{ Auth::user()->course }}</div>   
                               </div>
                               <div class="col-lg-6 user-details">
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; {{ $passedout }} Passout</div>   
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; {{ $city }}</div>
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; {{ Auth::user()->passedout }} Passout</div>   
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; {{ Auth::user()->city }}</div>
                               </div>
                               <div class="col-md-6 user-details">
-                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; {{ $phone }}</div>   
-                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; {{ $email }}</div>
+                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; {{ Auth::user()->phone }}</div>   
+                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; {{ Auth::user()->email }}</div>
                               
                               </div>
                                <div class="col-lg-10 col-xs-5 col-md-5  margin-top-20 margin-left-20 user-details" >
