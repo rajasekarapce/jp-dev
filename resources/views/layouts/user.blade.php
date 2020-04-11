@@ -81,7 +81,7 @@
                                 @endif
                                 </div>
                             </div>
-                            <div class="padding-top-5 text-center color-fff">{{ $reg_id }}</div>
+                            <div class="padding-top-5 text-center color-fff">{{ Auth::user()->reg_id }}</div>
                             
                         </div>
                             <div class="col-lg-6 col-xs-4 col-md-4 padding-none">
@@ -97,15 +97,15 @@
                                     </div>
                                     
                                 </div>
-                                  <div class="mt-sm-2 color-fff">{{ $course }}</div>   
+                                  <div class="mt-sm-2 color-fff">{{ Auth::user()->course }}</div>   
                               </div>
                               <div class="col-lg-6 user-details">
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; {{ $passedout }} Passout</div>   
-                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; {{ $city }}</div>
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-calendar"></i>&nbsp; {{ Auth::user()->passedout }} Passout</div>   
+                                <div class="mt-sm-2 color-fff"><i class=" font-18 la la-map-marker"></i>&nbsp; {{ Auth::user()->city }}</div>
                               </div>
                               <div class="col-md-6 user-details">
-                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; {{ $phone }}</div>   
-                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; {{ $email }}</div>
+                                <div class="mt-sm-2 color-fff"><i class="la la-phone"></i>&nbsp; {{ Auth::user()->phone }}</div>   
+                                <div class="mt-sm-2 color-fff"><i class="la la-envelope"></i>&nbsp; {{ Auth::user()->email }}</div>
                               
                               </div>
                                <div class="col-lg-10 col-xs-5 col-md-5  margin-top-20 margin-left-20 user-details" >

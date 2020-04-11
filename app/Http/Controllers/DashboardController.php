@@ -14,7 +14,7 @@ use DB;
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){
-        $applied_jobs = array();
+        $applied_jobs = $valu = $value =  array();
         $data = [
             'usersCount' => User::count(),
             'totalPayments' => Payment::success()->sum('amount'),
