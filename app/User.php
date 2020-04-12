@@ -325,5 +325,43 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by']);
     }
+    public function workpreference()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'WorkPreference');
+    }
+    public function minsalexpperyear()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'MinSalExpPerYear');
+    }
+
+    public function preferredjobrole1()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'PreferredJobRole1');
+    }
+    public function preferredjobrole2()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'PreferredJobRole2');
+    }
+    public function preferredjobrole3()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'PreferredJobRole3');
+    }
+    public function trainingstudycat()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'TrainingStudyCat');
+    }
+    public function coursetype()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'CourseType');
+    }
+    public function queryexpectation()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'QueryExpectation');
+    }
+
+    public function aspirants()
+    {
+        return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'Aspirants');
+    }    
 
 }

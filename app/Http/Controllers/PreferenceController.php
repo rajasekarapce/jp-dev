@@ -11,10 +11,9 @@ class PreferenceController extends Controller
     {
         $title = trans('app.profile_edit');
         $user = Auth::user();
-
-        if (isset($id)){
-            $user = User::find($id);
-        }
+        if(isset($user))
+        $user_data = \App\User::with(['workpreference', 'minsalexpperyear', 'preferredjobrole1', 'preferredjobrole2', 'preferredjobrole3', 'trainingstudycat', 'coursetype', 'queryexpectation', 'aspirants'])->find($user->id);
+        
         $applied_jobs = DB::table('job_applications')
             ->select('*','job_applications.created_at as Applied_Date')
             ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
@@ -23,9 +22,8 @@ class PreferenceController extends Controller
             ->get();
 
         $applied_job_count = $applied_jobs->count();
-
-
-        return view('admin.preferences.create', compact('title', 'user', 'reg_id', 'applied_job_count'));
+        
+        return view('admin.preferences.edit', compact('title', 'user', 'reg_id', 'applied_job_count' , 'user_data'));
     }
     public function addOrUpdate(Request $request)
     {
@@ -61,6 +59,9 @@ class PreferenceController extends Controller
 
         $applied_job_count = $applied_jobs->count();
 
-        return view('admin.preferences.create', compact('title', 'user', 'applied_job_count'));
+        if(isset($user))
+        $user_data = \App\User::with(['workpreference', 'minsalexpperyear', 'preferredjobrole1', 'preferredjobrole2', 'preferredjobrole3', 'trainingstudycat', 'coursetype', 'queryexpectation', 'aspirants'])->find($user->id);
+
+        return back()->with('success', trans('app.preference_updated'));
     }
 }
