@@ -38,6 +38,7 @@ return [
     'edit_profile'                      => 'Edit Profile',
     'personal_details'                  => 'Personal Details',
     'career_details'                    => 'Career Details',
+    'preference_updated'                => 'User preference updated',
     'logout'                            => 'Logout',
     'login'                             => 'Login',
     'register'                          => 'Register',
