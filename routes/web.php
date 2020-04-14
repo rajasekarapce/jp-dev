@@ -91,7 +91,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
     Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
     Route::get('applied-jobs', 'DashboardController@dashboard')->name('applied_jobs');
-
+    Route::post('savejob', 'JobController@saveJob');
 
     Route::group(['middleware'=>'admin_agent_employer'], function(){
 
@@ -240,6 +240,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
     });
 
     Route::group(['prefix'=>'u'], function(){
+    Route::get('saved-jobs', 'UserController@savedJobs')->name('saved_jobs');    
         Route::get('applied-jobs', 'UserController@appliedJobs')->name('applied_jobs');
         Route::get('profile', 'UserController@profile')->name('profile');
         Route::get('profile/edit', 'UserController@profileEdit')->name('profile_edit');

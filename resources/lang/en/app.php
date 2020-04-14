@@ -17,6 +17,7 @@ return [
     'view_site'                         => 'View Site',
     'dashboard'                         => 'Dashboard',
     'applied_jobs'                      => 'Applied Jobs',
+    'saved_jobs'                      => 'Saved Jobs',
     'employer'                          => 'Employer',
     'posted_jobs'                       => 'Posted Jobs',
     'applicants'                        => 'Applicants',

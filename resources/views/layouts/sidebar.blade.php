@@ -15,6 +15,12 @@
                                     <span class="title">@lang('app.applied_jobs')</span>
                                 </a>
                             </li>
+                            <li class="{{request()->is('dashboard/u/saved-jobs*')? 'active' : ''}}">
+                                <a href="{{route('saved_jobs')}}" class="list-group-item-action active">
+                                    <span class="sidebar-icon"><i class="la la-list-alt"></i> </span>
+                                    <span class="title">@lang('app.saved_jobs')</span>
+                                </a>
+                            </li>
 
                             @if($user->is_admin())
                             <li class="{{request()->is('dashboard/categories*') || request()->is('dashboard/universities*') || request()->is('dashboard/institutions*') || request()->is('dashboard/branches*') ? 'active' : ''}}">

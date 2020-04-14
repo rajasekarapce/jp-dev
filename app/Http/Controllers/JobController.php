@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
 use DB;
+use Carbon;
 
 class JobController extends Controller
 {
@@ -603,6 +604,23 @@ class JobController extends Controller
         $jobs = $jobs->orderBy('id', 'desc')->with('employer')->paginate(20);
         
         return view('jobs', compact('title', 'jobs','categories', 'countries', 'old_country'));
+    }
+
+    public function saveJob(Request $request)
+    {
+       $job_id = $request->post('job_id');
+       if(Auth::user()->savedjobs()->where('job_user.job_id', $job_id)->count() <= 0)
+       {
+
+           $data = [$job_id => ['created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]];
+           Auth::user()->savedjobs()->syncWithoutDetaching($data);
+           echo "added";
+       }
+       else
+       {
+            Auth::user()->savedjobs()->where('job_user.job_id', $job_id)->sync([]);
+            echo "deleted";
+       }
     }
 
 
