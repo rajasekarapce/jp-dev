@@ -104,5 +104,10 @@ class Job extends Model
     {
         return $this->belongsToMany('App\Skill', 'jobs_skill', 'job_id', 'skill_id')->withTimestamps();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'job_user', 'user_id', 'job_id')->withTimestamps();
+    }
     
 }

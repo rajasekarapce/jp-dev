@@ -118,6 +118,7 @@ $interval = $datetime1->diff($datetime2);
 									  <a href=""><i class="fa fa-twitter-square"></i></a>
 									  <a href=""><i class="fa fa-linkedin-square"></i></a>
 									  <a href=""><i class="fa fa-google-plus"></i></a>
+                                      <span onclick="saveJob({{$latest_job->job_id}});"><i id="save_{{$latest_job->job_id}}" class="fa fa-star-o"></i></span>
 								  </div>
 								  <div></div>								  
 							      <!-- <a href="#" class="nav-link btn pin text-center mt-sm-2">View & Apply</a> -->
@@ -211,7 +212,32 @@ $interval = $datetime1->diff($datetime2);
         </div>
     </div>
 
+<script type="text/javascript">
+     function saveJob(job_id)
+     {
 
+      var token = $("meta[name='csrf-token']").attr("content");
+        var fullurl = '{{url("dashboard/savejob")}}';
+        $.ajax({
+           method:"POST",
+           url: fullurl,
+           data: {
+              "job_id": job_id,
+              "_token": token
+          },
+           success:function(res){               
+            if(res == "added"){
+            $("#save_"+job_id).removeClass("fa fa-star-o");               
+             $("#save_"+job_id).addClass("fa fa-star");   
+            
+            }else if(res == "deleted"){
+            $("#save_"+job_id).removeClass("fa fa-star");   
+            $("#save_"+job_id).addClass("fa fa-star-o");
+            }
+           }
+        });
+     } 
+</script>     
 
 
 

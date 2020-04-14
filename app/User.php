@@ -325,6 +325,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by']);
     }
+    public function savedjobs()
+    {
+        return $this->belongsToMany('App\Job', 'job_user', 'user_id', 'job_id');
+    }
     public function workpreference()
     {
         return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'WorkPreference');
