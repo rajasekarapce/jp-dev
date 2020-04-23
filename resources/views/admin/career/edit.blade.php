@@ -238,7 +238,7 @@
                <select multiple class="form-control select2" name="other_languages[]"  style="color: rgb(51, 51, 51);">
                   <option value="">Select Languages (ctrl+click)</option>
                   @foreach(\App\CareerDetail::OTHER_LANG as $key => $lang)
-                  <option @if(in_array($key, json_decode($careerDetail->other_languages)))  selected @endif value="{{$key}}" value="{{$key}}">{{$lang}}</option>
+                  <option @if(is_array($careerDetail->other_languages) && in_array($key, json_decode($careerDetail->other_languages)))  selected @endif value="{{$key}}" value="{{$key}}">{{$lang}}</option>
                   @endforeach
                </select>
             </div>
