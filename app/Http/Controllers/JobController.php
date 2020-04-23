@@ -35,14 +35,7 @@ class JobController extends Controller
         }
 
         $user_id = Auth::user()->id; 
-        $applied_jobs = DB::table('job_applications')
-            ->select('*','job_applications.created_at as Applied_Date')
-            ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
-            ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
-            ->Where('job_applications.user_id', $user_id)
-            ->get();
-
-        $applied_job_count = $applied_jobs->count();
+         $applied_job_count = $this->appliedJobsCount();
 
        
         $users = DB::table('users')
@@ -160,21 +153,24 @@ class JobController extends Controller
         return redirect(route('posted_jobs'))->with('success', __('app.job_posted_success'));
     }
 
-
-    public function postedJobs(){
-        $title = __('app.posted_jobs');
-        $user = Auth::user();
-        $jobs = $user->jobs()->paginate(20);
+    private function appliedJobsCount()
+    {
         $user_id = Auth::user()->id;
-                $applied_jobs = DB::table('job_applications')
+        $applied_jobs = DB::table('job_applications')
             ->select('*','job_applications.created_at as Applied_Date')
             ->leftJoin('users', 'job_applications.employer_id', '=', 'users.id')
             ->leftJoin('jobs', 'job_applications.job_id', '=', 'jobs.id')
             ->Where('job_applications.user_id', $user_id)
             ->get();
 
-        $applied_job_count = $applied_jobs->count();
-
+        return $applied_jobs->count();
+    }
+    public function postedJobs(){
+        $title = __('app.posted_jobs');
+        $user = Auth::user();
+        $jobs = $user->jobs()->paginate(20);
+        
+        $applied_job_count = $this->appliedJobsCount();
         $users = DB::table('users')
         ->select('*')
         ->leftJoin('education_details', 'users.id', '=', 'education_details.user_id')
@@ -213,8 +209,8 @@ class JobController extends Controller
         if ($job->country_id){
             $old_country = Country::find($job->country_id);
         }
-
-        return view('admin.edit-job', compact('title', 'job','categories','countries', 'old_country'));
+        $applied_job_count = $this->appliedJobsCount();
+        return view('admin.edit-job', compact('title', 'job','categories','countries', 'old_country', 'applied_job_count'));
     }
 
     public function update($id, Request $request){
