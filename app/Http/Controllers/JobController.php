@@ -168,6 +168,7 @@ class JobController extends Controller
     public function postedJobs(){
         $title = __('app.posted_jobs');
         $user = Auth::user();
+        $user_id = Auth::user()->id;
         $jobs = $user->jobs()->paginate(20);
         
         $applied_job_count = $this->appliedJobsCount();
