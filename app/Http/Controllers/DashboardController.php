@@ -13,8 +13,12 @@ use DB;
 
 class DashboardController extends Controller
 {
+    
+    
     public function dashboard(Request $request){
         $applied_jobs = $valu = $value =  array();
+        
+        $profile_completeness = \App\User::profileCompleteness();
         $data = [
             'usersCount' => User::count(),
             'totalPayments' => Payment::success()->sum('amount'),
@@ -135,8 +139,7 @@ class DashboardController extends Controller
         }
             
         }
-
-        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course','reg_id') );
+        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness') );
 
     }
 }

@@ -23,6 +23,8 @@ use Carbon;
 
 class JobController extends Controller
 {
+    
+    
     public function newJob(){
         $title = __('app.post_new_job');
 
@@ -35,7 +37,7 @@ class JobController extends Controller
         }
 
         $user_id = Auth::user()->id; 
-         $applied_job_count = $this->appliedJobsCount();
+         $applied_job_count = \App\User::profileCompleteness();
 
        
         $users = DB::table('users')
@@ -59,8 +61,8 @@ class JobController extends Controller
 
 
         $skills = Skill::get();
-
-        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills','jobtype','reg_id'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.post-new-job', compact('title', 'categories','countries', 'old_country','qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','skills','jobtype','reg_id', 'profile_completeness'));
         
     }
 
@@ -191,8 +193,8 @@ class JobController extends Controller
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
         $reg_id = $users[0]->reg_id;
-
-        return view('admin.jobs', compact('title', 'jobs','user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.jobs', compact('title', 'jobs','user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness'));
     }
 
     public function edit($id){
@@ -211,7 +213,8 @@ class JobController extends Controller
             $old_country = Country::find($job->country_id);
         }
         $applied_job_count = $this->appliedJobsCount();
-        return view('admin.edit-job', compact('title', 'job','categories','countries', 'old_country', 'applied_job_count'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.edit-job', compact('title', 'job','categories','countries', 'old_country', 'applied_job_count', 'profile_completeness'));
     }
 
     public function update($id, Request $request){
@@ -331,8 +334,8 @@ class JobController extends Controller
         // echo "<pre>";
         // print_r($users);
         // exit;
-
-        return view('job-view', compact('title', 'job','applied_jobs','name','email','phone'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('job-view', compact('title', 'job','applied_jobs','name','email','phone', 'profile_completeness'));
     }
 
     /**
@@ -449,23 +452,27 @@ class JobController extends Controller
         
         $title = __('app.pending_jobs');
         $jobs = Job::pending()->orderBy('id', 'desc')->paginate(20);
-        return view('admin.jobs', compact('title', 'jobs'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.jobs', compact('title', 'jobs', 'profile_completeness'));
     }
     public function approvedJobs(){
         $title = __('app.approved_jobs');
         $jobs = Job::approved()->orderBy('id', 'desc')->paginate(20);
-        return view('admin.jobs', compact('title', 'jobs'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.jobs', compact('title', 'jobs', 'profile_completeness'));
     }
     public function blockedJobs(){
         $title = __('app.approved_jobs');
         $jobs = Job::blocked()->orderBy('id', 'desc')->paginate(20);
-        return view('admin.jobs', compact('title', 'jobs'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.jobs', compact('title', 'jobs', 'profile_completeness'));
     }
 
     public function flaggedMessage(){
         $title = __('app.flagged_jobs');
         $flagged = FlagJob::orderBy('id', 'desc')->paginate(20);
-        return view('admin.flagged_jobs', compact('title', 'flagged'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.flagged_jobs', compact('title', 'flagged', 'profile_completeness'));
     }
 
 
@@ -508,8 +515,8 @@ class JobController extends Controller
 
         $title = __('app.applicants')." For ({$job->job_title})";
         $applications = JobApplication::whereJobId($job_id)->orderBy('id', 'desc')->paginate(20);
-
-        return view('admin.applicants', compact('title', 'applications'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.applicants', compact('title', 'applications', 'profile_completeness'));
     }
 
     public function jobsByEmployer($company_slug = null){
@@ -523,8 +530,8 @@ class JobController extends Controller
         }
 
         $title = "Jobs by ".$employer->company_name;
-
-        return view('jobs-by-employer', compact('title', 'employer'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('jobs-by-employer', compact('title', 'employer', 'profile_completeness'));
     }
 
 
@@ -599,8 +606,8 @@ class JobController extends Controller
         }
 
         $jobs = $jobs->orderBy('id', 'desc')->with('employer')->paginate(20);
-        
-        return view('jobs', compact('title', 'jobs','categories', 'countries', 'old_country'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('jobs', compact('title', 'jobs','categories', 'countries', 'old_country', 'profile_completeness'));
     }
 
     public function saveJob(Request $request)

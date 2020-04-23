@@ -169,8 +169,8 @@ class CareerDetailsController extends Controller
         $course = $users[0]->course;
         $reg_id = $users[0]->reg_id;
 
-
-        return view('admin.'.$view, compact('title', 'user', 'careerDetail', 'skills', 'user_skills', 'academic_projects', 'competitive_exams', 'certifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.'.$view, compact('title', 'user', 'careerDetail', 'skills', 'user_skills', 'academic_projects', 'competitive_exams', 'certifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness'));
     }
 
     /**
