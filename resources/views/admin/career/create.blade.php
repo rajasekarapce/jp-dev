@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
    <div class="col-md-12 qualification_panel">
-      <form action="{{route('career_details')}}" method="post" enctype="multipart/form-data">
+      <form action="{{route('career_edit')}}" method="post" enctype="multipart/form-data">
          @csrf
          <div class=" col-lg-12 col-md-12 col-xs-12 qualification_title">Skill Set</div>
          <div class="form-group row {{ $errors->has('name')? 'has-error':'' }}">
