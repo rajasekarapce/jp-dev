@@ -92,8 +92,8 @@ class UserController extends Controller
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
         $reg_id = $users[0]->reg_id;
-
-     return view('admin.saved_jobs', compact('title', 'applications', 'applied_jobs' ,'applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));       
+        $profile_completeness = \App\User::profileCompleteness();
+     return view('admin.saved_jobs', compact('title', 'applications', 'applied_jobs' ,'applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness'));       
     }
 
     public function appliedJobs(){
@@ -129,7 +129,8 @@ class UserController extends Controller
         // echo "<pre>";
         // print_r($applied_job_count);
         // exit;
-        return view('admin.applied_jobs', compact('title', 'applications', 'applied_jobs' ,'applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
+         $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.applied_jobs', compact('title', 'applications', 'applied_jobs' ,'applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness'));
     }
 
     public function registerJobSeeker(){
@@ -561,8 +562,8 @@ class UserController extends Controller
         $logo = $users[0]->logo;
         $resume = $users[0]->resume;
 
-
-        return view('admin.upload_resume', compact('user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo','resume'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.upload_resume', compact('user','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo','resume', 'profile_completeness'));
     }
 
 
@@ -747,8 +748,8 @@ class UserController extends Controller
         $course = $users[0]->course;
         $reg_id = $users[0]->reg_id;
         $logo = $users[0]->logo;
-
-        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.profile_edit', compact('title', 'user', 'countries', 'qualifications','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id','logo', 'profile_completeness'));
     }
 
     public function educationEdit($id = null){
@@ -844,8 +845,8 @@ class UserController extends Controller
         $passedout = $users[0]->hq_passyear;
         $course = $users[0]->course;
         $reg_id = $users[0]->reg_id;
-
-        return view('admin.change_password', compact('title','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.change_password', compact('title','applied_job_count','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness'));
     }
 
     public function changePasswordPost(Request $request)

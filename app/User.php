@@ -366,6 +366,22 @@ class User extends Authenticatable
     public function aspirants()
     {
         return $this->belongsToMany('App\Setting', 'setting_user', 'user_id', 'setting_id')->withPivot(['value', 'created_by'])->where('name', 'Aspirants');
+    }
+
+    public static function profileCompleteness()
+    {
+
+        $profile_completeness = 0;
+        $academic = \App\AcademicProject::where('user_id', Auth::user()->id)->count();
+        if($academic > 0)
+            $profile_completeness = $profile_completeness + 33;
+        $edudetail = \App\EducationDetail::where('user_id', Auth::user()->id)->count();
+        if($edudetail > 0)
+            $profile_completeness = $profile_completeness + 33;
+        $careerdetail = \App\CareerDetail::where('user_id', Auth::user()->id)->count();
+        if($careerdetail > 0)
+            $profile_completeness = $profile_completeness + 34;
+        return $profile_completeness;
     }    
 
 }

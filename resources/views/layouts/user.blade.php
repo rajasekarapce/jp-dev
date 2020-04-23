@@ -112,7 +112,7 @@
                                 <div class="complete_your_profile">
                                     <div class="complete_your_profile_text" style="width: 65%; background-color:#8a2387;"></div>
                                 </div>
-                                <div><a class="color-fff" href="#" target="_blank">Profile Completion Status <span class="padding-left-4"> 65%</span></a></div>
+                                <div><a class="color-fff" href="#" target="_blank">Profile Completion Status <span class="padding-left-4"> {{$profile_completeness}}%</span></a></div>
                                 <!-- <div class="profile_complete"><a class="nav-links color-fff" href="#">Complete Your Profile</a></div> -->
                             </div>
                              </div>                              

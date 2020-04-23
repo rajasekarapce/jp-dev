@@ -22,8 +22,8 @@ class PreferenceController extends Controller
             ->get();
 
         $applied_job_count = $applied_jobs->count();
-        
-        return view('admin.preferences.edit', compact('title', 'user', 'reg_id', 'applied_job_count' , 'user_data'));
+        $profile_completeness = \App\User::profileCompleteness();
+        return view('admin.preferences.edit', compact('title', 'user', 'reg_id', 'applied_job_count' , 'user_data', 'profile_completeness'));
     }
     public function addOrUpdate(Request $request)
     {
