@@ -1,27 +1,35 @@
 <div class="sidebar" id="accordion">
                         
                         <ul class="sidebar-menu list-group list-unstyled">
-                          
-                            <li class="{{request()->is('dashboard')? 'active' : ''}}">
+                             @if( $user->is_user())
+                            <li class="{{request()->is('dashboard') || request()->is('dashboard/u/applied-jobs*') || request()->is('dashboard/u/saved-jobs*')? 'active' : ''}}">
                                 <a href="{{route('dashboard')}}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-home"></i> </span>
-                                    <span class="title">@lang('app.dashboard')</span>
+                                    <span class="title">@lang('app.my_jobs')</span>
                                 </a>
-                            </li>
-                             
+                           
+                            <ul class="dropdown-menu" style="display: none;">
+                            <li class="{{request()->is('dashboard') ? 'active' : ''}}">
+                                <a href="{{route('dashboard')}}" class="list-group-item-action {{request()->is('dashboard')? 'active' : ''}}">
+                                    <!-- <span class="sidebar-icon"><i class="la la-list-alt"></i> </span> -->
+                                    <span class="title">@lang('app.recommended_jobs')</span>
+                                </a>
+                            </li>    
                             <li class="{{request()->is('dashboard/u/applied-jobs*')? 'active' : ''}}">
-                                <a href="{{route('applied_jobs')}}" class="list-group-item-action active">
-                                    <span class="sidebar-icon"><i class="la la-list-alt"></i> </span>
+                                <a href="{{route('applied_jobs')}}" class="list-group-item-action {{request()->is('dashboard/u/applied-jobs*')? 'active' : ''}}">
+                                    <!-- <span class="sidebar-icon"><i class="la la-list-alt"></i> </span> -->
                                     <span class="title">@lang('app.applied_jobs')</span>
                                 </a>
                             </li>
                             <li class="{{request()->is('dashboard/u/saved-jobs*')? 'active' : ''}}">
-                                <a href="{{route('saved_jobs')}}" class="list-group-item-action active">
-                                    <span class="sidebar-icon"><i class="la la-list-alt"></i> </span>
+                                <a href="{{route('saved_jobs')}}" class="list-group-item-action {{request()->is('dashboard/u/saved-jobs*')? 'active' : ''}}">
+                                    <!-- <span class="sidebar-icon"><i class="la la-list-alt"></i> </span> -->
                                     <span class="title">@lang('app.saved_jobs')</span>
                                 </a>
                             </li>
-
+                        </ul>
+                             </li>
+                             @endif
                             @if($user->is_admin())
                             <li class="{{request()->is('dashboard/categories*') || request()->is('dashboard/universities*') || request()->is('dashboard/institutions*') || request()->is('dashboard/branches*') ? 'active' : ''}}">
                                 <a href="#" class="list-group-item-action">
@@ -172,31 +180,31 @@
                             <ul class="dropdown-menu" style="display: none;">    
                             <li class="{{request()->is('dashboard/u/education/*')? 'active' : ''}}">
                                 <a href="{{route('education_edit')}}" class="list-group-item-action ">
-                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <!-- <span class="sidebar-icon"><i class="la la-user"></i> </span> -->
                                     <span class="title">@lang('app.education_details')</span>
                                 </a>
                             </li>
                             <li class="{{request()->is('dashboard/u/profile/edit')? 'active' : ''}}">
                                 <a href="{{route('profile_edit')}}" class="list-group-item-action {{request()->is('dashboard/u/profile/edit')? 'active' : ''}}">
-                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <!-- <span class="sidebar-icon"><i class="la la-user"></i> </span> -->
                                     <span class="title">@lang('app.personal_details')</span>
                                 </a>
                             </li>
                             <li class="{{request()->is('dashboard/u/career/edit')? 'active' : ''}}">
                                 <a href="{{route('career_edit')}}" class="list-group-item-action {{request()->is('dashboard/u/career/edit')? 'active' : ''}}">
-                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <!-- <span class="sidebar-icon"><i class="la la-user"></i> </span> -->
                                     <span class="title">@lang('app.career_details')</span>
                                 </a>
                             </li>
                             <li class="{{request()->is('dashboard/u/preference/edit')? 'active' : ''}}">
                                 <a href="{{route('preference_edit')}}" class="list-group-item-action {{request()->is('dashboard/u/preference/edit')? 'active' : ''}}">
-                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <!-- <span class="sidebar-icon"><i class="la la-user"></i> </span> -->
                                     <span class="title">@lang('Edit Preference')</span>
                                 </a>
                             </li>
                             <li class="{{request()->is('dashboard/u/profile/upload_resume')? 'active' : ''}}">
                                 <a href="{{route('upload_resume')}}" class="list-group-item-action {{request()->is('dashboard/u/profile/upload_resume')? 'active' : ''}}">
-                                    <span class="sidebar-icon"><i class="la la-user"></i> </span>
+                                    <!-- <span class="sidebar-icon"><i class="la la-user"></i> </span> -->
                                     <span class="title">@lang('app.resume')</span>
                                 </a>
                             </li>

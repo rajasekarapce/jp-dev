@@ -36,6 +36,8 @@ return [
     'users'                             => 'Users',
     'profile'                           => 'Profile',
     'education_details'                 => 'Education Details',
+    'recommended_jobs'                  => 'Recommended jobs',
+    'my_jobs'                           => 'My jobs',
     'edit_profile'                      => 'Edit Profile',
     'personal_details'                  => 'Personal Details',
     'career_details'                    => 'Career Details',
