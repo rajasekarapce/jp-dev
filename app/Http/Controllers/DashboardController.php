@@ -63,12 +63,12 @@ class DashboardController extends Controller
         
 
         if(Auth::user()->user_type == 'employer') {
-            $skills = $request->get('skills');
+            $skills = $request->post('skills');
             $latest_jobs = array();
             if($skills){
                 $user_ids = DB::table('skills')
                     ->join('skill_user', 'skill_user.skill_id', '=', 'skills.id')
-                    ->Where('skills.name', 'like', '%'.$skills.'%')
+                    ->WhereIn('skills.id',  [$skills])
                     ->select('skill_user.user_id')
                     ->get();
                     $userId = array();
@@ -139,7 +139,8 @@ class DashboardController extends Controller
         }
             
         }
-        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness') );
+        $skills = \App\Skill::all();
+        return view('admin.dashboard', compact('latest_jobs','data','applied_job_count','user_id','name','email','phone','city','country_name','passedout','course','reg_id', 'profile_completeness', 'skills') );
 
     }
 }

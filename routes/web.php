@@ -88,7 +88,7 @@ Route::post('payment/{transaction_id}/bank-transfer', 'PaymentController@payment
 
 //Dashboard Route
 Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
-    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+    Route::any('/', 'DashboardController@dashboard')->name('dashboard');
 
     Route::get('applied-jobs', 'DashboardController@dashboard')->name('applied_jobs');
     Route::post('savejob', 'JobController@saveJob');
